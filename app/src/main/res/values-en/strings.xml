@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">RemueMeninges</string>
+    <string name="jouer">play</string>
+    <string name="question">QUESTION</string>
+    <string name="indice">clue</string>
+    <string name="reponse">answer</string>
+    <string name="accueil">Home</string>
+    <string name="nouvelle_carte">new card</string>
+    <string name="enregistrer_card">Save</string>
+    <string name="response_card">Answer</string>
+    <string name="indice_card">Clue</string>
+    <string name="question_card">Question</string>
+    <string name="cat_gorie">Category</string>
+    <string name="liste_des_cartes">List of cards</string>
+    <string name="mode_de_recherche">searching mode</string>
+    <string name="par_date">by date</string>
+    <string name="par_cat_gorie">by category</string>
+    <string name="niveau_de_difficult">by level</string>
+    <string name="liste_des_cartes_de_jeu">list of playing cards</string>
+    <string name="recherche_par_mot_cl">search by keyword</string>
+    <string name="retour_accueil">Home</string>
+    <string name="btn_home_list">List of cards</string>
+    <string name="a_vous_de_jouer">Let\'s play !</string>
+    <string name="histo_category">categroy</string>
+    <string name="histo_question">question</string>
+    <string name="histo_date_creation">creation date</string>
+    <string name="crea_category">Category</string>
+    <string name="crea_question">Question</string>
+    <string name="crea_indice">Clue</string>
+    <string name="crea_response">Answer</string>
+</resources>
