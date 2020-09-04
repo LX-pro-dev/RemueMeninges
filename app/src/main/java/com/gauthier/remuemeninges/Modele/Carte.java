@@ -5,6 +5,7 @@ import com.gauthier.remuemeninges.Controle.Controle;
 import org.json.JSONArray;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +19,13 @@ public class Carte {
     private String question;
     private String reponse;
     private String indice;
+    private String langue;
+    private Integer level;
+    private LocalDateTime datecreation;
     private Controle controle;
+
+
+
 
     public void resultNumCarte() {
         if (numCarte == null) {
@@ -29,12 +36,23 @@ public class Carte {
     }
 
     //constructeur
-    public Carte(Integer numCarte, Integer categorie, String question, String reponse, String indice) {
+    public Carte(String langue, String question, String indice, String reponse, Integer categorie, Integer level) {
+        this.categorie = categorie;
+        this.question = question;
+        this.reponse = reponse;
+        this.indice = indice;
+        this.langue = langue;
+        this.level = level;
+    }
+    public Carte(Integer numCarte, String langue, String question, String indice, String reponse, Integer categorie, Integer level, LocalDateTime datecreation) {
         this.numCarte = numCarte;
         this.categorie = categorie;
         this.question = question;
         this.reponse = reponse;
         this.indice = indice;
+        this.langue = langue;
+        this.level = level;
+        this.datecreation = datecreation;
     }
 
     //getters
@@ -57,17 +75,27 @@ public class Carte {
     public String getIndice() {
         return indice;
     }
+
+    public String getLangue() { return langue; }
+
+    public Integer getLevel() { return level;  }
+
+    public LocalDateTime getDatecreation() { return datecreation;  }
+
     /**
      * conversion de profil au format JSONArray
      * @return
      */
     public JSONArray convertToJSONArray(){
         List<Serializable> laListe= new ArrayList<>();
-        laListe.add(numCarte);
-        laListe.add(categorie);
+       // laListe.add(numCarte);
+        laListe.add(langue);
         laListe.add(question);
-        laListe.add(reponse);
         laListe.add(indice);
+        laListe.add(reponse);
+        laListe.add(categorie);
+        laListe.add(level);
+       // laListe.add(datecreation);
         return new JSONArray(laListe);
     }
 

@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.gauthier.remuemeninges.Controle.Controle;
@@ -12,23 +15,48 @@ import com.gauthier.remuemeninges.R;
 
 class MainActivity extends AppCompatActivity {
     private Controle controle;
+    /*
+    1 faire une menu :
+    choix de la langue (doit définir automatiquement la langue des cartes à proposer ou à créer)
+    enregistrement du user (définition de son profil (admin, créateur de carte, joueur)
+    choix du mode nuit
+     */
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_main);
+            controle= Controle.getInstance(this);
+            ecouteMenu((Button)findViewById(R.id.home_btn_play),CardActivity.class);
+            ecouteMenu((Button)findViewById(R.id.home_btn_list),CreateCardActivity.class);
 
-@Override
-protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        controle= Controle.getInstance(this);
-        ecouteMenu((ImageButton)findViewById(R.id.btnJouer),CardActivity.class);
-        ecouteMenu((ImageButton)findViewById(R.id.btnNewCard),CreateCardActivity.class);
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
 
+        // Inflate the menu; this adds items to the action bar if it is present.
+       // getMenuInflater().inflate(R.menu., menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        //if (id == R.id.action_settings) {
+            return true;
         }
+        return super.onOptionsItemSelected(item);
+    }
+
 
     /**
      * Ouvrir l'activity correspondante
      * @param btn
      * @param classe
      */
-    public void ecouteMenu(ImageButton btn, final Class classe){
+    public void ecouteMenu(Button btn, final Class classe){
         btn.setOnClickListener(new ImageButton.OnClickListener() {
             @Override
             //pour gérer un événement sur on objet graphique
@@ -41,5 +69,15 @@ protected void onCreate(Bundle savedInstanceState) {
                 startActivity(intent);
             }
         } );
+    }
+
+    public void homeBtnPlay(View view) {
+    }
+
+    public void homeBtnList(View view) {
+        //on creer une nouvelle intent on definit la class de depart ici this et la class d'arrivé ici SecondActivite
+        Intent intent=new Intent(this,HistoActivity.class);
+        //on lance l'intent, cela a pour effet de stoper l'activité courante et lancer une autre activite ici SecondActivite
+        startActivity(intent);
     }
 }

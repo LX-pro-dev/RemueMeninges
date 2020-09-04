@@ -1,6 +1,9 @@
 package com.gauthier.remuemeninges.Modele;
 
+import android.os.Build;
 import android.util.Log;
+
+import androidx.annotation.RequiresApi;
 
 import com.gauthier.remuemeninges.Controle.Controle;
 import com.gauthier.remuemeninges.Outils.AccesHTTP;
@@ -10,8 +13,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Created by Alexandre GAUTHIER on 14/05/2020.
@@ -31,6 +34,7 @@ public class AccesDistant implements AsyncResponse{
      * retour du serveur distant
      * @param output
      */
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void processFinish(String output) {
         Log.d("serveur", output + "************");
@@ -48,12 +52,16 @@ public class AccesDistant implements AsyncResponse{
                     Log.d("dernier", message[1] + "******************");
                     try {
                         JSONObject info= new JSONObject(message[1]);
+                        //id,langue,question,incide,reponse,category,level,dateCreation
                         Integer numCarte= info.getInt("numCarte");
-                        Integer categorie= info.getInt("categorie");
+                        String langue = info.getString("langue");
                         String question= info.getString("question");
-                        String reponse= info.getString("reponse");
                         String indice= info.getString("indice");
-                        Carte carte= new Carte(numCarte,categorie,question,reponse,indice);
+                        String reponse= info.getString("reponse");
+                        Integer categorie= info.getInt("categorie");
+                        Integer level = info.getInt("level");
+                        LocalDateTime dateCreation = LocalDateTime.parse(info.getString("datecreation"));
+                        Carte carte= new Carte(numCarte,langue, question,indice, reponse, categorie,level,dateCreation);
                         controle.setCarte(carte);
                     } catch (JSONException e) {
                         Log.d("erreur", "converssion JSON impossible"+ e.toString()+ "******************");
@@ -67,11 +75,14 @@ public class AccesDistant implements AsyncResponse{
                             for(int i=0;i<jsonInfo.length();i++){
                                 JSONObject info= new JSONObject(jsonInfo.get(i).toString());
                                 Integer numCarte= info.getInt("numCarte");
-                                Integer categorie= info.getInt("categorie");
+                                String langue = info.getString("langue");
                                 String question= info.getString("question");
-                                String reponse= info.getString("reponse");
                                 String indice= info.getString("indice");
-                                Carte carte= new Carte(numCarte,categorie,question,reponse,indice);
+                                String reponse= info.getString("reponse");
+                                Integer categorie= info.getInt("categorie");
+                                Integer level = info.getInt("level");
+                                LocalDateTime dateCreation = LocalDateTime.parse(info.getString("datecreation"));
+                                Carte carte= new Carte(numCarte,langue, question,indice, reponse, categorie,level,dateCreation);
                                 lesCartes.add(carte);
                             }
                             controle.setLesCartes(lesCartes);

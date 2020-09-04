@@ -6,9 +6,10 @@ import android.widget.EditText;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
-
+import android.widget.RatingBar;
 import com.gauthier.remuemeninges.Controle.Controle;
 import com.gauthier.remuemeninges.R;
+
 public class CreateCardActivity extends AppCompatActivity{
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,7 +17,11 @@ public class CreateCardActivity extends AppCompatActivity{
         setContentView(R.layout.activity_create_card);
         init();
     }
-
+    /*
+    1 on doit proposer d'écrire la carte aussi en anglais par défaut pour que les autres créateurs
+    de carte dans d'autres langues qui ne connaissent pas la langue dans laquelle on a écrit notre
+     carte puissent la traduire dans leur langue
+     */
     //propriétés pour manipuler les objets graphiques du xml
     private EditText txtQuestion;
     private EditText txtReponse;
@@ -27,6 +32,7 @@ public class CreateCardActivity extends AppCompatActivity{
     private RadioButton rbCat4;
     private RadioButton rbCat5;
     private RadioButton rbCat6;
+    private RatingBar ratingLevel;
     private Controle controle;
 
     private void init(){
@@ -39,13 +45,14 @@ public class CreateCardActivity extends AppCompatActivity{
         rbCat4=(RadioButton)findViewById(R.id.creaRbCat4);
         rbCat5=(RadioButton)findViewById(R.id.creaRbCat5);
         rbCat6=(RadioButton)findViewById(R.id.creaRbCat6);
+        ratingLevel=(RatingBar)findViewById(R.id.creaRatingBarLevel) ;
         this.controle= Controle.getInstance(this);//création de l'instance controle (singleton)
         ecouteEnregistrer();
         recupCarte();
         }
 
     private void ecouteEnregistrer(){
-        ((Button)findViewById(R.id.btnEnregistrer)).setOnClickListener(new Button.OnClickListener(){
+        ((Button)findViewById(R.id.creaBtnEnregistrer)).setOnClickListener(new Button.OnClickListener(){
             //pour gérer un événement sur on objet graphique
             // on recherche l'objet graphique ac R.id
             // et on applique setOnClickListener() qui redéfinie la méthode onClick(View v)
@@ -57,32 +64,33 @@ public class CreateCardActivity extends AppCompatActivity{
                 String indice = null;
                 Integer categorie = 6;
                 Integer numCarte = 0;
+                Integer level=1;
 
                 //récupération des données saisies
                 try {// pour éviter les pb de saisie : char au lieu d'un int
                     question = txtQuestion.getText().toString();
                     reponse = txtReponse.getText().toString();
                     indice = txtIndice.getText().toString();
+                    level=(int)ratingLevel.getRating();
+                    if (rbCat1.isChecked()) {//test pour un bouton radio
+                        categorie = 1;
+                    } else if (rbCat2.isChecked()) {
+                        categorie = 2;
+                    } else if (rbCat3.isChecked()) {
+                        categorie = 3;
+                    } else if (rbCat4.isChecked()) {
+                        categorie = 4;
+                    } else if (rbCat5.isChecked()) {
+                        categorie = 5;
+                    }
                 } catch (Exception e) {
                 }//l'exception ne fera rien
                 // comme on a initailisé les variables à 0 on va tester si elles sont restées à 0!
-
-                if (rbCat1.isChecked()) {//test pour un bouton radio
-                    categorie = 1;
-                } else if (rbCat2.isChecked()) {
-                    categorie = 2;
-                } else if (rbCat3.isChecked()) {
-                    categorie = 3;
-                } else if (rbCat4.isChecked()) {
-                    categorie = 4;
-                } else if (rbCat5.isChecked()) {
-                    categorie = 5;
-                }
             }
         });
     }
     /**
-     * récupération du profil s'il a été sérialisé
+     * récupération de la carte si elle a été sérialisée
      */
     public void recupCarte(){
         if(controle.getNumCarte()!=null){
@@ -109,7 +117,9 @@ public class CreateCardActivity extends AppCompatActivity{
                     rbCat6.setChecked(true);
                     break;
             }
-            //remettre à vide le profil
+            ratingLevel.setRating(controle.getLevel());
+
+            //remettre à vide la carte
             controle.setCarte(null);
             //simulation du click sur le bouton calcul
             // ((Button)findViewById(R.id.btnCalc)).performClick();

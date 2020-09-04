@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -18,13 +19,13 @@ import java.util.Collections;
 
 public class HistoActivity extends AppCompatActivity {
 
-    private Object controle;
+    private Controle controle;//j'ai changé de type Object à type Controle pour avoir accès aux méthodes de Controle getLesCartes() et SetLesCartes()
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_histo);
-        this.controle= Controle.getInstance(this);
+        this.controle = Controle.getInstance(this);
         ecouteRetourMenu();
         creerList();
     }
@@ -34,7 +35,7 @@ public class HistoActivity extends AppCompatActivity {
      *
      * */
     public void ecouteRetourMenu(){
-        ((ImageButton)findViewById(R.id.btAccueil)).setOnClickListener(new ImageButton.OnClickListener() {
+        ((Button)findViewById(R.id.list_btn_home)).setOnClickListener(new ImageButton.OnClickListener() {
             //pour gérer un événement sur on objet graphique
             // on recherche l'objet graphique ac R.id
             // et on applique setOnClickListener() qui redéfinie la méthode onClick(View v)
@@ -52,31 +53,26 @@ public class HistoActivity extends AppCompatActivity {
     /**
      * créer une liste adapter
      */
-    private void creerList(){
-        ArrayList<Carte> lesCartes= controle.getLesCartes();
+    private void creerList() {
+        ArrayList<Carte> lesCartes = controle.getLesCartes();
         Collections.sort(lesCartes, Collections.<Carte>reverseOrder());
-        if(lesCartes!=null){
-            ListView lstHisto=(ListView)findViewById(R.id.lstHisto);
-            HistoListAdapter adapter = new HistoListAdapter(this,lesCartes);
+        if (lesCartes != null) {
+            ListView lstHisto = (ListView) findViewById(R.id.lstHisto);
+            HistoListAdapter adapter = new HistoListAdapter(this, lesCartes);
             lstHisto.setAdapter(adapter);
         }
     }
 
+
     /**
-     * demande d'afficher le profil dans CardActivity
+     * demande d'afficher la carte dans CardActivity
      * @param carte
      */
-    public void afficheProfil(Carte carte){
+    public void afficheCarte(Carte carte){
         controle.setCarte(carte);
         Intent intent = new Intent(HistoActivity.this, CardActivity.class);
         intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK | intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
-
-    }
-    private class ViewHolder{
-        ImageButton btList;
-        TextView txtListDate;
-        TextView txtListIMG;
 
     }
 }

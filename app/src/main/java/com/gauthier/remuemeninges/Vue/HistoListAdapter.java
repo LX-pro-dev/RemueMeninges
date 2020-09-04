@@ -80,7 +80,7 @@ public class HistoListAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.layout_list_histo, null);
             //chaque propriété du holder est relié à une propriété graphique
             holder.btDeleteCard=(ImageButton)convertView.findViewById(R.id.btDeleteCard);
-            holder.txtListNumCard=(TextView)convertView.findViewById(R.id.txtListDateCreationCard);
+            holder.txtListDateCard=(TextView)convertView.findViewById(R.id.txtListDateCreationCard);
             holder.txtListCategory=(TextView)convertView.findViewById(R.id.txtListCategory);
             holder.txtListQuestion=(TextView)convertView.findViewById(R.id.txtListQuestion);
 
@@ -92,7 +92,7 @@ public class HistoListAdapter extends BaseAdapter {
         }
 
         //valorisation du contenu du holder (donc de la ligne)
-        holder.txtListNumCard.setText(lesCartes.get(position).getNumCarte());
+        holder.txtListDateCard.setText(lesCartes.get(position).getNumCarte());
         holder.txtListCategory.setText(lesCartes.get(position).getCategorie());
         holder.txtListQuestion.setText(lesCartes.get(position).getQuestion());
         holder.btDeleteCard.setTag(position);
@@ -111,9 +111,9 @@ public class HistoListAdapter extends BaseAdapter {
             }
 
         } );
-        holder.txtListNumCard.setTag(position);
+        holder.txtListDateCard.setTag(position);
         //clic sur le reste de la ligne pour afficher le profil enregistré
-        holder.txtListNumCard.setOnClickListener(new View.OnClickListener() {
+        holder.txtListDateCard.setOnClickListener(new View.OnClickListener() {
             //pour gérer un événement sur on objet graphique
             // on recherche l'objet graphique ac R.id
             // et on applique setOnClickListener() qui redéfinie la méthode onClick(View v)
@@ -122,7 +122,7 @@ public class HistoListAdapter extends BaseAdapter {
                 //récupère la position de la ligne
                 int position = (int) v.getTag();
                 //demande de l'affichage du profil dans CalculActivity
-                ((HistoActivity)contexte).afficheProfil(lesCartes.get(position));
+                ((HistoActivity)contexte).afficheCarte(lesCartes.get(position));
             }
         } );
 
@@ -137,7 +137,7 @@ public class HistoListAdapter extends BaseAdapter {
                 //récupère la position de la ligne
                 int position = (int) v.getTag();
                 //demande de l'affichage du profil dans CalculActivity
-                ((HistoActivity)contexte).afficheProfil(lesCartes.get(position));
+                ((HistoActivity)contexte).afficheCarte(lesCartes.get(position));
             }
         } );
         return convertView;
@@ -145,8 +145,8 @@ public class HistoListAdapter extends BaseAdapter {
 
 
     private class ViewHolder{
-        public ImageButton btDeleteCard;
-        TextView txtListNumCard;
+        ImageButton btDeleteCard;
+        TextView txtListDateCard;
         TextView txtListCategory;
         TextView txtListQuestion;
 

@@ -10,6 +10,7 @@ import com.gauthier.remuemeninges.Vue.CreateCardActivity;
 
 import org.json.JSONArray;
 
+import java.time.LocalDateTime;
 import java.util.AbstractCollection;
 import java.util.ArrayList;
 import java.util.Date;
@@ -63,16 +64,16 @@ public final class Controle{
 
     /**
      * Création de carte
-     * @param numCarte
+     * @param langue
+     * @param question
+     * @param indice
+     * @param reponse
      * @param categorie
-     * @param txtQuestion
-     * @param txtReponse
-     * @param txtIndice
-     * @param contexte
+     * @param level
      */
-    public void creerCard(Integer numCarte, Integer categorie, String txtQuestion, String txtReponse, String txtIndice, Context contexte ){// création du profil
+    public void creerCard(String langue, String question, String indice, String reponse, Integer categorie, Integer level){// création du profil
         // Appelle de cette méthode dans Main pour obtenir les infos de profil
-        Carte uneCarte=new Carte(numCarte,categorie,txtQuestion,txtReponse,txtIndice);
+        Carte uneCarte=new Carte(langue,question,indice,reponse,categorie,level);
         lesCartes.add(uneCarte);
         Log.d("date",new Date()+"*************");
         //accesLocal.ajout(carte);
@@ -97,13 +98,14 @@ public final class Controle{
     /**
      * récupération de l'objet sérialisé : la carte
      * @param contexte
-     */
+     *//*
     private static void recupSerialize(Context contexte){
         carte = (Carte) Serializer.deSerialize(nomFichier,contexte);
-    }
+    }*/
+
 
     /**
-     * récupérer le numéro de la carte
+     * récupérer le numéro de l'objet sérialisé
      * @return
      */
     public Integer getNumCarte(){
@@ -112,19 +114,20 @@ public final class Controle{
         }
         return carte.getNumCarte();
     }
+
     /**
-     * récupérer la categorie l'objet sérialisé
+     * récupérer la langue de l'objet sérialisé
      * @return
      */
-    public Integer getCategorie(){
+    public String getTxtLangue(){
         if(carte==null){
             return null;
         }
-        return carte.getCategorie();
+        return carte.getLangue();
     }
 
     /**
-     * récupérer la réponse de l'objet sérialisé
+     * récupérer la question de l'objet sérialisé
      * @return
      */
     public String getTxtQuestion(){
@@ -154,6 +157,39 @@ public final class Controle{
             return null;
         }
         return carte.getIndice();
+    }
+
+    /**
+     * récupérer la categorie l'objet sérialisé
+     * @return
+     */
+    public Integer getCategorie(){
+        if(carte==null){
+            return null;
+        }
+        return carte.getCategorie();
+    }
+
+    /**
+     * récupérer le niveau de difficulté de l'objet sérialisé
+     * @return
+     */
+    public Integer getLevel(){
+        if(carte==null){
+            return null;
+        }
+        return carte.getLevel();
+    }
+
+    /**
+     * récupérer la date de création de l'objet sérialisé
+     * @return
+     */
+    public LocalDateTime getDate(){
+        if(carte==null){
+            return null;
+        }
+        return carte.getDatecreation();
     }
 
 }

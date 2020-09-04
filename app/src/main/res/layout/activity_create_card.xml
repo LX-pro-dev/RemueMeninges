@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="end"
     tools:context=".Vue.CreateCardActivity">
 
     <LinearLayout
@@ -19,90 +19,110 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textViewModeSearch"
+                android:id="@+id/histoTextViewModeSearch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_paddingBottom="15dp"
                 android:gravity="center"
                 android:text="@string/crea_category"
-                android:textSize="24sp"
+                android:textSize="@dimen/txt_view"
                 android:textStyle="bold" />
 
 
             <RadioGroup
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@id/textViewModeSearch">
+                android:layout_below="@id/histoTextViewModeSearch"
+                android:orientation="vertical">
 
-                <RadioButton
-                    android:id="@+id/creaRbCat3"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginBottom="15dp"
-                    android:text="@string/cat3" />
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <RadioButton
+                        android:id="@+id/creaRbCat1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:checked="true"
+                        android:text="@string/cat1"
+                        android:textSize="@dimen/radio_btn" />
+
+                    <RadioButton
+                        android:id="@+id/creaRbCat2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginRight="15dp"
+                        android:text="@string/cat2"
+                        android:textSize="@dimen/radio_btn" />
+
+                    <RadioButton
+                        android:id="@+id/creaRbCat3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:text="@string/cat3"
+                        android:textSize="@dimen/radio_btn" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <RadioButton
+                        android:id="@+id/creaRbCat4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginBottom="15dp"
+                        android:text="@string/cat4"
+                        android:textSize="@dimen/radio_btn" />
+
+                    <RadioButton
+                        android:id="@+id/creaRbCat5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginBottom="15dp"
+                        android:text="@string/cat5"
+                        android:textSize="@dimen/radio_btn" />
+
+                    <RadioButton
+                        android:id="@+id/creaRbCat6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginBottom="15dp"
+                        android:text="@string/cat6"
+                        android:textSize="@dimen/radio_btn" />
+                </LinearLayout>
+
             </RadioGroup>
 
 
-            <RadioButton
-                android:id="@+id/creaRbCat1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textViewModeSearch"
-                android:layout_marginStart="15dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginBottom="15dp"
-                android:checked="true"
-                android:text="@string/cat1" />
-
-            <RadioButton
-                android:id="@+id/creaRbCat2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textViewModeSearch"
-                android:layout_centerHorizontal="true"
-                android:layout_margin="15dp"
-                android:text="@string/cat2" />
-
-            <RadioButton
-                android:id="@+id/creaRbCat4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/creaRbCat1"
-                android:layout_margin="15dp"
-                android:text="@string/cat4" />
-
-            <RadioButton
-                android:id="@+id/creaRbCat5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/creaRbCat1"
-                android:layout_centerHorizontal="true"
-                android:layout_margin="15dp"
-                android:text="@string/cat5" />
-
-            <RadioButton
-                android:id="@+id/creaRbCat6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/creaRbCat1"
-                android:layout_alignEnd="@id/textViewModeSearch"
-                android:layout_alignRight="@id/textViewModeSearch"
-                android:layout_marginStart="15dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginBottom="15dp"
-                android:text="@string/cat6" />
         </RelativeLayout>
 
         <LinearLayout
@@ -112,12 +132,12 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/creaTextViewQuestion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/crea_question"
-                android:textSize="24sp"
+                android:textSize="@dimen/txt_view"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -133,14 +153,15 @@
                     android:autofillHints=""
                     android:ems="10"
                     android:hint="@string/quelle_est_la_couleur_du_cheval_blanc_d_henri_iv_a_blanc_b_rouge_c_vert_d_rose"
-                    android:inputType="textAutoCorrect|textMultiLine" />
+                    android:inputType="textAutoCorrect|textMultiLine"
+                    android:textSize="@dimen/txt_view" />
 
                 <ImageButton
                     android:id="@+id/imageButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
-                    android:contentDescription="@string/question_recorder"
+                    android:contentDescription="@string/crea_btn_question_recorder"
                     app:srcCompat="@android:drawable/ic_btn_speak_now" />
             </LinearLayout>
 
@@ -153,12 +174,12 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView7"
+                android:id="@+id/creaTextViewIndice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/crea_indice"
-                android:textSize="24sp"
+                android:textSize="@dimen/txt_view"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -174,14 +195,15 @@
                     android:ems="10"
                     android:hint="@string/ce_n_est_pas_une_couleur"
                     android:importantForAutofill="no"
-                    android:inputType="textAutoCorrect|textMultiLine" />
+                    android:inputType="textAutoCorrect|textMultiLine"
+                    android:textSize="@dimen/txt_view" />
 
                 <ImageButton
                     android:id="@+id/imageButton2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
-                    android:contentDescription="@string/indice_recorder"
+                    android:contentDescription="@string/crea_btn_clue_recorder"
                     app:srcCompat="@android:drawable/ic_btn_speak_now" />
             </LinearLayout>
 
@@ -194,12 +216,12 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/creaTextViewReponse"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/crea_response"
-                android:textSize="24sp"
+                android:textSize="@dimen/txt_view"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -215,7 +237,8 @@
                     android:autofillHints=""
                     android:ems="10"
                     android:hint="@string/blanc"
-                    android:inputType="textAutoCorrect|textMultiLine" />
+                    android:inputType="textAutoCorrect|textMultiLine"
+                    android:textSize="@dimen/txt_view" />
 
                 <ImageButton
                     android:id="@+id/imageButton3"
@@ -223,7 +246,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:layout_weight="1"
-                    android:contentDescription="@string/reponse_recorder"
+                    android:contentDescription="@string/crea_btn_answer_recorder"
                     app:srcCompat="@android:drawable/ic_btn_speak_now" />
 
             </LinearLayout>
@@ -236,18 +259,43 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <Button
-                android:id="@+id/btnEnregistrer"
+            <TextView
+                android:id="@+id/creaTextViewLevel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10sp"
+                android:gravity="center"
+                android:text="@string/crea_level"
+                android:textSize="@dimen/txt_view"
+                android:textStyle="bold" />
+
+            <RatingBar
+                android:id="@+id/creaRatingBarLevel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="50dp"
+                android:numStars="3"
+                android:rating="1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/creaBtnEnregistrer"
+                android:text="@string/crea_enregistrer_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
                 android:paddingLeft="10dp"
                 android:paddingTop="20dp"
                 android:paddingRight="10dp"
                 android:paddingBottom="20dp"
-                android:text="@string/enregistrer_card"
-                android:textSize="18sp"
+                android:textSize="@dimen/btn_txt"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
         </LinearLayout>

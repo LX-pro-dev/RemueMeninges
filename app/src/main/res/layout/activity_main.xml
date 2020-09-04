@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -19,12 +20,12 @@
 
             <TextView
                 android:id="@+id/titre"
+                android:text="@string/remue_meninges"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="@string/remue_meninges"
                 android:textColor="#A30339"
-                android:textSize="36sp"
+                android:textSize="@dimen/title_txt"
                 android:textStyle="bold" />
 
             <ImageView
@@ -42,12 +43,13 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/btn_play"
+                android:id="@+id/home_btn_play"
+                android:onClick="homeBtnPlay"
+                android:text="@string/home_bt_play"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/a_vous_de_jouer"
-                android:textSize="36sp"
+                android:textSize="@dimen/title_txt"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -64,12 +66,13 @@
                 android:orientation="vertical">
 
                 <Button
-                    android:id="@+id/btn_home_list"
+                    android:id="@+id/home_btn_list"
+                    android:onClick="homeBtnList"
+                    android:text="@string/home_bt_list"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="@string/btn_home_list"
-                    android:textSize="36sp"
+                    android:textSize="@dimen/title_txt"
                     android:textStyle="bold" />
             </LinearLayout>
 
