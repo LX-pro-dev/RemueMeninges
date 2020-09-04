@@ -39,7 +39,7 @@
                     android:textSize="@dimen/txt_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_paddingBottom="15dp"
+                    android:paddingBottom="15dp"
                     android:gravity="center"
                     android:textStyle="bold" />
 

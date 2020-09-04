@@ -13,7 +13,7 @@ import android.widget.ImageButton;
 import com.gauthier.remuemeninges.Controle.Controle;
 import com.gauthier.remuemeninges.R;
 
-class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
     private Controle controle;
     /*
     1 faire une menu :
