@@ -21,7 +21,7 @@ import java.util.ArrayList;
  */
 public class AccesDistant implements AsyncResponse{
     //constante
-    private static final String SERVERADDR = "http://192.168.1.3/coach/serveurcoach.php";//au lieu de /coach/serveurcoach.php"
+    private static final String SERVERADDR = "http://alexdev.remue-meninges.secondlab.net/serveur.php";
     private Controle controle;
     /**
      * constructeur
@@ -107,8 +107,9 @@ public class AccesDistant implements AsyncResponse{
 
         //ajout paramètres
         accesDonnees.addParam("operation",operation);
-        accesDonnees.addParam("lesdonnees",lesDonneesJSON.toString());
+        accesDonnees.addParam("langue","fr");
+       // accesDonnees.addParam("lesdonnees",lesDonneesJSON.toString());
 
-        accesDonnees.execute(SERVERADDR);
+        accesDonnees.execute(SERVERADDR,"GET");
     }
 }

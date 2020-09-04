@@ -52,7 +52,7 @@ public class AccesHTTP extends AsyncTask<String, Integer, Long> {
      * @return null
      */
     @Override
-    protected Long doInBackground(String... urls) {
+    protected Long doInBackground(String... options) {
 
         // pour éliminer certaines erreurs
         System.setProperty("http.keepAlive", "false");
@@ -63,12 +63,12 @@ public class AccesHTTP extends AsyncTask<String, Integer, Long> {
 
         try {
             // création de l'url à partir de l'adresse reçu en paramètre, dans urls[0]
-            URL url = new URL(urls[0]);
+            URL url = new URL(options[0]);
             // ouverture de la connexion
             connexion = (HttpURLConnection) url.openConnection();
             connexion.setDoOutput(true);
             // choix de la méthode POST pour l'envoi des paramètres
-            connexion.setRequestMethod("POST");
+            connexion.setRequestMethod(options[1]);
             connexion.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             connexion.setFixedLengthStreamingMode(parametres.getBytes().length);
             // création de la requete d'envoi sur la connexion, avec les paramètres

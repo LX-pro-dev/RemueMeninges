@@ -35,7 +35,7 @@ public class HistoActivity extends AppCompatActivity {
      *
      * */
     public void ecouteRetourMenu(){
-        ((Button)findViewById(R.id.list_btn_home)).setOnClickListener(new ImageButton.OnClickListener() {
+        ((Button)findViewById(R.id.btn_list_home)).setOnClickListener(new ImageButton.OnClickListener() {
             //pour gérer un événement sur on objet graphique
             // on recherche l'objet graphique ac R.id
             // et on applique setOnClickListener() qui redéfinie la méthode onClick(View v)

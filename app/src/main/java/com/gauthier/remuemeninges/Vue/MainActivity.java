@@ -30,7 +30,7 @@ class MainActivity extends AppCompatActivity {
             ecouteMenu((Button)findViewById(R.id.home_btn_list),CreateCardActivity.class);
 
     }
-    @Override
+   /* @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -47,9 +47,9 @@ class MainActivity extends AppCompatActivity {
         //if (id == R.id.action_settings) {
             return true;
         }
-        return super.onOptionsItemSelected(item);
-    }
-
+       // return super.onOptionsItemSelected(item);
+    //}
+*/
 
     /**
      * Ouvrir l'activity correspondante
