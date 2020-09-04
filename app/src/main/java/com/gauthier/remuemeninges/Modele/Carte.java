@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,7 +22,7 @@ public class Carte {
     private String indice;
     private String langue;
     private Integer level;
-    private LocalDateTime datecreation;
+    private Date datecreation;
     private Controle controle;
 
 
@@ -44,7 +45,7 @@ public class Carte {
         this.langue = langue;
         this.level = level;
     }
-    public Carte(Integer numCarte, String langue, String question, String indice, String reponse, Integer categorie, Integer level, LocalDateTime datecreation) {
+    public Carte(Integer numCarte, String langue, String question, String indice, String reponse, Integer categorie, Integer level, Date datecreation) {
         this.numCarte = numCarte;
         this.categorie = categorie;
         this.question = question;
@@ -80,7 +81,7 @@ public class Carte {
 
     public Integer getLevel() { return level;  }
 
-    public LocalDateTime getDatecreation() { return datecreation;  }
+    public Date getDatecreation() { return datecreation;  }
 
     /**
      * conversion de profil au format JSONArray

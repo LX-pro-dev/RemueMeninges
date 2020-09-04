@@ -53,7 +53,7 @@ public final class Controle{
         }
         return Controle.instance;
     }
-
+    //faire getLescartes().get(0) pour récupérer la première
     public ArrayList<Carte> getLesCartes() {
         return lesCartes;
     }
@@ -185,7 +185,7 @@ public final class Controle{
      * récupérer la date de création de l'objet sérialisé
      * @return
      */
-    public LocalDateTime getDate(){
+    public Date getDate(){
         if(carte==null){
             return null;
         }

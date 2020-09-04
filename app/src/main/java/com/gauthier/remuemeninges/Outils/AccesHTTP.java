@@ -18,6 +18,11 @@ public class AccesHTTP extends AsyncTask<String, Integer, Long> {
     public String ret=""; // information retournée par le serveur
     public AsyncResponse delegate=null; // gestion du retour asynchrone
     private String parametres = ""; // paramètres à envoyer en POST au serveur
+    private String operation =  "";
+
+    public void setOperation(String operation) {
+        this.operation = operation;
+    }
 
     /**
      * Constructeur : ne fait rien
@@ -48,7 +53,7 @@ public class AccesHTTP extends AsyncTask<String, Integer, Long> {
     /**
      * Méthode appelée par la méthode execute
      * permet d'envoyer au serveur une liste de paramètres en GET
-     * @param urls contient l'adresse du serveur dans la case 0 de urls
+     * @param options contient l'adresse du serveur dans la case 0 de urls
      * @return null
      */
     @Override
@@ -63,19 +68,23 @@ public class AccesHTTP extends AsyncTask<String, Integer, Long> {
 
         try {
             // création de l'url à partir de l'adresse reçu en paramètre, dans urls[0]
-            URL url = new URL(options[0]);
+            URL url = new URL(options[0] + "?" + parametres);
             // ouverture de la connexion
             connexion = (HttpURLConnection) url.openConnection();
-            connexion.setDoOutput(true);
             // choix de la méthode POST pour l'envoi des paramètres
             connexion.setRequestMethod(options[1]);
-            connexion.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-            connexion.setFixedLengthStreamingMode(parametres.getBytes().length);
-            // création de la requete d'envoi sur la connexion, avec les paramètres
-            writer = new PrintWriter(connexion.getOutputStream());
-            writer.print(parametres);
-            // Une fois l'envoi réalisé, vide le canal d'envoi
-            writer.flush();
+
+            if (options[1] == "POST") {
+                connexion.setDoOutput(true);
+                connexion.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                connexion.setFixedLengthStreamingMode(parametres.getBytes().length);
+                // création de la requete d'envoi sur la connexion, avec les paramètres
+                writer = new PrintWriter(connexion.getOutputStream());
+                writer.print(parametres);
+                // Une fois l'envoi réalisé, vide le canal d'envoi
+                writer.flush();
+            }
+
             // Récupération du retour du serveur
             reader = new BufferedReader(new InputStreamReader(connexion.getInputStream()));
             ret = reader.readLine();
@@ -100,7 +109,7 @@ public class AccesHTTP extends AsyncTask<String, Integer, Long> {
     @Override
     protected void onPostExecute(Long result) {
         // ret contient l'information récupérée
-        delegate.processFinish(this.ret.toString());
+        delegate.processFinish(this.ret , this.operation);
     }
 
 
