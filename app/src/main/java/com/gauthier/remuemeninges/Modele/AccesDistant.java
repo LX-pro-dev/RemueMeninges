@@ -2,20 +2,15 @@ package com.gauthier.remuemeninges.Modele;
 
 import android.os.Build;
 import android.util.Log;
-
 import androidx.annotation.RequiresApi;
-
 import com.gauthier.remuemeninges.Controle.Controle;
 import com.gauthier.remuemeninges.Outils.AccesHTTP;
 import com.gauthier.remuemeninges.Outils.AsyncResponse;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;

@@ -18,7 +18,7 @@
     <string name="card_category">CATEGORY</string>
     <string name="home_bt_list">LIST OF CARDS</string>
     <string name="home_bt_play">LET\'S PLAY!</string>
-    <string name="card_new_card">NEW CARD</string>
+    <string name="card_next_card">NEW CARD</string>
     <string name="crea_enregistrer_card">SAVE CARD</string>
     <string name="crea_btn_answer_recorder">audio recording of the question</string>
     <string name="crea_btn_clue_recorder">audio recording of the clue</string>

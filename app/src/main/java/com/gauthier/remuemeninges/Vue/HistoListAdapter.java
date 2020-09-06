@@ -7,11 +7,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
 import com.gauthier.remuemeninges.Controle.Controle;
 import com.gauthier.remuemeninges.Modele.Carte;
 import com.gauthier.remuemeninges.R;
-
 import java.util.ArrayList;
 
 /**
@@ -63,7 +61,7 @@ public class HistoListAdapter extends BaseAdapter {
     }
 
     /**
-     * retourne la ligne (view) formaté avec gestion des événements
+     * retourne la ligne (view) formatée avec gestion des événements
      * @param position
      * @param convertView
      * @param parent
@@ -78,7 +76,7 @@ public class HistoListAdapter extends BaseAdapter {
             holder = new ViewHolder();
             //la ligne est construite avec un formatage (inflater) relié à layout_list_histo
             convertView = inflater.inflate(R.layout.layout_list_histo, null);
-            //chaque propriété du holder est relié à une propriété graphique
+            //chaque propriété du holder est reliée à une propriété graphique
             holder.btDeleteCard=(ImageButton)convertView.findViewById(R.id.btDeleteCard);
             holder.txtListDateCard=(TextView)convertView.findViewById(R.id.txtListDateCreationCard);
             holder.txtListCategory=(TextView)convertView.findViewById(R.id.txtListCategory);
@@ -121,7 +119,7 @@ public class HistoListAdapter extends BaseAdapter {
             public void onClick(View v) {
                 //récupère la position de la ligne
                 int position = (int) v.getTag();
-                //demande de l'affichage du profil dans CalculActivity
+                //demande de l'affichage de la carte dans CardActivity
                 ((HistoActivity)contexte).afficheCarte(lesCartes.get(position));
             }
         } );
@@ -136,7 +134,7 @@ public class HistoListAdapter extends BaseAdapter {
             public void onClick(View v) {
                 //récupère la position de la ligne
                 int position = (int) v.getTag();
-                //demande de l'affichage du profil dans CalculActivity
+                //demande de l'affichage de la carte dans CardActivity
                 ((HistoActivity)contexte).afficheCarte(lesCartes.get(position));
             }
         } );

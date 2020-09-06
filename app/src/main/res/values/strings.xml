@@ -24,7 +24,7 @@
     <string name="card_indice">INDICE</string>
     <string name="card_answer">REPONSE</string>
     <string name="card_accueil">ACCUEIL</string>
-    <string name="card_new_card">NOUVELLE CARTE</string>
+    <string name="card_next_card">CARTE SUIVANTE</string>
     <string name="home_bt_play">A VOUS DE JOUER</string>
     <string name="home_bt_list">LISTE DES CARTES</string>
     <string name="crea_enregistrer_card">ENREGISTRER LA CARTE</string>

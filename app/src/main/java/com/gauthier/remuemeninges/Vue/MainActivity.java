@@ -30,6 +30,29 @@ public class MainActivity extends AppCompatActivity {
             ecouteMenu((Button)findViewById(R.id.home_btn_list),CreateCardActivity.class);
 
     }
+
+    /**
+     * Ouvrir l'activity correspondante
+     * @param btn
+     * @param classe
+     */
+    public void ecouteMenu(Button btn, final Class classe){
+        btn.setOnClickListener(new ImageButton.OnClickListener() {
+            @Override
+            //pour gérer un événement sur on objet graphique
+            // on recherche l'objet graphique ac R.id
+            // et on applique setOnClickListener() qui redéfinie la méthode onClick(View v)
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, classe);
+                //permet de ne pas garder en mémoire l'activité courante lorsque l'on ouvre une nouvelle activity
+                intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK | intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+        } );
+    }
+    /**
+     création d'un menu pour les options (langue, difficulté, mode nuit...)
+     */
    /* @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -51,33 +74,5 @@ public class MainActivity extends AppCompatActivity {
     //}
 */
 
-    /**
-     * Ouvrir l'activity correspondante
-     * @param btn
-     * @param classe
-     */
-    public void ecouteMenu(Button btn, final Class classe){
-        btn.setOnClickListener(new ImageButton.OnClickListener() {
-            @Override
-            //pour gérer un événement sur on objet graphique
-            // on recherche l'objet graphique ac R.id
-            // et on applique setOnClickListener() qui redéfinie la méthode onClick(View v)
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, classe);
-                //permet de ne pas garder en mémoire l'activité courante lorsque l'on ouvre une nouvelle activity
-                intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK | intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-            }
-        } );
-    }
 
-    public void homeBtnPlay(View view) {
-    }
-
-    public void homeBtnList(View view) {
-        //on creer une nouvelle intent on definit la class de depart ici this et la class d'arrivé ici SecondActivite
-        Intent intent=new Intent(this,HistoActivity.class);
-        //on lance l'intent, cela a pour effet de stoper l'activité courante et lancer une autre activite ici SecondActivite
-        startActivity(intent);
-    }
 }

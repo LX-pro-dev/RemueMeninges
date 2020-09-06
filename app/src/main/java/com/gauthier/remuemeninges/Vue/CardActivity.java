@@ -1,17 +1,17 @@
 package com.gauthier.remuemeninges.Vue;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.widget.RatingBar;
 import android.widget.TextView;
-
 import com.gauthier.remuemeninges.Controle.Controle;
 import com.gauthier.remuemeninges.Modele.Carte;
 import com.gauthier.remuemeninges.R;
+
+import java.util.ArrayList;
 
 public class CardActivity extends AppCompatActivity{
     /*
@@ -26,8 +26,11 @@ public class CardActivity extends AppCompatActivity{
     6 si on appui sur un bouton "nouvelle carte" ou "accueil", il faudrait afficher
     une boite de dialogue pour définir le niveau de difficulté de la question (et en faire une moyenne)
      */
-
+    RatingBar levelRB;
+    TextView categoryTV;
+    TextView questionTV;
     TextView reponseTV;
+    TextView clueTV;
     Carte carte;
 
     @Override
@@ -38,25 +41,36 @@ public class CardActivity extends AppCompatActivity{
     }
 
     public void init() {
-       carte = Controle.getInstance(this).getLesCartes().get(0);
+       ArrayList<Carte> listCartes = Controle.getInstance(this).getLesCartes();
+       int indice = (int)(Math.random()*listCartes.size());
+       carte = listCartes.get(indice);// faire un Math.random sur la taille du tableau de carte pour la non remise à chercher
+       Log.i("CardActibvity","num de la carte : "+indice);
+        int level = carte.getLevel();
+        int categorie = carte.getCategorie();
 
-        TextView questionTV = findViewById(R.id.cardTextViewQuestion);
+
+        levelRB =findViewById(R.id.cardRatingBar);
+        levelRB.setRating(level);
+
+        categoryTV = findViewById(R.id.cardLblCategory);
+        categoryTV.setText("cat"+categorie);
+
+
+        questionTV = findViewById(R.id.cardTextViewQuestion);
         questionTV.setText(carte.getQuestion());
+
+        clueTV = findViewById(R.id.cardTextViewClue);
+        Log.d ("CardActivity", "init clue = " + carte.getIndice() );
 
         //Button reponseBtn = findViewById(R.id.cardBtnAnswer);
         reponseTV = findViewById(R.id.cardTextViewResponse);
         Log.d ("CardActivity", "init reponse = " + carte.getReponse() );
-
-        /*reponseBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                reponseTV.setText(carte.getReponse());
-            }
-        });*/
-
     }
 
     public void cardBtnShowClue(View view) {
+        Log.d ("CardActivity", "indice = " + carte.getIndice() );
+        clueTV.setText(carte.getIndice());
+        clueTV.setVisibility(View.VISIBLE);
     }
 
     public void cardBtnShowAnswer(View view) {
@@ -73,9 +87,14 @@ public class CardActivity extends AppCompatActivity{
     }
 
     public void cardBtnEditNewCard(View view) {
-       //relancer le init();
+       // clueTV.setVisibility(View.INVISIBLE);
+       // reponseTV.setVisibility(View.INVISIBLE);
+        //on creer une nouvelle intent on definit la class de depart ici this et la class d'arrivé ici SecondActivite
+        Intent intent=new Intent(this,CardActivity.class);
+        //on lance l'intent, cela a pour effet de stoper l'activité courante et lancer une autre activite ici SecondActivite
+        startActivity(intent);
         //pr faire un getCarte ac un nouveau num si j'ai fait un random
-       // dans init il faudra remettre les indice et reponse ne invisible
+       // dans init il faudra remettre les indices et reponse ne invisible
 
     }
 }

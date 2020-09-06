@@ -1,11 +1,8 @@
 package com.gauthier.remuemeninges.Modele;
 
 import com.gauthier.remuemeninges.Controle.Controle;
-
 import org.json.JSONArray;
-
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

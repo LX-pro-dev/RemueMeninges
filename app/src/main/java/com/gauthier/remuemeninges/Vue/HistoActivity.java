@@ -1,19 +1,15 @@
 package com.gauthier.remuemeninges.Vue;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.TextView;
-
 import com.gauthier.remuemeninges.Controle.Controle;
 import com.gauthier.remuemeninges.Modele.Carte;
 import com.gauthier.remuemeninges.R;
-
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -28,6 +24,19 @@ public class HistoActivity extends AppCompatActivity {
         this.controle = Controle.getInstance(this);
         ecouteRetourMenu();
         creerList();
+    }
+
+    /**
+     * créer une liste adapter
+     */
+    private void creerList() {
+        ArrayList<Carte> lesCartes = controle.getLesCartes();
+        Collections.sort(lesCartes, Collections.<Carte>reverseOrder());
+        if (lesCartes != null) {
+            ListView lstHisto = (ListView) findViewById(R.id.lstHisto);
+            HistoListAdapter adapter = new HistoListAdapter(this, lesCartes);
+            lstHisto.setAdapter(adapter);
+        }
     }
 
     /**
@@ -49,20 +58,6 @@ public class HistoActivity extends AppCompatActivity {
 
         } );
     }
-
-    /**
-     * créer une liste adapter
-     */
-    private void creerList() {
-        ArrayList<Carte> lesCartes = controle.getLesCartes();
-        Collections.sort(lesCartes, Collections.<Carte>reverseOrder());
-        if (lesCartes != null) {
-            ListView lstHisto = (ListView) findViewById(R.id.lstHisto);
-            HistoListAdapter adapter = new HistoListAdapter(this, lesCartes);
-            lstHisto.setAdapter(adapter);
-        }
-    }
-
 
     /**
      * demande d'afficher la carte dans CardActivity

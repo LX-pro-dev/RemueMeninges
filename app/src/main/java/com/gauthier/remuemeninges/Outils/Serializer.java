@@ -1,7 +1,6 @@
 package com.gauthier.remuemeninges.Outils;
 
 import android.content.Context;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;

@@ -2,16 +2,10 @@ package com.gauthier.remuemeninges.Controle;
 
 import android.content.Context;
 import android.util.Log;
-
 import com.gauthier.remuemeninges.Modele.AccesDistant;
 import com.gauthier.remuemeninges.Modele.Carte;
-import com.gauthier.remuemeninges.Outils.Serializer;
 import com.gauthier.remuemeninges.Vue.CreateCardActivity;
-
 import org.json.JSONArray;
-
-import java.time.LocalDateTime;
-import java.util.AbstractCollection;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -23,7 +17,6 @@ public final class Controle{
     private static Controle instance=null;//accessible par la classe
     private static Carte carte;
     private static String nomFichier="savecarte";
-    //private static AccesLocal accesLocal;
     private static AccesDistant accesDistant;
     private static Context contexte;
     private ArrayList<Carte> lesCartes=new ArrayList<Carte>();
