@@ -2,6 +2,8 @@ package com.gauthier.remuemeninges.Controle;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
+
 import com.gauthier.remuemeninges.Modele.AccesDistant;
 import com.gauthier.remuemeninges.Modele.Carte;
 import com.gauthier.remuemeninges.Vue.CreateCardActivity;
@@ -16,10 +18,9 @@ public final class Controle{
     //singleton pattern
     private static Controle instance=null;//accessible par la classe
     private static Carte carte;
-    private static String nomFichier="savecarte";
     private static AccesDistant accesDistant;
     private static Context contexte;
-    private ArrayList<Carte> lesCartes=new ArrayList<Carte>();
+    private ArrayList<Carte> lesCartes= new ArrayList<>();
     /**
      * contructeur privé
      */
@@ -37,21 +38,25 @@ public final class Controle{
         }
         if(Controle.instance==null){//si l'instance n'est pas déjà créée, on la créée
             Controle.instance= new Controle();
-            // accesLocal=new AccesLocal(contexte);
             accesDistant= new AccesDistant();
-            //accesDistant.envoi("dernier",new JSONArray());//demande de récupérer le dernier profil
             accesDistant.envoi("tous",new JSONArray());//demande de récupérer tous les profils
-            //profil=accesLocal.recupDernier();//pour récupérer la dernière ligne de la table en SQLite
-            //  recupSerialize(contexte);
         }
         return Controle.instance;
     }
-    //faire getLescartes().get(0) pour récupérer la première
+    /**
+     * récupérer la liste des cartes
+     * @return
+     */
     public ArrayList<Carte> getLesCartes() {
         return lesCartes;
-    }
+    }    //faire getLescartes().get(0) pour récupérer la première
 
+    /**
+     * ajouter la liste des cartes
+     * @param lesCartes
+     */
     public void setLesCartes(ArrayList<Carte> lesCartes) {
+
         this.lesCartes = lesCartes;
     }
 
@@ -64,18 +69,22 @@ public final class Controle{
      * @param categorie
      * @param level
      */
-    public void creerCard(String langue, String question, String indice, String reponse, Integer categorie, Integer level){// création du profil
+    public void creerCarte(String langue, String question, String indice, String reponse, Integer categorie, Integer level){// création du profil
         // Appelle de cette méthode dans Main pour obtenir les infos de profil
+        //on crée des cartes en français uniquement pour l'instant voir s'il n'y a pas conflit avec afficheResult()
+        langue="fr";
         Carte uneCarte=new Carte(langue,question,indice,reponse,categorie,level);
         lesCartes.add(uneCarte);
         Log.d("date",new Date()+"*************");
         //accesLocal.ajout(carte);
         accesDistant.envoi("enreg",uneCarte.convertToJSONArray());
+        Log.d("envoie bdd",uneCarte.convertToJSONArray().toString());
+
         // Serializer.serialize(nomFichier,profil,contexte);
     }
 
     /**
-     * pour supprimer un profil dans la bas distante et la collection
+     * supprimer une carte dans la base distante et la collection
      * @param carte
      */
     public void delCarte(Carte carte){
@@ -83,20 +92,16 @@ public final class Controle{
         lesCartes.remove(carte);
     }
 
-    public void setCarte(Carte carte){
-        Controle.carte=carte;
-        ((CreateCardActivity)contexte).recupCarte();
-    }
-
     /**
-     * récupération de l'objet sérialisé : la carte
-     * @param contexte
-     *//*
-    private static void recupSerialize(Context contexte){
-        carte = (Carte) Serializer.deSerialize(nomFichier,contexte);
-    }*/
-
-
+     * ajouter une carte dans la base distante et la collection
+     * @param carte
+     */
+    public void setCarte(Carte carte) {
+        Controle.carte = carte;
+        if (contexte instanceof CreateCardActivity) {
+            ((CreateCardActivity) contexte).recupCarte();
+        }
+    }
     /**
      * récupérer le numéro de l'objet sérialisé
      * @return
@@ -110,6 +115,7 @@ public final class Controle{
 
     /**
      * récupérer la langue de l'objet sérialisé
+     * ne sert pas encore car pas de gestion de la langue des cartes
      * @return
      */
     public String getTxtLangue(){
@@ -173,16 +179,4 @@ public final class Controle{
         }
         return carte.getLevel();
     }
-
-    /**
-     * récupérer la date de création de l'objet sérialisé
-     * @return
-     */
-    public Date getDate(){
-        if(carte==null){
-            return null;
-        }
-        return carte.getDatecreation();
-    }
-
 }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">RemueMeninges</string>
-    <string name="histo_category">categroy</string>
-    <string name="histo_question">question</string>
+    <string name="histo_category">Categroy</string>
+    <string name="histo_question">Question</string>
     <string name="histo_date_creation">creation date</string>
     <string name="crea_category">Category</string>
     <string name="crea_question">Question</string>
@@ -46,4 +46,5 @@
     <string name="img_party">Players in action</string>
     <string name="crea_level">Level</string>
     <string name="card_level">LEVEL</string>
+    <string name="home_bt_create">CREATE CARDS</string>
 </resources>

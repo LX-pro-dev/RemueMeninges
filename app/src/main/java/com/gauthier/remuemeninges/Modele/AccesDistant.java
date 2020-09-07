@@ -38,12 +38,9 @@ public class AccesDistant implements AsyncResponse{
     @Override
     public void processFinish(String output, String operation) {
         Log.d("serveur", output + "************");
-        //découper le message reçu avec un %
-        //String[] message = output.split("%");
-        //dans message[0] : "enreg", "dernier", "erreur"
-        //dans message[1] : le reste du message
 
         switch (operation) {
+            // "tous" pour récupérer toutes les cartes, à travailler : PUT, DELETE et POST
             case "tous" :
                 try {
                     JSONArray jsonInfo = new JSONArray(output);
@@ -57,7 +54,6 @@ public class AccesDistant implements AsyncResponse{
                         String reponse= info.getString("reponse");
                         Integer categorie= info.getInt("category");
                         Integer level = info.getInt("level");
-                        //LocalDateTime dateCreation = LocalDateTime.parse(info.getString("datecreation"));
                         Date dateCreation = dateFormatter.parse(info.getString("datecreation"));
                         Carte carte= new Carte(numCarte,langue, question,indice, reponse, categorie,level,dateCreation);
                         lesCartes.add(carte);
@@ -69,43 +65,6 @@ public class AccesDistant implements AsyncResponse{
                 }
                 break;
         }
-
-        /*
-        //s'il y a 2 cases
-        if (message.length > 1) {
-            if (message[0].equals("enreg")) {
-                Log.d("enreg", message[1] + "******************");
-            } else {
-                if (message[0].equals("dernier")) {
-                    Log.d("dernier", message[1] + "******************");
-                    try {
-                        JSONObject info= new JSONObject(message[1]);
-                        //id,langue,question,incide,reponse,category,level,dateCreation
-                        Integer numCarte= info.getInt("numCarte");
-                        String langue = info.getString("langue");
-                        String question= info.getString("question");
-                        String indice= info.getString("indice");
-                        String reponse= info.getString("reponse");
-                        Integer categorie= info.getInt("categorie");
-                        Integer level = info.getInt("level");
-                        LocalDateTime dateCreation = LocalDateTime.parse(info.getString("datecreation"));
-                        Carte carte= new Carte(numCarte,langue, question,indice, reponse, categorie,level,dateCreation);
-                        controle.setCarte(carte);
-                    } catch (JSONException e) {
-                        Log.d("erreur", "converssion JSON impossible"+ e.toString()+ "******************");
-                    }
-                } else {
-                    if (message[0].equals("tous")) {
-                        Log.d("tous", message[1] + "******************");
-
-                    }else{
-                        if (message[0].equals("erreur")) {
-                            Log.d("erreur", message[1] + "******************");
-                        }
-                    }
-                }
-            }
-        }*/
     }
 
     public void envoi(String operation, JSONArray lesDonneesJSON) {
@@ -117,9 +76,8 @@ public class AccesDistant implements AsyncResponse{
 
         //ajout paramètres
         accesDonnees.addParam("operation",operation);
-        accesDonnees.addParam("langue","fr");
-       // accesDonnees.addParam("lesdonnees",lesDonneesJSON.toString());
+        accesDonnees.addParam("langue","fr");//"fr" en dur car pas encore travaillé sur le choix de la langue
 
-        accesDonnees.execute(SERVERADDR,"GET");
+        accesDonnees.execute(SERVERADDR,"GET");//à mettre dans une condition lorsqu'on devra choisir en GET eT POST
     }
 }

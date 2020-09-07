@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by Alexandre GAUTHIER on 14/05/2020.
  */
-public class Carte {
+public class Carte implements Comparable<Carte> {
     //propriétés
     private Integer numCarte;
     private Integer categorie;
@@ -81,20 +81,33 @@ public class Carte {
     public Date getDatecreation() { return datecreation;  }
 
     /**
-     * conversion de profil au format JSONArray
+     * conversion de carte au format JSONArray
      * @return
      */
     public JSONArray convertToJSONArray(){
         List<Serializable> laListe= new ArrayList<>();
-       // laListe.add(numCarte);
         laListe.add(langue);
         laListe.add(question);
         laListe.add(indice);
         laListe.add(reponse);
         laListe.add(categorie);
         laListe.add(level);
-       // laListe.add(datecreation);
         return new JSONArray(laListe);
     }
 
+    /**
+     * Méthode pour comparer les dates de 2 cartes entre elles
+     * @param carte
+     * @return
+     */
+    @Override
+    public int compareTo(Carte carte) {//il faudra ajouter une condition lorsque le choix de recherche
+        // dans la liste se fera par date, par level, par catégory ou par mot clé
+        if (this.datecreation.after(carte.datecreation)) {
+            return 1;
+        }else if(this.datecreation.equals(carte.datecreation)){
+            return 0;
+        }
+        return -1;
+    }
 }

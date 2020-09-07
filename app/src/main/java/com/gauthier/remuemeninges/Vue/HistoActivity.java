@@ -15,7 +15,7 @@ import java.util.Collections;
 
 public class HistoActivity extends AppCompatActivity {
 
-    private Controle controle;//j'ai changé de type Object à type Controle pour avoir accès aux méthodes de Controle getLesCartes() et SetLesCartes()
+    private Controle controle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

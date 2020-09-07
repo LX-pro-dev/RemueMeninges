@@ -9,9 +9,9 @@
     <string name="ce_n_est_pas_une_couleur">Ce n\'est pas une couleur c\'est autre chose sois dit entre nous </string>
     <string name="blanc">Blanc</string>
     <string name="quelle_est_la_couleur_du_cheval_blanc_d_henri_iv_a_blanc_b_rouge_c_vert_d_rose">Quelle est la couleur du cheval blanc d\'Henri IV ? a) blanc b) rouge c) vert d) rose</string>
-    <string name="histo_question">question</string>
-    <string name="histo_category">catégorie</string>
-    <string name="histo_date_creation">histo_date_creation</string>
+    <string name="histo_question">Question</string>
+    <string name="histo_category">Catégorie</string>
+    <string name="histo_date_creation">Date de création</string>
     <string name="crea_category">Catégorie</string>
     <string name="crea_question">Question</string>
     <string name="crea_indice">Indice</string>
@@ -45,4 +45,5 @@
     <string name="img_party">Joueurs en pleine action</string>
     <string name="crea_level">Niveau de difficulté</string>
     <string name="card_level">NIVEAU DE DIFFICULTE</string>
+    <string name="home_bt_create">CREATION DE CARTES</string>
 </resources>

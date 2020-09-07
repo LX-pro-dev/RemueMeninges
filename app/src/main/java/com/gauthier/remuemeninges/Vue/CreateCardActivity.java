@@ -1,12 +1,18 @@
 package com.gauthier.remuemeninges.Vue;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.widget.EditText;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RatingBar;
+import android.widget.Toast;
+
 import com.gauthier.remuemeninges.Controle.Controle;
 import com.gauthier.remuemeninges.R;
 
@@ -18,10 +24,11 @@ public class CreateCardActivity extends AppCompatActivity{
         init();
     }
     /*
-    1 on doit proposer d'écrire la carte aussi en anglais par défaut pour que les autres créateurs
+    on devra proposer d'écrire la carte aussi en anglais par défaut pour que les autres créateurs
     de carte dans d'autres langues qui ne connaissent pas la langue dans laquelle on a écrit notre
      carte puissent la traduire dans leur langue
      */
+
     //propriétés pour manipuler les objets graphiques du xml
     private EditText txtQuestion;
     private EditText txtReponse;
@@ -49,7 +56,9 @@ public class CreateCardActivity extends AppCompatActivity{
         this.controle= Controle.getInstance(this);//création de l'instance controle (singleton)
         ecouteEnregistrer();
         recupCarte();
-        }
+
+
+    }
 
     private void ecouteEnregistrer(){
         ((Button)findViewById(R.id.creaBtnEnregistrer)).setOnClickListener(new Button.OnClickListener(){
@@ -58,17 +67,17 @@ public class CreateCardActivity extends AppCompatActivity{
             // et on applique setOnClickListener() qui redéfinie la méthode onClick(View v)
 
             public void onClick(View v) {
-                //Toast.makeText(MainActivity.this,"test",Toast.LENGTH_LONG).show();
+                //Toast.makeText(CreateCardActivity.this,"test",Toast.LENGTH_LONG).show();
                 String question = null;
                 String reponse = null;
                 String indice = null;
                 Integer categorie = 6;
-                Integer numCarte = 0;
                 Integer level=1;
 
                 //récupération des données saisies
                 try {// pour éviter les pb de saisie : char au lieu d'un int
                     question = txtQuestion.getText().toString();
+                    //Toast.makeText(CreateCardActivity.this,"question récupérée " + question,Toast.LENGTH_LONG).show();
                     reponse = txtReponse.getText().toString();
                     indice = txtIndice.getText().toString();
                     level=(int)ratingLevel.getRating();
@@ -86,9 +95,33 @@ public class CreateCardActivity extends AppCompatActivity{
                 } catch (Exception e) {
                 }//l'exception ne fera rien
                 // comme on a initailisé les variables à 0 on va tester si elles sont restées à 0!
+
+                //controle des données saisies
+                if(question==null && reponse==null){
+                    Toast.makeText(CreateCardActivity.this,"saisie incorrecte",Toast.LENGTH_LONG).show();
+                }else{
+                    afficheResult(question , indice , reponse , level , categorie);
+                    Toast toast = Toast.makeText(CreateCardActivity.this,"La carte a été créée",Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 0);
+                    toast.show();
+                }
             }
         });
     }
+
+    /**
+     *afficher la carte avec ses infos
+     * @param question
+     * @param indice
+     * @param reponse
+     * @param level
+     * @param categorie
+     */
+    private void afficheResult(String question, String indice, String reponse, int level, int categorie){
+        //création de la carte et récupération des infos
+        this.controle.creerCarte("fr",question, indice,reponse, categorie,level);
+    }
+
     /**
      * récupération de la carte si elle a été sérialisée
      */
@@ -124,6 +157,11 @@ public class CreateCardActivity extends AppCompatActivity{
             //simulation du click sur le bouton calcul
             // ((Button)findViewById(R.id.btnCalc)).performClick();
         }
+    }
+
+    public void creaBtnHome(View view) {
+        Intent intent = new Intent(CreateCardActivity.this, MainActivity.class);
+        startActivity(intent);
     }
 }
 
