@@ -45,36 +45,51 @@ public class CardActivity extends AppCompatActivity{
 
     public void init() {
             Log.i("CardActivity", "init()");
-        //récupération de laliste des cartes
-       ArrayList<Carte> listCartes = Controle.getInstance(this).getLesCartes();
-       //tirage au sort du numéro de carte à afficher
-       int indice = (int)(Math.random()*listCartes.size());
-       //copie de la carte dans la list des cartes à l'indice "indice"
-       carte = listCartes.get(indice);
-       //pour savoir si j'ai bien une nouvelle carte de tirée car beaucoup de carte avec le même contenu
-       Log.i("CardActibvity","num de la carte : "+indice);
+        carte = Controle.getInstance(this).getCarte();
+        if (carte != null) {
+            Log.i("CardActivity","test init()"+carte.getQuestion());
+            questionTV = findViewById(R.id.cardTextViewQuestion);
+            questionTV.setText(carte.getQuestion());
+            reponseTV = findViewById(R.id.cardTextViewResponse);
+            reponseTV.setText(carte.getReponse().toString());
+            clueTV = findViewById(R.id.cardTextViewClue);
+            clueTV.setText(carte.getIndice());
+            categoryTV = findViewById(R.id.cardLblCategory);
+            categoryTV.setText(carte.getCategorie().toString());
+            levelRB = findViewById(R.id.cardRatingBar);
+            levelRB.setRating((int)carte.getLevel());
+        } else {
+            //récupération de la liste des cartes
+            ArrayList<Carte> listCartes = Controle.getInstance(this).getLesCartes();
+            //tirage au sort du numéro de carte à afficher
+            int indice = (int) (Math.random() * listCartes.size());
+            //copie de la carte dans la list des cartes à l'indice "indice"
+            carte = listCartes.get(indice);
+            //pour savoir si j'ai bien une nouvelle carte de tirée car beaucoup de carte avec le même contenu
+            Log.i("CardActibvity", "num de la carte : " + indice);
 
-       //récupération et affichage des informations de la carte
+            //récupération et affichage des informations de la carte
 
-        //le niveau de difficulté
-        levelRB =findViewById(R.id.cardRatingBar);
-        levelRB.setRating((int)carte.getLevel());
+            //le niveau de difficulté
+            levelRB = findViewById(R.id.cardRatingBar);
+            levelRB.setRating((int) carte.getLevel());
 
-        //la catégorie
-        categoryTV = findViewById(R.id.cardLblCategory);
-        categoryTV.setText(carte.getCategorie().toString());
+            //la catégorie
+            categoryTV = findViewById(R.id.cardLblCategory);
+            categoryTV.setText(carte.getCategorie().toString());
 
-        //la question
-        questionTV = findViewById(R.id.cardTextViewQuestion);
-        questionTV.setText(carte.getQuestion());
+            //la question
+            questionTV = findViewById(R.id.cardTextViewQuestion);
+            questionTV.setText(carte.getQuestion());
 
-        //l'indice
-        clueTV = findViewById(R.id.cardTextViewClue);
-        Log.d ("CardActivity", "init clue = " + carte.getIndice() );
+            //l'indice
+            clueTV = findViewById(R.id.cardTextViewClue);
+            Log.d("CardActivity", "init clue = " + carte.getIndice());
 
-        //la réponse
-        reponseTV = findViewById(R.id.cardTextViewResponse);
-        Log.d ("CardActivity", "init reponse = " + carte.getReponse() );
+            //la réponse
+            reponseTV = findViewById(R.id.cardTextViewResponse);
+            Log.d("CardActivity", "init reponse = " + carte.getReponse());
+        }
     }
 
     /**
@@ -101,8 +116,8 @@ public class CardActivity extends AppCompatActivity{
      * récupération de la carte si elle a été sérialisée
      * @return
      */
-    public void recupCarte(){
-        Log.i("recupCarte",controle.getTxtQuestion());
+    public void recupCarte(Controle controle){
+        //Log.i("recupCarte",controle.getTxtQuestion());
         if(controle.getTxtQuestion()!=null){
             questionTV.setText(controle.getTxtQuestion());
             reponseTV.setText(controle.getTxtReponse());

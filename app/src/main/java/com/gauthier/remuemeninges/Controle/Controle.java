@@ -101,10 +101,6 @@ public final class Controle{
     public void setCarte(Carte carte) {
         Log.i("Controle","setCarte");
         Controle.carte = carte;
-        if (contexte instanceof CardActivity) {
-            ((CardActivity) contexte).recupCarte();
-            Log.i("Controle","contexte = CardActivity");//on ne passe pas !
-        }
     }
     /**
      * récupérer le numéro de l'objet sérialisé
@@ -182,5 +178,11 @@ public final class Controle{
             return null;
         }
         return carte.getLevel();
+    }
+    public Carte getCarte(){
+        if(carte ==null){
+            return null;
+        }
+        return carte;
     }
 }
