@@ -1,6 +1,8 @@
 package com.gauthier.remuemeninges.Vue;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -32,8 +34,9 @@ public class CardActivity extends AppCompatActivity{
     TextView reponseTV;
     TextView clueTV;
     Carte carte;
+    Controle controle;
 
-    @Override
+        @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card);
@@ -41,6 +44,8 @@ public class CardActivity extends AppCompatActivity{
     }
 
     public void init() {
+            Log.i("CardActivity", "init()");
+        //récupération de laliste des cartes
        ArrayList<Carte> listCartes = Controle.getInstance(this).getLesCartes();
        //tirage au sort du numéro de carte à afficher
        int indice = (int)(Math.random()*listCartes.size());
@@ -92,6 +97,23 @@ public class CardActivity extends AppCompatActivity{
         reponseTV.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * récupération de la carte si elle a été sérialisée
+     * @return
+     */
+    public void recupCarte(){
+        Log.i("recupCarte",controle.getTxtQuestion());
+        if(controle.getTxtQuestion()!=null){
+            questionTV.setText(controle.getTxtQuestion());
+            reponseTV.setText(controle.getTxtReponse());
+            clueTV.setText(controle.getTxtIndice());
+            categoryTV.setText(controle.getCategorie());
+            levelRB.setRating(controle.getLevel());
+
+            //vider la carte lorsque l'on ressort de CardActivity
+            //controle.setCarte(null);
+        }
+    }
     /**
      * retour à la page d'accueil
      * @param view

@@ -55,7 +55,6 @@ public class CreateCardActivity extends AppCompatActivity{
         ratingLevel=(RatingBar)findViewById(R.id.creaRatingBarLevel) ;
         this.controle= Controle.getInstance(this);//création de l'instance controle (singleton)
         ecouteEnregistrer();
-        recupCarte();
 
 
     }
@@ -120,43 +119,6 @@ public class CreateCardActivity extends AppCompatActivity{
     private void afficheResult(String question, String indice, String reponse, int level, int categorie){
         //création de la carte et récupération des infos
         this.controle.creerCarte("fr",question, indice,reponse, categorie,level);
-    }
-
-    /**
-     * récupération de la carte si elle a été sérialisée
-     */
-    public void recupCarte(){
-        if(controle.getNumCarte()!=null){
-            txtQuestion.setText(controle.getTxtQuestion().toString());
-            txtReponse.setText(controle.getTxtReponse().toString());
-            txtIndice.setText(controle.getTxtIndice().toString());
-            switch (controle.getCategorie()) {
-                case 1:
-                    rbCat1.setChecked(true);
-                    break;
-                case 2:
-                    rbCat2.setChecked(true);
-                    break;
-                case 3:
-                    rbCat3.setChecked(true);
-                    break;
-                case 4:
-                    rbCat4.setChecked(true);
-                    break;
-                case 5:
-                    rbCat5.setChecked(true);
-                    break;
-                case 6:
-                    rbCat6.setChecked(true);
-                    break;
-            }
-            ratingLevel.setRating(controle.getLevel());
-
-            //remettre à vide la carte
-            controle.setCarte(null);
-            //simulation du click sur le bouton calcul
-            // ((Button)findViewById(R.id.btnCalc)).performClick();
-        }
     }
 
     public void creaBtnHome(View view) {

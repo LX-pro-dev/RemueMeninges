@@ -3,6 +3,7 @@ package com.gauthier.remuemeninges.Vue;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -64,6 +65,7 @@ public class HistoActivity extends AppCompatActivity {
      * @param carte
      */
     public void afficheCarte(Carte carte){
+        Log.i("HistoAct","afficheCarte()");
         controle.setCarte(carte);
         Intent intent = new Intent(HistoActivity.this, CardActivity.class);
         intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK | intent.FLAG_ACTIVITY_CLEAR_TASK);

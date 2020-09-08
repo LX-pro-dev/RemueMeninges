@@ -33,7 +33,7 @@ public class HistoListAdapter extends BaseAdapter {
     }
 
     /**
-     * retourne le nb de ligne de la liste
+     * retourne le nb de lignes de la liste
      * @return
      */
     @Override
@@ -94,9 +94,10 @@ public class HistoListAdapter extends BaseAdapter {
         holder.txtListDateCard.setText(lesCartes.get(position).getNumCarte().toString());
         holder.txtListCategory.setText(lesCartes.get(position).getCategorie().toString());
         holder.txtListQuestion.setText(lesCartes.get(position).getQuestion());
+
+        //événement : clic sur bouton delete
         holder.btDeleteCard.setTag(position);
         Log.i("Histo holder","position = " + position);
-
         //clic sur la croix pour supprimer le profil enregistré
         holder.btDeleteCard.setOnClickListener(new View.OnClickListener() {
             //pour gérer un événement sur on objet graphique
@@ -104,6 +105,7 @@ public class HistoListAdapter extends BaseAdapter {
             // et on applique setOnClickListener() qui redéfinie la méthode onClick(View v)
 
             public void onClick(View v) {
+                //on récupère la position de la ligne dans la liste
                 int position = (int) v.getTag();
                 //demande de suppression au controleur
                 controle.delCarte(lesCartes.get(position));
@@ -111,15 +113,16 @@ public class HistoListAdapter extends BaseAdapter {
                 notifyDataSetChanged();
             }
         } );
+
+        //clic sur le reste de la ligne pour afficher la carte enregistrée (date ou question)
         holder.txtListDateCard.setTag(position);
-        //clic sur le reste de la ligne pour afficher la carte enregistrée
         holder.txtListDateCard.setOnClickListener(new View.OnClickListener() {
             //pour gérer un événement sur on objet graphique
             // on recherche l'objet graphique ac R.id
             // et on applique setOnClickListener() qui redéfinie la méthode onClick(View v)
 
             public void onClick(View v) {
-                //récupère la position de la ligne
+                //récupère la position de la ligne dans la liste
                 int position = (int) v.getTag();
                 Log.i("HistoList onClick","position = " + position);
 
@@ -131,7 +134,6 @@ public class HistoListAdapter extends BaseAdapter {
         holder.txtListQuestion.setTag(position);
         //clic sur le reste de la ligne pour afficher le profil enregistré
         Log.i("HistoList onClick","position = " + position);
-
         holder.txtListQuestion.setOnClickListener(new View.OnClickListener() {
             //pour gérer un événement sur on objet graphique
             // on recherche l'objet graphique ac R.id

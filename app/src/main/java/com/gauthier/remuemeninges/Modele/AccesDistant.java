@@ -67,17 +67,26 @@ public class AccesDistant implements AsyncResponse{
         }
     }
 
-    public void envoi(String operation, JSONArray lesDonneesJSON) {
-        AccesHTTP accesDonnees= new AccesHTTP();
+    public void envoi(String operation, JSONArray lesDonneesJSON) {//JSONArray pour les envoies de données de la carte à enregistrer
+        AccesHTTP accesDonnees = new AccesHTTP();
 
         accesDonnees.setOperation(operation);
         //lien de délégation
         accesDonnees.delegate = (AsyncResponse) this;
+        if (operation == "tous") {
+            //ajout paramètres
+            accesDonnees.addParam("operation", operation);
+            accesDonnees.addParam("langue", "fr");//"fr" en dur car pas encore travaillé sur le choix de la langue
 
-        //ajout paramètres
-        accesDonnees.addParam("operation",operation);
-        accesDonnees.addParam("langue","fr");//"fr" en dur car pas encore travaillé sur le choix de la langue
+            accesDonnees.execute(SERVERADDR, "GET");
 
-        accesDonnees.execute(SERVERADDR,"GET");//à mettre dans une condition lorsqu'on devra choisir en GET eT POST
+        } else if (operation == "enreg") {
+            //ajout paramètres
+            accesDonnees.addParam("operation", operation);
+            accesDonnees.addParam("langue", "fr");//"fr" en dur car pas encore travaillé sur le choix de la langue
+            accesDonnees.addParam("lesdonnees",lesDonneesJSON.toString());
+
+            accesDonnees.execute(SERVERADDR, "POST");
+        }
     }
 }

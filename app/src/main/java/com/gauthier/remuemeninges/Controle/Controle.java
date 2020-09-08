@@ -6,7 +6,10 @@ import android.widget.Toast;
 
 import com.gauthier.remuemeninges.Modele.AccesDistant;
 import com.gauthier.remuemeninges.Modele.Carte;
+import com.gauthier.remuemeninges.Vue.CardActivity;
 import com.gauthier.remuemeninges.Vue.CreateCardActivity;
+import com.gauthier.remuemeninges.Vue.HistoActivity;
+
 import org.json.JSONArray;
 import java.util.ArrayList;
 import java.util.Date;
@@ -76,11 +79,8 @@ public final class Controle{
         Carte uneCarte=new Carte(langue,question,indice,reponse,categorie,level);
         lesCartes.add(uneCarte);
         Log.d("date",new Date()+"*************");
-        //accesLocal.ajout(carte);
         accesDistant.envoi("enreg",uneCarte.convertToJSONArray());
         Log.d("envoie bdd",uneCarte.convertToJSONArray().toString());
-
-        // Serializer.serialize(nomFichier,profil,contexte);
     }
 
     /**
@@ -88,7 +88,9 @@ public final class Controle{
      * @param carte
      */
     public void delCarte(Carte carte){
+        //requête serveur
         accesDistant.envoi("del",carte.convertToJSONArray());
+        //suppression de la carte dans la liste de cartes
         lesCartes.remove(carte);
     }
 
@@ -97,9 +99,11 @@ public final class Controle{
      * @param carte
      */
     public void setCarte(Carte carte) {
+        Log.i("Controle","setCarte");
         Controle.carte = carte;
-        if (contexte instanceof CreateCardActivity) {
-            ((CreateCardActivity) contexte).recupCarte();
+        if (contexte instanceof CardActivity) {
+            ((CardActivity) contexte).recupCarte();
+            Log.i("Controle","contexte = CardActivity");//on ne passe pas !
         }
     }
     /**
