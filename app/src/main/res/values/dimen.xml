@@ -6,5 +6,11 @@
     <dimen name="title_txt">36sp</dimen>
     <dimen name="list_txt">12sp</dimen>
 
+    <dimen name="btn_txt2">36sp</dimen>
+    <dimen name="txt_view2">28sp</dimen>
+    <dimen name="radio_btn2">24sp</dimen>
+    <dimen name="title_txt2">46sp</dimen>
+    <dimen name="list_txt2">22sp</dimen>
+
 
 </resources>
