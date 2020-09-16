@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".Vue.HistoActivity">
 
@@ -24,14 +25,25 @@
         android:text="@string/histo_txt_recherche_par_mot_cl"
         android:textSize="@dimen/txt_view"
         android:textStyle="bold" />
-
-    <SearchView
-        android:id="@+id/histo_keyword"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="50sp"
-        android:layout_marginRight="50sp"
-        android:inputType="textAutoCorrect|text" />
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10sp"
+            android:background="@color/colorAccent"
+            app:srcCompat="@android:drawable/ic_menu_search"
+           />
+        <EditText
+            android:id="@+id/histo_keyword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textAutoCorrect|text" />
+    </LinearLayout>
+
+
 
     <RadioGroup
         android:id="@+id/histo_rg"

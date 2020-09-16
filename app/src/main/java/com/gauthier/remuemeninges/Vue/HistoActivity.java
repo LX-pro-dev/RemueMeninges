@@ -2,13 +2,18 @@ package com.gauthier.remuemeninges.Vue;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -26,7 +31,7 @@ public class HistoActivity extends AppCompatActivity {
 
     private Controle controle;
     private HistoListAdapter adapter;
-    private SearchView histo_keyword;
+    private EditText histo_keyword;
     private RadioButton histoRbDate;
     private RadioButton histoRbLevel;
     private RadioButton histoRbCategoy;
@@ -38,7 +43,7 @@ public class HistoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_histo);
         this.controle = Controle.getInstance(this);
-        histo_keyword = (SearchView) findViewById(R.id.histo_keyword);
+        histo_keyword = (EditText) findViewById(R.id.histo_keyword);
         histoRbDate = (RadioButton) findViewById(R.id.histoRbDate);
         histoRbLevel = (RadioButton) findViewById(R.id.histoRbLevel);
         histoRbCategoy = (RadioButton) findViewById(R.id.histoRbCategoy);
@@ -70,8 +75,6 @@ public class HistoActivity extends AppCompatActivity {
      */
     private ArrayList<Carte> tri(ArrayList<Carte> lesCartes) {
         //récupérer l'état du radiogroup (date, level catégorie)
-
-
         //récupération de la collection
         Collections.sort(lesCartes, new Comparator<Carte>() {
             @Override
@@ -100,19 +103,29 @@ public class HistoActivity extends AppCompatActivity {
     //écouter les événements (2 méthodes): changement de rb et ajout d'un mot clé / txtQuestion
     public void setListeners() {
         //attache l'écouteur au btn search
-        histo_keyword.setOnClickListener((View.OnClickListener) this);
+        histo_keyword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {}
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+        });
         histoRbDate.setOnClickListener((View.OnClickListener) this);
         histoRbLevel.setOnClickListener((View.OnClickListener) this);
         histoRbCategoy.setOnClickListener((View.OnClickListener) this);
+
         //récupérer le text
-        String text = null;
+        String text = histo_keyword.getText().toString();
+
         //faire un appel à Cartes.search() pour mettre à jour la liste des cartes
         adapter.updateItems(Carte.search(controle.getLesCartes(), text));
 
         //attacher l'écouteur du radiogroup de tri pour définir le mode de tri
         //récupérer le mode sélectionné
         adapter.updateItems(tri(adapter.getItems()));
-
     }
 
     /**
