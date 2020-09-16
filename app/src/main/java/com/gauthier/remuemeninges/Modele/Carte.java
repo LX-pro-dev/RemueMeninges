@@ -1,5 +1,7 @@
 package com.gauthier.remuemeninges.Modele;
 
+import android.widget.RadioButton;
+
 import com.gauthier.remuemeninges.Controle.Controle;
 import org.json.JSONArray;
 import java.io.Serializable;
@@ -10,7 +12,7 @@ import java.util.List;
 /**
  * Created by Alexandre GAUTHIER on 14/05/2020.
  */
-public class Carte implements Comparable<Carte> {
+public class Carte implements Comparable{//j'ai enlevé implement Comparable
     //propriétés
     private Integer numCarte;
     private Integer categorie;
@@ -96,18 +98,25 @@ public class Carte implements Comparable<Carte> {
     }
 
     /**
-     * Méthode pour comparer les dates de 2 cartes entre elles
-     * @param carte
+     * Parcourir la liste de carte et rechercher dans les textes de question
+     * s'il y a le mot clé correspondant et recréer une liste de cartes
+     * @param lesCartes
+     * @param keyword
      * @return
      */
-    @Override
-    public int compareTo(Carte carte) {//il faudra ajouter une condition lorsque le choix de recherche
-        // dans la liste se fera par date, par level, par catégory ou par mot clé
-        if (this.datecreation.after(carte.datecreation)) {
-            return 1;
-        }else if(this.datecreation.equals(carte.datecreation)){
-            return 0;
+    public static ArrayList<Carte> search(ArrayList<Carte> lesCartes, String keyword){
+        ArrayList<Carte> listMotCle = new ArrayList<>();
+        for(Carte carte : lesCartes){
+            if (carte.question.contains(keyword)){
+                listMotCle.add(carte);
+            }
         }
-        return -1;
+        return listMotCle;
+    }
+
+
+   @Override
+    public int compareTo(Object o) {
+        return 0;
     }
 }

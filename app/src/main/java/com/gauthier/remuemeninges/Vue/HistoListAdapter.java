@@ -32,6 +32,15 @@ public class HistoListAdapter extends BaseAdapter {
         this.contexte=contexte;
     }
 
+    public ArrayList<Carte> getItems(){
+        return lesCartes;
+    }
+
+    public void updateItems(ArrayList<Carte> items){
+        this.lesCartes.clear();
+        this.lesCartes.addAll(items);
+        notifyDataSetChanged();//raffraichissement de la collection
+    }
     /**
      * retourne le nb de lignes de la liste
      * @return

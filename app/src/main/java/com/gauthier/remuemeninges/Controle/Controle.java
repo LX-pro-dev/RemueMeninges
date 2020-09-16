@@ -180,7 +180,7 @@ public final class Controle{
         return carte.getLevel();
     }
     public Carte getCarte(){
-        if(carte ==null){
+        if(carte == null){
             return null;
         }
         return carte;

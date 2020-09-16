@@ -44,20 +44,27 @@ public class CardActivity extends AppCompatActivity{
     }
 
     public void init() {
-            Log.i("CardActivity", "init()");
         carte = Controle.getInstance(this).getCarte();
         if (carte != null) {
-            Log.i("CardActivity","test init()"+carte.getQuestion());
+            //récupération et affichage des informations de la carte
             questionTV = findViewById(R.id.cardTextViewQuestion);
             questionTV.setText(carte.getQuestion());
+
             reponseTV = findViewById(R.id.cardTextViewResponse);
             reponseTV.setText(carte.getReponse().toString());
+
             clueTV = findViewById(R.id.cardTextViewClue);
             clueTV.setText(carte.getIndice());
+
             categoryTV = findViewById(R.id.cardLblCategory);
             categoryTV.setText(carte.getCategorie().toString());
+
             levelRB = findViewById(R.id.cardRatingBar);
             levelRB.setRating((int)carte.getLevel());
+
+            //remettre à vide la carte
+            Controle.getInstance(this).setCarte(null);
+
         } else {
             //récupération de la liste des cartes
             ArrayList<Carte> listCartes = Controle.getInstance(this).getLesCartes();
@@ -112,23 +119,6 @@ public class CardActivity extends AppCompatActivity{
         reponseTV.setVisibility(View.VISIBLE);
     }
 
-    /**
-     * récupération de la carte si elle a été sérialisée
-     * @return
-     */
-    public void recupCarte(Controle controle){
-        //Log.i("recupCarte",controle.getTxtQuestion());
-        if(controle.getTxtQuestion()!=null){
-            questionTV.setText(controle.getTxtQuestion());
-            reponseTV.setText(controle.getTxtReponse());
-            clueTV.setText(controle.getTxtIndice());
-            categoryTV.setText(controle.getCategorie());
-            levelRB.setRating(controle.getLevel());
-
-            //vider la carte lorsque l'on ressort de CardActivity
-            //controle.setCarte(null);
-        }
-    }
     /**
      * retour à la page d'accueil
      * @param view
