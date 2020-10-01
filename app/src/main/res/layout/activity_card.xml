@@ -23,28 +23,30 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:numStars="3"
-            android:layout_marginTop="20sp"
-            android:paddingTop="10sp" />
+            style="?android:attr/ratingBarStyleIndicator"
+            android:layout_marginTop="15sp"
+            android:paddingTop="5sp" />
 
         <TextView
             android:id="@+id/cardTxtViewCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20sp"
+            android:layout_marginTop="15sp"
             android:text="@string/card_category"
             android:textSize="@dimen/txt_view"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/cardLblCategory"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginTop="20sp"
-            android:padding="5dp"
-            android:textSize="@dimen/txt_view"
-            android:textStyle="bold" />
+    <TextView
+        android:id="@+id/cardLblCategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="15sp"
+        android:layout_marginHorizontal="10dp"
+        android:padding="5dp"
+        android:textSize="@dimen/txt_view"
+        android:textStyle="bold" />
 
         <TextView
             android:id="@+id/cardTextViewQuestion"
@@ -53,7 +55,7 @@
             android:layout_gravity="center_horizontal"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:layout_marginTop="20sp"
+            android:layout_marginTop="10sp"
             android:text="@string/card_question"
             android:textSize="@dimen/txt_view"
             android:textStyle="bold" />
@@ -62,16 +64,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="20sp"
+            android:layout_marginTop="10sp"
             >
 
-            <TextView
-                android:id="@+id/cardLblQuestion"
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:inputType="textAutoCorrect|textMultiLine"
-                android:textSize="@dimen/txt_view" />
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/cardLblQuestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:inputType="textAutoCorrect|textMultiLine"
+                    android:textSize="@dimen/txt_view" />
+            </ScrollView>
+
 
             <ImageButton
                 android:id="@+id/imageButton4"
@@ -95,7 +102,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20sp"
+            android:layout_marginTop="10sp"
             android:orientation="horizontal">
 
             <TextView
@@ -128,7 +135,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20sp"
+            android:layout_marginTop="10sp"
             android:orientation="horizontal">
 
             <TextView
@@ -152,34 +159,32 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:gravity="center|center_horizontal">
+            android:gravity="center_horizontal|bottom">
 
             <Button
                 android:id="@+id/cardBtnAccueil"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginBottom="20dp"
                 android:background="#FFFFFF"
                 android:gravity="bottom|end"
                 android:onClick="cardBtndHome"
                 android:padding="20dp"
                 android:text="@string/card_accueil"
                 android:textSize="@dimen/btn_txt"
-                android:textStyle="bold"
-                android:visibility="visible"
-                tools:visibility="visible" />
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/cardBtnNewCard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:gravity="end"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"                android:gravity="end"
                 android:onClick="cardBtnEditNewCard"
                 android:padding="20dp"
                 android:text="@string/card_next_card"

@@ -165,7 +165,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="60sp"
                 android:orientation="horizontal">
 
                 <EditText
@@ -194,9 +193,8 @@
                 android:id="@+id/creaTextViewLevel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20sp"
-                android:layout_marginBottom="10sp"
-                android:gravity="center"
+                android:layout_marginTop="15sp"
+                android:gravity="top|center"
                 android:text="@string/crea_level"
                 android:textSize="@dimen/txt_view"
                 android:textStyle="bold" />
@@ -206,6 +204,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                style="?android:attr/ratingBarStyleIndicator"
                 android:numStars="3"
                 android:rating="1" />
 
@@ -213,7 +212,7 @@
                 android:id="@+id/creaBtnEnregistrer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_gravity="center|bottom"
                 android:layout_marginTop="20sp"
                 android:layout_marginBottom="5sp"
                 android:text="@string/crea_enregistrer_card"
