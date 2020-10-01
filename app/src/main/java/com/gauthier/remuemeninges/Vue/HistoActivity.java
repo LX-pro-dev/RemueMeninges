@@ -5,15 +5,12 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RadioButton;
-import android.widget.SearchView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,9 +20,6 @@ import com.gauthier.remuemeninges.R;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
-
-import static com.gauthier.remuemeninges.Controle.Controle.carte;
 
 public class HistoActivity extends AppCompatActivity {
 
@@ -70,33 +64,36 @@ public class HistoActivity extends AppCompatActivity {
 
     /**
      * tri des cartes en fonction du rb sélectionné
+     *
      * @param lesCartes
      * @return
      */
-    private ArrayList<Carte> tri(ArrayList<Carte> lesCartes) {
+    private ArrayList<Carte> tri(ArrayList<Carte> lesCartes) {//crash car les cartes crééer n'ont pas de date
+
+        Log.i("TAG", "nb cartes = " + lesCartes.size());
         //récupérer l'état du radiogroup (date, level catégorie)
         //récupération de la collection
-        Collections.sort(lesCartes, new Comparator<Carte>() {
-            @Override
-            public int compare(Carte o1, Carte o2) {
-                //tri en fonction des dates de création des cartes
-                if (histoRbDate.isChecked()) {
-                    if (o1.getDatecreation().after(o2.getDatecreation())) {
-                        return 1;
-                    } else if (o1.getDatecreation().equals(o2.getDatecreation())) {
-                        return 0;
-                    }
-                    return -1;
-                    //tri en fonction du niveau de difficulté de la carte
-                } else if (histoRbLevel.isChecked()) {
-                    return o1.getLevel().compareTo(o2.getLevel());
-                    //tri en fonction de la catégorie de la carte
-                } else if (histoRbCategoy.isChecked()) {
-                    return o1.getCategorie().compareTo(o2.getCategorie());
+        Collections.sort(lesCartes, (o1, o2) -> {
+            //tri en fonction des dates de création des cartes
+            if (histoRbDate.isChecked()) {
+                if (o1.getDatecreation() == null || o2.getDatecreation() == null) {
+                    return 0;
+                } else if (o1.getDatecreation().after(o2.getDatecreation())) {
+                    return 1;
+                } else if (o1.getDatecreation().equals(o2.getDatecreation())) {
+                    return 0;
                 }
-                return 0;   //j'ai mis ce return là sans être persuadé que ce soit bon...
+                return -1;
+                //tri en fonction du niveau de difficulté de la carte
+            } else if (histoRbLevel.isChecked()) {
+                return o1.getLevel().compareTo(o2.getLevel());
+                //tri en fonction de la catégorie de la carte
+            } else if (histoRbCategoy.isChecked()) {
+                return o1.getCategorie().compareTo(o2.getCategorie());
             }
+            return 0;   //j'ai mis ce return là sans être persuadé que ce soit bon...
         });
+        Log.i("TAG", "nb cartes après tri = " + lesCartes.size());
         return lesCartes;
     }
 
@@ -105,27 +102,44 @@ public class HistoActivity extends AppCompatActivity {
         //attache l'écouteur au btn search
         histo_keyword.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+
+                Log.i("TAG", s.toString().toLowerCase());
+                if (s.toString().isEmpty()) {
+                    adapter.updateItems(controle.getLesCartes());
+                } else {
+                    //appeler la méthode search pour l'applicquer à la liste
+                    //faire un appel à Cartes.search() pour mettre à jour la liste des cartes
+                    adapter.updateItems(Carte.search(adapter.getItems(), s.toString()));
+                }
+            }
+
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
         });
-        histoRbDate.setOnClickListener((View.OnClickListener) this);
-        histoRbLevel.setOnClickListener((View.OnClickListener) this);
-        histoRbCategoy.setOnClickListener((View.OnClickListener) this);
-
-        //récupérer le text
-        String text = histo_keyword.getText().toString();
-
-        //faire un appel à Cartes.search() pour mettre à jour la liste des cartes
-        adapter.updateItems(Carte.search(controle.getLesCartes(), text));
-
-        //attacher l'écouteur du radiogroup de tri pour définir le mode de tri
-        //récupérer le mode sélectionné
-        adapter.updateItems(tri(adapter.getItems()));
+        histoRbDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adapter.updateItems(tri(adapter.getItems()));
+            }
+        });
+        histoRbLevel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adapter.updateItems(tri(adapter.getItems()));
+            }
+        });
+        histoRbCategoy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adapter.updateItems(tri(adapter.getItems()));
+            }
+        });
     }
 
     /**
@@ -145,21 +159,23 @@ public class HistoActivity extends AppCompatActivity {
             }
 
         });
-
-        /**
-         * demande d'afficher la carte dans CardActivity
-         * @param carte
-         */
-        public void afficheCarte(Carte carte){
-            Log.i("HistoAct", "afficheCarte()");
-            controle.setCarte(carte);
-            Intent intent = new Intent(HistoActivity.this, CardActivity.class);
-            intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK | intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-
-        }
     }
 
+    /**
+     * demande d'afficher la carte dans CardActivity
+     *
+     * @param carte
+     */
+    public void afficheCarte(Carte carte) {
+        Log.i("HistoAct", "afficheCarte()");
+        controle.setCarte(carte);
+        Intent intent = new Intent(HistoActivity.this, CardActivity.class);
+        intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK | intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
 
+    }
 }
+
+
+
 

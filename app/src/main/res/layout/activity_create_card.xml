@@ -1,224 +1,237 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Vue.CreateCardActivity"
-    android:orientation="vertical">
-    <TextView
-        android:id="@+id/histoTextViewModeSearch"
+    android:orientation="vertical"
+    tools:context=".Vue.CreateCardActivity">
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/crea_category"
-        android:textSize="@dimen/txt_view"
-        android:textStyle="bold"
-        android:layout_marginTop="10sp"/>
+        android:layout_height="match_parent">
 
-    <RadioGroup
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="20sp"
-        android:padding="5sp">
-        <RadioButton
-            android:id="@+id/creaRbCat1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="5sp"
-            android:checked="true"
-            android:text="@string/cat1"
-            android:textSize="@dimen/radio_btn" />
-
-        <RadioButton
-            android:id="@+id/creaRbCat2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/cat2"
-            android:textSize="@dimen/radio_btn" />
-
-        <RadioButton
-            android:id="@+id/creaRbCat3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="5sp"
-            android:text="@string/cat3"
-            android:textSize="@dimen/radio_btn" />
-        <RadioButton
-            android:id="@+id/creaRbCat4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/cat4"
-            android:textSize="@dimen/radio_btn" />
-
-        <RadioButton
-            android:id="@+id/creaRbCat5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="5sp"
-            android:text="@string/cat5"
-            android:textSize="@dimen/radio_btn" />
-
-        <RadioButton
-            android:id="@+id/creaRbCat6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/cat6"
-            android:textSize="@dimen/radio_btn" />
-
-    </RadioGroup>
-
-    <TextView
-        android:id="@+id/creaTextViewQuestion"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/crea_question"
-        android:layout_marginTop="20sp"
-        android:textSize="@dimen/txt_view"
-        android:textStyle="bold" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/creaTxtQuestion"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:autofillHints=""
-            android:ems="10"
-            android:hint="@string/quelle_est_la_couleur_du_cheval_blanc_d_henri_iv_a_blanc_b_rouge_c_vert_d_rose"
-            android:inputType="textAutoCorrect|textMultiLine"
-            android:textSize="@dimen/txt_view" />
+            android:orientation="vertical">
 
-        <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:layout_gravity="end"
-            android:contentDescription="@string/crea_btn_question_recorder"
-            app:srcCompat="@android:drawable/ic_btn_speak_now" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/histoTextViewModeSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
+                android:gravity="center"
+                android:text="@string/crea_category"
+                android:textSize="@dimen/txt_view"
+                android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/creaTextViewIndice"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/crea_indice"
-        android:textSize="@dimen/txt_view"
-        android:layout_marginTop="20sp"
-        android:textStyle="bold" />
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20sp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:padding="5sp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/creaRbCat1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:padding="5sp"
+                    android:text="@string/cat1"
+                    android:textSize="@dimen/radio_btn" />
 
-        <EditText
-            android:id="@+id/creaTxtIndice"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/ce_n_est_pas_une_couleur"
-            android:importantForAutofill="no"
-            android:inputType="textAutoCorrect|textMultiLine"
-            android:textSize="@dimen/txt_view" />
+                <RadioButton
+                    android:id="@+id/creaRbCat2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cat2"
+                    android:textSize="@dimen/radio_btn" />
 
-        <ImageButton
-            android:id="@+id/imageButton2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:layout_gravity="end"
-            android:contentDescription="@string/crea_btn_clue_recorder"
-            app:srcCompat="@android:drawable/ic_btn_speak_now" />
-    </LinearLayout>
+                <RadioButton
+                    android:id="@+id/creaRbCat3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5sp"
+                    android:text="@string/cat3"
+                    android:textSize="@dimen/radio_btn" />
 
-    <TextView
-        android:id="@+id/creaTextViewReponse"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/crea_response"
-        android:textSize="@dimen/txt_view"
-        android:textStyle="bold"
-        android:layout_marginTop="20sp"/>
+                <RadioButton
+                    android:id="@+id/creaRbCat4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cat4"
+                    android:textSize="@dimen/radio_btn" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="60sp">
+                <RadioButton
+                    android:id="@+id/creaRbCat5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5sp"
+                    android:text="@string/cat5"
+                    android:textSize="@dimen/radio_btn" />
 
-        <EditText
-            android:id="@+id/creaTxtReponse"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:importantForAutofill="no"
-            android:ems="10"
-            android:hint="@string/blanc"
-            android:inputType="textAutoCorrect|textMultiLine"
-            android:textSize="@dimen/txt_view"
-            />
+                <RadioButton
+                    android:id="@+id/creaRbCat6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cat6"
+                    android:textSize="@dimen/radio_btn" />
 
-        <ImageButton
-            android:id="@+id/imageButton3"
-            android:layout_width="108dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:visibility="gone"
-            android:layout_weight="1"
-            android:contentDescription="@string/crea_btn_answer_recorder"
-            app:srcCompat="@android:drawable/ic_btn_speak_now" />
+            </RadioGroup>
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/creaTextViewQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20sp"
+                android:gravity="center"
+                android:text="@string/crea_question"
+                android:textSize="@dimen/txt_view"
+                android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/creaTextViewLevel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10sp"
-        android:gravity="center"
-        android:text="@string/crea_level"
-        android:layout_marginTop="20sp"
-        android:textSize="@dimen/txt_view"
-        android:textStyle="bold" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-    <RatingBar
-        android:id="@+id/creaRatingBarLevel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:numStars="3"
-        android:rating="1" />
+                <EditText
+                    android:id="@+id/creaTxtQuestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints=""
+                    android:ems="10"
+                    android:hint="@string/quelle_est_la_couleur_du_cheval_blanc_d_henri_iv_a_blanc_b_rouge_c_vert_d_rose"
+                    android:inputType="textAutoCorrect|textMultiLine"
+                    android:textSize="@dimen/txt_view" />
 
-    <Button
-        android:id="@+id/creaBtnEnregistrer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="5sp"
-        android:layout_marginTop="20sp"
-        android:text="@string/crea_enregistrer_card"
-        android:textSize="@dimen/btn_txt" />
-    <Button
-        android:id="@+id/creaBtnHome"
-        android:onClick="creaBtnHome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:layout_marginRight="5sp"
-        android:layout_marginBottom="5sp"
-        android:text="@string/create_btn_accueil"
-        android:textSize="@dimen/btn_txt"
-        android:layout_marginEnd="5sp" />
+                <ImageButton
+                    android:id="@+id/imageButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:contentDescription="@string/crea_btn_question_recorder"
+                    android:visibility="gone"
+                    app:srcCompat="@android:drawable/ic_btn_speak_now" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/creaTextViewIndice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20sp"
+                android:gravity="center"
+                android:text="@string/crea_indice"
+                android:textSize="@dimen/txt_view"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/creaTxtIndice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/ce_n_est_pas_une_couleur"
+                    android:importantForAutofill="no"
+                    android:inputType="textAutoCorrect|textMultiLine"
+                    android:textSize="@dimen/txt_view" />
+
+                <ImageButton
+                    android:id="@+id/imageButton2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:contentDescription="@string/crea_btn_clue_recorder"
+                    android:visibility="gone"
+                    app:srcCompat="@android:drawable/ic_btn_speak_now" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/creaTextViewReponse"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20sp"
+                android:gravity="center"
+                android:text="@string/crea_response"
+                android:textSize="@dimen/txt_view"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="60sp"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/creaTxtReponse"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/blanc"
+                    android:importantForAutofill="no"
+                    android:inputType="textAutoCorrect|textMultiLine"
+                    android:textSize="@dimen/txt_view" />
+
+                <ImageButton
+                    android:id="@+id/imageButton3"
+                    android:layout_width="108dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/crea_btn_answer_recorder"
+                    android:visibility="gone"
+                    app:srcCompat="@android:drawable/ic_btn_speak_now" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/creaTextViewLevel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20sp"
+                android:layout_marginBottom="10sp"
+                android:gravity="center"
+                android:text="@string/crea_level"
+                android:textSize="@dimen/txt_view"
+                android:textStyle="bold" />
+
+            <RatingBar
+                android:id="@+id/creaRatingBarLevel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:numStars="3"
+                android:rating="1" />
+
+            <Button
+                android:id="@+id/creaBtnEnregistrer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20sp"
+                android:layout_marginBottom="5sp"
+                android:text="@string/crea_enregistrer_card"
+                android:textSize="@dimen/btn_txt" />
+
+            <Button
+                android:id="@+id/creaBtnHome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="5sp"
+                android:layout_marginRight="5sp"
+                android:layout_marginBottom="5sp"
+                android:onClick="creaBtnHome"
+                android:text="@string/create_btn_accueil"
+                android:textSize="@dimen/btn_txt" />
+        </LinearLayout>
+    </ScrollView>
 
 
 </LinearLayout>

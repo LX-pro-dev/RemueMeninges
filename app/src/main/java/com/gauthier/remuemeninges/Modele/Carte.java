@@ -4,6 +4,9 @@ import android.widget.RadioButton;
 
 import com.gauthier.remuemeninges.Controle.Controle;
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -76,6 +79,14 @@ public class Carte implements Comparable{//j'ai enlevé implement Comparable
         return indice;
     }
 
+    public void setDatecreation(Date datecreation) {
+        this.datecreation = datecreation;
+    }
+
+    public void setNumCarte(Integer numCarte) {
+        this.numCarte = numCarte;
+    }
+
     public String getLangue() { return langue; }
 
     public Integer getLevel() { return level;  }
@@ -86,15 +97,28 @@ public class Carte implements Comparable{//j'ai enlevé implement Comparable
      * conversion de carte au format JSONArray
      * @return
      */
-    public JSONArray convertToJSONArray(){
-        List<Serializable> laListe= new ArrayList<>();
-        laListe.add(langue);
-        laListe.add(question);
-        laListe.add(indice);
-        laListe.add(reponse);
-        laListe.add(categorie);
-        laListe.add(level);
-        return new JSONArray(laListe);
+    public JSONObject convertToJSONObject(){
+//        List<Serializable> laListe= new ArrayList<>();
+//        laListe.add(langue);
+//        laListe.add(question);
+//        laListe.add(indice);
+//        laListe.add(reponse);
+//        laListe.add(categorie);
+//        laListe.add(level);
+        JSONObject carte = new JSONObject();
+        try {
+            carte.put("langue","fr");
+            carte.put("question", getQuestion());
+            carte.put("indice", getIndice());
+            carte.put("reponse", getReponse());
+            carte.put("category", getCategorie());
+            carte.put("level", getLevel());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return carte;
     }
 
     /**

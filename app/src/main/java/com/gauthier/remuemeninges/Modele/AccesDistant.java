@@ -23,6 +23,7 @@ public class AccesDistant implements AsyncResponse{
     private static final String SERVERADDR = "http://alexdev.remue-meninges.secondlab.net/serveur.php";
     private Controle controle;
     private SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.FRENCH);
+
     /**
      * constructeur
      */
@@ -37,7 +38,7 @@ public class AccesDistant implements AsyncResponse{
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void processFinish(String output, String operation) {
-        Log.d("serveur", output + "************");
+        Log.d("serveur", output + "************" + operation);
 
         switch (operation) {
             // "tous" pour récupérer toutes les cartes, à travailler : PUT, DELETE et POST
@@ -65,18 +66,21 @@ public class AccesDistant implements AsyncResponse{
                 }
                 break;
         }
+
     }
 
-    public void envoi(String operation, JSONArray lesDonneesJSON) {//JSONArray pour les envoies de données de la carte à enregistrer
+    public void envoi(String operation, JSONObject lesDonneesJSON) {//JSONArray pour les envois de données de la carte à enregistrer
         AccesHTTP accesDonnees = new AccesHTTP();
 
         accesDonnees.setOperation(operation);
         //lien de délégation
         accesDonnees.delegate = (AsyncResponse) this;
+
         if (operation == "tous") {
             //ajout paramètres
             accesDonnees.addParam("operation", operation);
             accesDonnees.addParam("langue", "fr");//"fr" en dur car pas encore travaillé sur le choix de la langue
+            Log.d("serveur tous", accesDonnees.toString());
 
             accesDonnees.execute(SERVERADDR, "GET");
 
@@ -84,7 +88,8 @@ public class AccesDistant implements AsyncResponse{
             //ajout paramètres
             accesDonnees.addParam("operation", operation);
             accesDonnees.addParam("langue", "fr");//"fr" en dur car pas encore travaillé sur le choix de la langue
-            accesDonnees.addParam("lesdonnees",lesDonneesJSON.toString());
+            accesDonnees.setBodyParams(lesDonneesJSON.toString());
+            Log.d("serveur", accesDonnees.toString());
 
             accesDonnees.execute(SERVERADDR, "POST");
         }

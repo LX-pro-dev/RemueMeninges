@@ -47,4 +47,6 @@
     <string name="card_level">NIVEAU DE DIFFICULTE</string>
     <string name="home_bt_create">CREATION DE CARTES</string>
     <string name="create_btn_accueil">ACCUEIL</string>
+    <string name="list_histo_level">niveau de difficulté</string>
+    <string name="list_histo_bt_delete">suppression de la carte</string>
 </resources>

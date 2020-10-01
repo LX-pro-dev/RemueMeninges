@@ -7,10 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
+import android.widget.RatingBar;
 import android.widget.TextView;
+
 import com.gauthier.remuemeninges.Controle.Controle;
 import com.gauthier.remuemeninges.Modele.Carte;
 import com.gauthier.remuemeninges.R;
+
 import java.util.ArrayList;
 
 /**
@@ -21,28 +24,31 @@ public class HistoListAdapter extends BaseAdapter {
     private LayoutInflater inflater;
     private Controle controle;
     private Context contexte;
+
     /**
      * Constructeur
+     *
      * @param lesCartes
      */
-    public HistoListAdapter(Context contexte, ArrayList<Carte> lesCartes){
-        this.lesCartes = lesCartes;
-        this.inflater=LayoutInflater.from(contexte);
-        this.controle=Controle.getInstance(null);
-        this.contexte=contexte;
+    public HistoListAdapter(Context contexte, ArrayList<Carte> lesCartes) {
+        this.lesCartes = new ArrayList<>(lesCartes);
+        this.inflater = LayoutInflater.from(contexte);
+        this.controle = Controle.getInstance(null);
+        this.contexte = contexte;
     }
 
-    public ArrayList<Carte> getItems(){
+    public ArrayList<Carte> getItems() {
         return lesCartes;
     }
 
-    public void updateItems(ArrayList<Carte> items){
-        this.lesCartes.clear();
-        this.lesCartes.addAll(items);
+    public void updateItems(ArrayList<Carte> items) {
+        this.lesCartes = new ArrayList<>(items);
         notifyDataSetChanged();//raffraichissement de la collection
     }
+
     /**
      * retourne le nb de lignes de la liste
+     *
      * @return
      */
     @Override
@@ -52,6 +58,7 @@ public class HistoListAdapter extends BaseAdapter {
 
     /**
      * retourne l'item de la ligne actuelle
+     *
      * @param i = position
      * @return
      */
@@ -62,6 +69,7 @@ public class HistoListAdapter extends BaseAdapter {
 
     /**
      * retourne un indice par rapport à la ligne actuelle
+     *
      * @param i
      * @return
      */
@@ -72,6 +80,7 @@ public class HistoListAdapter extends BaseAdapter {
 
     /**
      * retourne la ligne (view) formatée avec gestion des événements
+     *
      * @param position
      * @param convertView
      * @param parent
@@ -82,31 +91,36 @@ public class HistoListAdapter extends BaseAdapter {
         //déclaration d'un holder
         ViewHolder holder;
         // si la ligne n'existe pas encore
-        if(convertView==null) {
+        if (convertView == null) {
             holder = new ViewHolder();
             //la ligne est construite avec un formatage (inflater) relié à layout_list_histo
             convertView = inflater.inflate(R.layout.layout_list_histo, null);
             //chaque propriété du holder est reliée à une propriété graphique
-            holder.btDeleteCard=(ImageButton)convertView.findViewById(R.id.btDeleteCard);
-            holder.txtListDateCard=(TextView)convertView.findViewById(R.id.histoDateCrea);
-            holder.txtListCategory=(TextView)convertView.findViewById(R.id.histoCategory);
-            holder.txtListQuestion=(TextView)convertView.findViewById(R.id.histoQuestion);
+            holder.btDeleteCard = (ImageButton) convertView.findViewById(R.id.btDeleteCard);
+            holder.txtListDateCard = (TextView) convertView.findViewById(R.id.histoDateCrea);
+            holder.txtListCategory = (TextView) convertView.findViewById(R.id.histoCategory);
+            holder.txtListQuestion = (TextView) convertView.findViewById(R.id.histoQuestion);
+            holder.histoRatingBar = (RatingBar) convertView.findViewById(R.id.histoRatingBarLevel);
 
             //affecter le holder à la vue
             convertView.setTag(holder);
-        }else{
+        } else {
             //récupération du holder dans la ligne existante
-            holder=(ViewHolder)convertView.getTag();
+            holder = (ViewHolder) convertView.getTag();
         }
 
         //valorisation du contenu du holder (donc de la ligne)
-        holder.txtListDateCard.setText(lesCartes.get(position).getNumCarte().toString());
-        holder.txtListCategory.setText(lesCartes.get(position).getCategorie().toString());
-        holder.txtListQuestion.setText(lesCartes.get(position).getQuestion());
+        if (lesCartes.get(position).getDatecreation().toString() != null && lesCartes.get(position).getCategorie().toString() != null && lesCartes.get(position).getQuestion() != null) {
+            holder.txtListDateCard.setText(lesCartes.get(position).getDatecreation().toString());
+            holder.txtListCategory.setText(lesCartes.get(position).getCategorie().toString());
+            holder.txtListQuestion.setText(lesCartes.get(position).getQuestion());
+            holder.histoRatingBar.setRating(lesCartes.get(position).getLevel());
+        }
+
 
         //événement : clic sur bouton delete
         holder.btDeleteCard.setTag(position);
-        Log.i("Histo holder","position = " + position);
+        Log.i("Histo holder", "position = " + position);
         //clic sur la croix pour supprimer le profil enregistré
         holder.btDeleteCard.setOnClickListener(new View.OnClickListener() {
             //pour gérer un événement sur on objet graphique
@@ -121,7 +135,7 @@ public class HistoListAdapter extends BaseAdapter {
                 //rafraichir la liste
                 notifyDataSetChanged();
             }
-        } );
+        });
 
         //clic sur le reste de la ligne pour afficher la carte enregistrée (date ou question)
         holder.txtListDateCard.setTag(position);
@@ -133,16 +147,16 @@ public class HistoListAdapter extends BaseAdapter {
             public void onClick(View v) {
                 //récupère la position de la ligne dans la liste
                 int position = (int) v.getTag();
-                Log.i("HistoList onClick","position = " + position);
+                Log.i("HistoList onClick", "position = " + position);
 
                 //demande de l'affichage de la carte dans CardActivity
-                ((HistoActivity)contexte).afficheCarte(lesCartes.get(position));
+                ((HistoActivity) contexte).afficheCarte(lesCartes.get(position));
             }
-        } );
+        });
 
         holder.txtListQuestion.setTag(position);
         //clic sur le reste de la ligne pour afficher le profil enregistré
-        Log.i("HistoList onClick","position = " + position);
+        Log.i("HistoList onClick", "position = " + position);
         holder.txtListQuestion.setOnClickListener(new View.OnClickListener() {
             //pour gérer un événement sur on objet graphique
             // on recherche l'objet graphique ac R.id
@@ -151,14 +165,15 @@ public class HistoListAdapter extends BaseAdapter {
                 //récupère la position de la ligne
                 int position = (int) v.getTag();
                 //demande de l'affichage de la carte dans CardActivity
-                ((HistoActivity)contexte).afficheCarte(lesCartes.get(position));
+                ((HistoActivity) contexte).afficheCarte(lesCartes.get(position));
             }
-        } );
+        });
         return convertView;
     }
 
 
-    private class ViewHolder{
+    private class ViewHolder {
+        RatingBar histoRatingBar;
         ImageButton btDeleteCard;
         TextView txtListDateCard;
         TextView txtListCategory;

@@ -2,52 +2,52 @@ package com.gauthier.remuemeninges.Controle;
 
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.gauthier.remuemeninges.Modele.AccesDistant;
 import com.gauthier.remuemeninges.Modele.Carte;
-import com.gauthier.remuemeninges.Vue.CardActivity;
-import com.gauthier.remuemeninges.Vue.CreateCardActivity;
-import com.gauthier.remuemeninges.Vue.HistoActivity;
 
-import org.json.JSONArray;
 import java.util.ArrayList;
 import java.util.Date;
 
 /**
  * Created by Alexandre GAUTHIER on 14/05/2020.
  */
-public final class Controle{
+public final class Controle {
     //singleton pattern
-    private static Controle instance=null;//accessible par la classe
+    private static Controle instance = null;//accessible par la classe
     private static Carte carte;
     private static AccesDistant accesDistant;
     private static Context contexte;
-    private ArrayList<Carte> lesCartes= new ArrayList<>();
+    private ArrayList<Carte> lesCartes = new ArrayList<>();
+
     /**
      * contructeur privé
      */
-    private Controle(){
-        super();}//ne déclare rien, on ne pourra faire new car déclaré en private
+    private Controle() {
+        super();
+    }//ne déclare rien, on ne pourra faire new car déclaré en private
 
 
     /**
      * création de l'instance
+     *
      * @return instance
      */
-    public static final Controle getInstance(Context contexte){//au lieu de faire new pour créer le contrôleur
-        if(contexte!=null){
-            Controle.contexte=contexte;
+    public static final Controle getInstance(Context contexte) {//au lieu de faire new pour créer le contrôleur
+        if (contexte != null) {
+            Controle.contexte = contexte;
         }
-        if(Controle.instance==null){//si l'instance n'est pas déjà créée, on la créée
-            Controle.instance= new Controle();
-            accesDistant= new AccesDistant();
-            accesDistant.envoi("tous",new JSONArray());//demande de récupérer tous les profils
+        if (Controle.instance == null) {//si l'instance n'est pas déjà créée, on la créée
+            Controle.instance = new Controle();
+            accesDistant = new AccesDistant();
+            accesDistant.envoi("tous", null);//demande de récupérer tous les profils
         }
         return Controle.instance;
     }
+
     /**
      * récupérer la liste des cartes
+     *
      * @return
      */
     public ArrayList<Carte> getLesCartes() {
@@ -56,6 +56,7 @@ public final class Controle{
 
     /**
      * ajouter la liste des cartes
+     *
      * @param lesCartes
      */
     public void setLesCartes(ArrayList<Carte> lesCartes) {
@@ -65,6 +66,7 @@ public final class Controle{
 
     /**
      * Création de carte
+     *
      * @param langue
      * @param question
      * @param indice
@@ -72,42 +74,47 @@ public final class Controle{
      * @param categorie
      * @param level
      */
-    public void creerCarte(String langue, String question, String indice, String reponse, Integer categorie, Integer level){// création du profil
+    public void creerCarte(String langue, String question, String indice, String reponse, Integer categorie, Integer level) {// création du profil
         // Appelle de cette méthode dans Main pour obtenir les infos de profil
         //on crée des cartes en français uniquement pour l'instant voir s'il n'y a pas conflit avec afficheResult()
-        langue="fr";
-        Carte uneCarte=new Carte(langue,question,indice,reponse,categorie,level);
+        Carte uneCarte = new Carte(langue, question, indice, reponse, categorie, level);
+        uneCarte.setDatecreation(new Date());
+        uneCarte.setNumCarte(lesCartes.get(lesCartes.size()-1).getNumCarte()+1);
+    Log.i("numCarte","***********" + lesCartes.get(lesCartes.size()-1).getNumCarte()+1);
         lesCartes.add(uneCarte);
-        Log.d("date",new Date()+"*************");
-        accesDistant.envoi("enreg",uneCarte.convertToJSONArray());
-        Log.d("envoie bdd",uneCarte.convertToJSONArray().toString());
+        accesDistant.envoi("enreg", uneCarte.convertToJSONObject());// il passe par processFinish d'AccesDistant au lieu de passer par envoi() !
+        Log.d("envoie bdd", uneCarte.convertToJSONObject().toString());
     }
 
     /**
      * supprimer une carte dans la base distante et la collection
+     *
      * @param carte
      */
-    public void delCarte(Carte carte){
+    public void delCarte(Carte carte) {
         //requête serveur
-        accesDistant.envoi("del",carte.convertToJSONArray());
+        accesDistant.envoi("del", carte.convertToJSONObject());
         //suppression de la carte dans la liste de cartes
         lesCartes.remove(carte);
     }
 
     /**
      * ajouter une carte dans la base distante et la collection
+     *
      * @param carte
      */
     public void setCarte(Carte carte) {
-        Log.i("Controle","setCarte");
+        Log.i("Controle", "setCarte");
         Controle.carte = carte;
     }
+
     /**
      * récupérer le numéro de l'objet sérialisé
+     *
      * @return
      */
-    public Integer getNumCarte(){
-        if(carte==null){
+    public Integer getNumCarte() {
+        if (carte == null) {
             return null;
         }
         return carte.getNumCarte();
@@ -116,10 +123,11 @@ public final class Controle{
     /**
      * récupérer la langue de l'objet sérialisé
      * ne sert pas encore car pas de gestion de la langue des cartes
+     *
      * @return
      */
-    public String getTxtLangue(){
-        if(carte==null){
+    public String getTxtLangue() {
+        if (carte == null) {
             return null;
         }
         return carte.getLangue();
@@ -127,10 +135,11 @@ public final class Controle{
 
     /**
      * récupérer la question de l'objet sérialisé
+     *
      * @return
      */
-    public String getTxtQuestion(){
-        if(carte==null){
+    public String getTxtQuestion() {
+        if (carte == null) {
             return null;
         }
         return carte.getQuestion();
@@ -138,10 +147,11 @@ public final class Controle{
 
     /**
      * récupérer la réponse de l'objet sérialisé
+     *
      * @return
      */
-    public String getTxtReponse(){
-        if(carte==null){
+    public String getTxtReponse() {
+        if (carte == null) {
             return null;
         }
         return carte.getReponse();
@@ -149,10 +159,11 @@ public final class Controle{
 
     /**
      * récupérer l'indice de l'objet sérialisé
+     *
      * @return
      */
-    public String getTxtIndice(){
-        if(carte==null){
+    public String getTxtIndice() {
+        if (carte == null) {
             return null;
         }
         return carte.getIndice();
@@ -160,10 +171,11 @@ public final class Controle{
 
     /**
      * récupérer la categorie l'objet sérialisé
+     *
      * @return
      */
-    public Integer getCategorie(){
-        if(carte==null){
+    public Integer getCategorie() {
+        if (carte == null) {
             return null;
         }
         return carte.getCategorie();
@@ -171,16 +183,18 @@ public final class Controle{
 
     /**
      * récupérer le niveau de difficulté de l'objet sérialisé
+     *
      * @return
      */
-    public Integer getLevel(){
-        if(carte==null){
+    public Integer getLevel() {
+        if (carte == null) {
             return null;
         }
         return carte.getLevel();
     }
-    public Carte getCarte(){
-        if(carte == null){
+
+    public Carte getCarte() {
+        if (carte == null) {
             return null;
         }
         return carte;

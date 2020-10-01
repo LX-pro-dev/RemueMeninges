@@ -1,6 +1,10 @@
 package com.gauthier.remuemeninges.Outils;
 
 import android.os.AsyncTask;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -17,7 +21,8 @@ public class AccesHTTP extends AsyncTask<String, Integer, Long> {
     public String ret=""; // information retournée par le serveur
     public AsyncResponse delegate=null; // gestion du retour asynchrone
     private String parametres = ""; // paramètres à envoyer en POST au serveur
-    private String operation =  "";
+    private String operation =  "";//type d'opération à effectuer
+    private String bodyParams;//partir de Gson (à importer) pour créer le message json
 
     public void setOperation(String operation) {
         this.operation = operation;
@@ -28,6 +33,19 @@ public class AccesHTTP extends AsyncTask<String, Integer, Long> {
      */
     public AccesHTTP() {
         super();
+    }
+
+
+    public void setBodyParams(String bodyParams) {
+
+        this.bodyParams = bodyParams;
+
+//        this.bodyParams = new JSONObject();
+//        try {
+//            this.bodyParams.put("lesdonnees", bodyParams);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
     }
 
     /**
@@ -75,11 +93,11 @@ public class AccesHTTP extends AsyncTask<String, Integer, Long> {
 
             if (options[1] == "POST") {
                 connexion.setDoOutput(true);
-                connexion.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-                connexion.setFixedLengthStreamingMode(parametres.getBytes().length);
+                connexion.setRequestProperty("Content-Type", "application/json");
+                connexion.setFixedLengthStreamingMode(bodyParams.toString().getBytes().length);
                 // création de la requete d'envoi sur la connexion, avec les paramètres
                 writer = new PrintWriter(connexion.getOutputStream());
-                writer.print(parametres);
+                writer.print(bodyParams.toString());
                 // Une fois l'envoi réalisé, vide le canal d'envoi
                 writer.flush();
             }

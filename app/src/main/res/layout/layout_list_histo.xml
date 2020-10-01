@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp">
 
     <ImageButton
         android:id="@+id/btDeleteCard"
@@ -10,22 +14,20 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10sp"
         android:layout_marginRight="10sp"
-        android:layout_weight="1"
-        android:visibility="gone"
+        android:contentDescription="@string/list_histo_bt_delete"
         android:paddingLeft="10sp"
         android:paddingRight="10sp"
+        android:visibility="gone"
         app:srcCompat="@android:drawable/ic_delete" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <TextView
@@ -38,16 +40,36 @@
 
             <TextView
                 android:id="@+id/histoCategory"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:textSize="@dimen/list_txt" />
+
+            <TextView
+                android:id="@+id/txtListLevel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:gravity="center"
+                android:text="@string/list_histo_level"
+                android:textSize="@dimen/list_txt" />
+
+            <RatingBar
+                android:id="@+id/histoRatingBarLevel"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="10dp"
+                android:numStars="3"
+                android:rating="1" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/txtListQuestion"
@@ -61,7 +83,6 @@
                 android:id="@+id/histoQuestion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:inputType="textAutoCorrect|textMultiLine|text"
                 android:textSize="@dimen/list_txt"
                 android:textStyle="bold" />
@@ -69,8 +90,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <TextView
@@ -85,7 +105,6 @@
                 android:id="@+id/histoDateCrea"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:textSize="@dimen/list_txt"
                 android:textStyle="bold" />
         </LinearLayout>
