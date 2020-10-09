@@ -79,8 +79,8 @@ public final class Controle {
         //on crée des cartes en français uniquement pour l'instant voir s'il n'y a pas conflit avec afficheResult()
         Carte uneCarte = new Carte(langue, question, indice, reponse, categorie, level);
         uneCarte.setDatecreation(new Date());
-        uneCarte.setNumCarte(lesCartes.get(lesCartes.size()-1).getNumCarte()+1);
-    Log.i("numCarte","***********" + lesCartes.get(lesCartes.size()-1).getNumCarte()+1);
+        uneCarte.setNumCarte(lesCartes.get(lesCartes.size() - 1).getNumCarte() + 1);
+        Log.i("numCarte", "***********" + lesCartes.get(lesCartes.size() - 1).getNumCarte() + 1);
         lesCartes.add(uneCarte);
         accesDistant.envoi("enreg", uneCarte.convertToJSONObject());// il passe par processFinish d'AccesDistant au lieu de passer par envoi() !
         Log.d("envoie bdd", uneCarte.convertToJSONObject().toString());
@@ -93,7 +93,7 @@ public final class Controle {
      */
     public void delCarte(Carte carte) {
         //requête serveur
-        accesDistant.envoi("del", carte.convertToJSONObject());
+        accesDistant.envoi("delete", carte.convertToJSONObject());
         //suppression de la carte dans la liste de cartes
         lesCartes.remove(carte);
     }
@@ -106,6 +106,17 @@ public final class Controle {
     public void setCarte(Carte carte) {
         Log.i("Controle", "setCarte");
         Controle.carte = carte;
+    }
+
+    /**
+     * modifier une carte dans la base distante
+     *
+     * @param carte
+     */
+    public void modifyCarte(Carte carte) {
+        //requête serveur
+        accesDistant.envoi("modify", carte.convertToJSONObject());
+        //modification de la carte dans la liste de cartes
     }
 
     /**
@@ -199,4 +210,6 @@ public final class Controle {
         }
         return carte;
     }
+
+
 }

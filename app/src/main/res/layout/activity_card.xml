@@ -23,7 +23,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:numStars="3"
-            style="?android:attr/ratingBarStyleIndicator"
             android:layout_marginTop="15sp"
             android:paddingTop="5sp" />
 

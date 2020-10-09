@@ -2,6 +2,7 @@ package com.gauthier.remuemeninges.Vue;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gauthier.remuemeninges.Controle.Controle;
 import com.gauthier.remuemeninges.Modele.Carte;
@@ -97,6 +99,7 @@ public class HistoListAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.layout_list_histo, null);
             //chaque propriété du holder est reliée à une propriété graphique
             holder.btDeleteCard = (ImageButton) convertView.findViewById(R.id.btDeleteCard);
+            holder.btModifycard = (ImageButton) convertView.findViewById(R.id.btModifyCard);
             holder.txtListDateCard = (TextView) convertView.findViewById(R.id.histoDateCrea);
             holder.txtListCategory = (TextView) convertView.findViewById(R.id.histoCategory);
             holder.txtListQuestion = (TextView) convertView.findViewById(R.id.histoQuestion);
@@ -111,7 +114,8 @@ public class HistoListAdapter extends BaseAdapter {
 
         //valorisation du contenu du holder (donc de la ligne)
         if (lesCartes.get(position).getDatecreation().toString() != null && lesCartes.get(position).getCategorie().toString() != null && lesCartes.get(position).getQuestion() != null) {
-            holder.txtListDateCard.setText(lesCartes.get(position).getDatecreation().toString());
+            android.text.format.DateFormat df = new android.text.format.DateFormat();
+            holder.txtListDateCard.setText(df.format("yyyy-MM-dd hh'h'mm", lesCartes.get(position).getDatecreation()));
             holder.txtListCategory.setText(lesCartes.get(position).getCategorie().toString());
             holder.txtListQuestion.setText(lesCartes.get(position).getQuestion());
             holder.histoRatingBar.setRating(lesCartes.get(position).getLevel());
@@ -123,6 +127,42 @@ public class HistoListAdapter extends BaseAdapter {
         Log.i("Histo holder", "position = " + position);
         //clic sur la croix pour supprimer le profil enregistré
         holder.btDeleteCard.setOnClickListener(new View.OnClickListener() {
+            //pour gérer un événement sur un objet graphique
+            // on recherche l'objet graphique ac R.id
+            // et on applique setOnClickListener() qui redéfinie la méthode onClick(View v)
+            public void onClick(View v) {
+                int position = -1;
+                try {
+                    //on récupère la position de la ligne dans la liste
+                    position = (int) v.getTag();
+                    //demande de suppression au controleur
+                    controle.delCarte(lesCartes.get(position));
+                    Log.d("histolist delete",""+lesCartes.get(position).getNumCarte());
+
+                } catch (Exception e) {
+
+                }
+                if (position == -1) {
+                    Toast toast = Toast.makeText(contexte.getApplicationContext(), "erreur ! carte non supprimée !", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 0);
+                    toast.show();
+                } else {
+                    //affiché message de destruction de la carte
+                    Toast toast = Toast.makeText(contexte.getApplicationContext(), "carte supprimée", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 0);
+                    toast.show();
+                    //rafraichir la liste
+                    notifyDataSetChanged();//pas de prise en compte de la modif dans la liste si on ne retourne pas d'abord sur l'accueil!
+                }
+            }
+
+        });
+
+        //événement : clic sur bouton modify
+        holder.btModifycard.setTag(position);
+        Log.i("Histo holder", "position = " + position);
+        //clic sur la croix pour supprimer le profil enregistré
+        holder.btModifycard.setOnClickListener(new View.OnClickListener() {
             //pour gérer un événement sur on objet graphique
             // on recherche l'objet graphique ac R.id
             // et on applique setOnClickListener() qui redéfinie la méthode onClick(View v)
@@ -131,7 +171,7 @@ public class HistoListAdapter extends BaseAdapter {
                 //on récupère la position de la ligne dans la liste
                 int position = (int) v.getTag();
                 //demande de suppression au controleur
-                controle.delCarte(lesCartes.get(position));
+                controle.modifyCarte(lesCartes.get(position));
                 //rafraichir la liste
                 notifyDataSetChanged();
             }
@@ -173,6 +213,7 @@ public class HistoListAdapter extends BaseAdapter {
 
 
     private class ViewHolder {
+        ImageButton btModifycard;
         RatingBar histoRatingBar;
         ImageButton btDeleteCard;
         TextView txtListDateCard;
