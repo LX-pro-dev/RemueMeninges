@@ -2,9 +2,6 @@ package com.gauthier.remuemeninges.Outils;
 
 import android.os.AsyncTask;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -18,10 +15,10 @@ import java.net.URLEncoder;
  */
 public class AccesHTTP extends AsyncTask<String, Integer, Long> {
     // propriétés
-    public String ret=""; // information retournée par le serveur
-    public AsyncResponse delegate=null; // gestion du retour asynchrone
+    public String ret = ""; // information retournée par le serveur
+    public AsyncResponse delegate = null; // gestion du retour asynchrone
     private String parametres = ""; // paramètres à envoyer en POST au serveur
-    private String operation =  "";//type d'opération à effectuer
+    private String operation = "";//type d'opération à effectuer
     private String bodyParams;//partir de Gson (à importer) pour créer le message json
 
     public void setOperation(String operation) {
@@ -50,6 +47,7 @@ public class AccesHTTP extends AsyncTask<String, Integer, Long> {
 
     /**
      * Construction de la chaîne de paramètres à envoyer en POST au serveur
+     *
      * @param nom
      * @param valeur
      */
@@ -58,7 +56,7 @@ public class AccesHTTP extends AsyncTask<String, Integer, Long> {
             if (parametres.equals("")) {
                 // premier paramètre
                 parametres = URLEncoder.encode(nom, "UTF-8") + "=" + URLEncoder.encode(valeur, "UTF-8");
-            }else{
+            } else {
                 // paramètres suivants (séparés par &)
                 parametres += "&" + URLEncoder.encode(nom, "UTF-8") + "=" + URLEncoder.encode(valeur, "UTF-8");
             }
@@ -70,6 +68,7 @@ public class AccesHTTP extends AsyncTask<String, Integer, Long> {
     /**
      * Méthode appelée par la méthode execute
      * permet d'envoyer au serveur une liste de paramètres en GET
+     *
      * @param options contient l'adresse du serveur dans la case 0 de urls
      * @return null
      */
@@ -91,7 +90,7 @@ public class AccesHTTP extends AsyncTask<String, Integer, Long> {
             // choix de la méthode POST pour l'envoi des paramètres
             connexion.setRequestMethod(options[1]);
 
-            if (options[1] == "POST") {
+            if (options[1] == "POST" || options[1] == "DELETE" || options[1] == "PUT") {
                 connexion.setDoOutput(true);
                 connexion.setRequestProperty("Content-Type", "application/json");
                 connexion.setFixedLengthStreamingMode(bodyParams.toString().getBytes().length);
@@ -102,6 +101,7 @@ public class AccesHTTP extends AsyncTask<String, Integer, Long> {
                 writer.flush();
             }
 
+
             // Récupération du retour du serveur
             reader = new BufferedReader(new InputStreamReader(connexion.getInputStream()));
             ret = reader.readLine();
@@ -109,24 +109,27 @@ public class AccesHTTP extends AsyncTask<String, Integer, Long> {
             e.printStackTrace();
         } finally {
             // fermeture des canaux d'envoi et de réception
-            try{
+            try {
                 writer.close();
-            }catch(Exception e){}
-            try{
+            } catch (Exception e) {
+            }
+            try {
                 reader.close();
-            }catch(Exception e){}
+            } catch (Exception e) {
+            }
         }
         return null;
     }
 
     /**
      * Sur le retour du serveur, envoi l'information retournée à processFinish
+     *
      * @param result
      */
     @Override
     protected void onPostExecute(Long result) {
         // ret contient l'information récupérée
-        delegate.processFinish(this.ret , this.operation);
+        delegate.processFinish(this.ret, this.operation);
     }
 
 

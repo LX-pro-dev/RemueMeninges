@@ -163,7 +163,6 @@ public class HistoActivity extends AppCompatActivity {
 
     /**
      * demande d'afficher la carte dans CardActivity
-     *
      * @param carte
      */
     public void afficheCarte(Carte carte) {
@@ -173,6 +172,18 @@ public class HistoActivity extends AppCompatActivity {
         intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK | intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
 
+    }
+
+    /**
+     * demande d'afficher la carte dans CreateCardActivity
+     * @param carte
+     */
+    public void modifyCarte(Carte carte) {
+        Log.i("HistoAct", "modifyCarte()");
+        controle.setCarte(carte);
+        Intent intent = new Intent(HistoActivity.this, CreateCardActivity.class);
+        intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK | intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 }
 

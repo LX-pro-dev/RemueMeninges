@@ -137,7 +137,7 @@ public class HistoListAdapter extends BaseAdapter {
                     position = (int) v.getTag();
                     //demande de suppression au controleur
                     controle.delCarte(lesCartes.get(position));
-                    Log.d("histolist delete",""+lesCartes.get(position).getNumCarte());
+                    Log.d("histolist delete", "" + lesCartes.get(position).getNumCarte());
 
                 } catch (Exception e) {
 
@@ -170,10 +170,10 @@ public class HistoListAdapter extends BaseAdapter {
             public void onClick(View v) {
                 //on récupère la position de la ligne dans la liste
                 int position = (int) v.getTag();
-                //demande de suppression au controleur
-                controle.modifyCarte(lesCartes.get(position));
-                //rafraichir la liste
-                notifyDataSetChanged();
+                Log.i("HistoL onClick modify", "position = " + position);
+
+                //demande d'affichage de la carte dans CreateActivity
+                ((HistoActivity) contexte).modifyCarte(lesCartes.get(position));
             }
         });
 

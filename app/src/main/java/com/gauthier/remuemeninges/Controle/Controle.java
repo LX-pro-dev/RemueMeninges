@@ -92,10 +92,11 @@ public final class Controle {
      * @param carte
      */
     public void delCarte(Carte carte) {
+        Log.d("delCarte()", "numCarte =" + carte.getNumCarte());
         //requête serveur
         accesDistant.envoi("delete", carte.convertToJSONObject());
-        //suppression de la carte dans la liste de cartes
-        lesCartes.remove(carte);
+        Log.d("delCarte()", "json =" + carte.convertToJSONObject());
+
     }
 
     /**

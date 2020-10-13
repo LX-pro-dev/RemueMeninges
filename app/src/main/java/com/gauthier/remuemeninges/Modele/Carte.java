@@ -1,28 +1,17 @@
 package com.gauthier.remuemeninges.Modele;
 
-import android.widget.RadioButton;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 import com.gauthier.remuemeninges.Controle.Controle;
-import org.json.JSONArray;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.FieldPosition;
-import java.text.ParsePosition;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.util.TimeZone;
 
 /**
  * Created by Alexandre GAUTHIER on 14/05/2020.
  */
-public class Carte implements Comparable{//j'ai enlevé implement Comparable
+public class Carte implements Comparable {//j'ai enlevé implement Comparable
     //propriétés
     private Integer numCarte;
     private Integer categorie;
@@ -33,8 +22,6 @@ public class Carte implements Comparable{//j'ai enlevé implement Comparable
     private Integer level;
     private Date datecreation;
     private Controle controle;
-
-
 
 
     public void resultNumCarte() {
@@ -54,6 +41,7 @@ public class Carte implements Comparable{//j'ai enlevé implement Comparable
         this.langue = langue;
         this.level = level;
     }
+
     public Carte(Integer numCarte, String langue, String question, String indice, String reponse, Integer categorie, Integer level, Date datecreation) {
         this.numCarte = numCarte;
         this.categorie = categorie;
@@ -94,17 +82,24 @@ public class Carte implements Comparable{//j'ai enlevé implement Comparable
         this.numCarte = numCarte;
     }
 
-    public String getLangue() { return langue; }
+    public String getLangue() {
+        return langue;
+    }
 
-    public Integer getLevel() { return level;  }
+    public Integer getLevel() {
+        return level;
+    }
 
-    public Date getDatecreation() { return datecreation;  }
+    public Date getDatecreation() {
+        return datecreation;
+    }
 
     /**
      * conversion de carte au format JSONArray
+     *
      * @return
      */
-    public JSONObject convertToJSONObject(){
+    public JSONObject convertToJSONObject() {
 //        List<Serializable> laListe= new ArrayList<>();
 //        laListe.add(langue);
 //        laListe.add(question);
@@ -114,13 +109,16 @@ public class Carte implements Comparable{//j'ai enlevé implement Comparable
 //        laListe.add(level);
         JSONObject carte = new JSONObject();
         try {
-            carte.put("langue","fr");
+            if (getNumCarte() != 0) {
+                String numCarte = getNumCarte().toString();
+                carte.put("id",  numCarte);
+                carte.put("langue", "fr");
+            }
             carte.put("question", getQuestion());
             carte.put("indice", getIndice());
             carte.put("reponse", getReponse());
             carte.put("category", getCategorie());
             carte.put("level", getLevel());
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -131,14 +129,15 @@ public class Carte implements Comparable{//j'ai enlevé implement Comparable
     /**
      * Parcourir la liste de carte et rechercher dans les textes de question
      * s'il y a le mot clé correspondant et recréer une liste de cartes
+     *
      * @param lesCartes
      * @param keyword
      * @return
      */
-    public static ArrayList<Carte> search(ArrayList<Carte> lesCartes, String keyword){
+    public static ArrayList<Carte> search(ArrayList<Carte> lesCartes, String keyword) {
         ArrayList<Carte> listMotCle = new ArrayList<>();
-        for(Carte carte : lesCartes){
-            if (carte.question.contains(keyword)){
+        for (Carte carte : lesCartes) {
+            if (carte.question.contains(keyword)) {
                 listMotCle.add(carte);
             }
         }
@@ -146,7 +145,7 @@ public class Carte implements Comparable{//j'ai enlevé implement Comparable
     }
 
 
-   @Override
+    @Override
     public int compareTo(Object o) {
         return 0;
     }

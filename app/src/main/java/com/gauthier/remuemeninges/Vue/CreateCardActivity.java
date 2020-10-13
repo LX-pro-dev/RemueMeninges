@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.gauthier.remuemeninges.Controle.Controle;
+import com.gauthier.remuemeninges.Modele.Carte;
 import com.gauthier.remuemeninges.R;
 
 public class CreateCardActivity extends AppCompatActivity {
@@ -40,6 +41,8 @@ carte puissent la traduire dans la leur
     private RadioButton rbCat6;
     private RatingBar ratingLevel;
     private Controle controle;
+    private Carte carte;
+
 
     private void init() {
         ratingLevel = (RatingBar) findViewById(R.id.creaRatingBarLevel);
@@ -52,10 +55,45 @@ carte puissent la traduire dans la leur
         rbCat4 = (RadioButton) findViewById(R.id.creaRbCat4);
         rbCat5 = (RadioButton) findViewById(R.id.creaRbCat5);
         rbCat6 = (RadioButton) findViewById(R.id.creaRbCat6);
-        this.controle = Controle.getInstance(this);//création de l'instance controle (singleton)
-        ecouteEnregistrer();
+        carte = Controle.getInstance(this).getCarte();
+        if (carte != null) {
+            txtQuestion.setText(carte.getQuestion());
+            txtReponse.setText(carte.getReponse());
+            txtIndice.setText(carte.getIndice());
+            ratingLevel.setRating(carte.getLevel());
+            switch (carte.getCategorie()) {
+                case 1:
+                    rbCat1.setChecked(true);
+                    break;
+
+                case 2:
+                    rbCat2.setChecked(true);
+                    break;
+                case 3:
+                    rbCat3.setChecked(true);
+                    break;
+
+                case 4:
+                    rbCat4.setChecked(true);
+                    break;
+
+                case 5:
+                    rbCat5.setChecked(true);
+                    break;
+
+                case 6:
+                    rbCat6.setChecked(true);
+                    break;
+            }
+        } else {
+
+
+            this.controle = Controle.getInstance(this);//création de l'instance controle (singleton)
+            ecouteEnregistrer();
+        }
 
     }
+
 
     /**
      * remettre la carte à 0

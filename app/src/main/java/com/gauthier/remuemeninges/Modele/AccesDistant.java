@@ -73,15 +73,59 @@ public class AccesDistant implements AsyncResponse {
                     }
                     controle.setLesCartes(lesCartes);
                 } catch (JSONException | ParseException e) {
-                    Log.d("erreur", "conversion JSON impossible" + e.toString() + "******************");
+                    Log.d("erreur tous", "conversion JSON impossible" + e.toString() + "******************");
                     e.printStackTrace();
                 }
                 break;
+
+            case "delete":
+                try {
+                    JSONArray jsonInfo = new JSONArray(output);
+                    Log.d("processFinish delete", "" + output);
+                    //suppression de la carte dans la liste de cartes
+                    controle.getLesCartes().remove(output);
+                } catch (JSONException e) {
+                    Log.d("erreur delete", "conversion JSON impossible" + e.toString() + "******************");
+                    e.printStackTrace();
+                }
+                break;
+
+            case "enreg":
+                JSONObject objet = null;
+                try {
+                    objet = new JSONObject(output);
+                    Carte carte = convertJSonToCarte(objet);//faut-il un if(object != null)?
+                    controle.getLesCartes().set(carte.getNumCarte(), carte);
+                } catch (JSONException e) {
+                    Log.d("erreur enreg", "conversion JSON impossible" + e.toString() + "******************");
+                    e.printStackTrace();
+                }
+                break;
+
+            case "modify":
+                JSONObject object = null;
+                try {
+                    object = new JSONObject(output);
+                    Carte carte = convertJSonToCarte(object);//faut-il un if(object != null)?
+                    controle.getLesCartes().add(carte);
+                } catch (JSONException e) {
+                    Log.d("erreur enreg", "conversion JSON impossible" + e.toString() + "******************");
+                    e.printStackTrace();
+                }
+                break;
+
+
         }
 
     }
 
     public void envoi(String operation, JSONObject lesDonneesJSON) {//JSONArray pour les envois de données de la carte à enregistrer
+        if (lesDonneesJSON != null) {
+            Log.d("envoi", operation + " " + lesDonneesJSON.toString());
+        } else {
+            Log.d("envoi", operation + " null");
+
+        }
         AccesHTTP accesDonnees = new AccesHTTP();
 
         accesDonnees.setOperation(operation);
@@ -105,10 +149,8 @@ public class AccesDistant implements AsyncResponse {
 
         } else if (operation == "delete") {
             //ajout de paramètres
-            Carte carte = convertJSonToCarte(lesDonneesJSON);
-            accesDonnees.addParam("id", "" + carte.getNumCarte());
             accesDonnees.setBodyParams(lesDonneesJSON.toString());
-            Log.d("serveur delete", accesDonnees.toString());
+            Log.d("serveur delete", lesDonneesJSON.toString());
 
             accesDonnees.execute(SERVERADDR, "DELETE");
 
