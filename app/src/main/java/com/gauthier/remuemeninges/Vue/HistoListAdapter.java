@@ -113,7 +113,7 @@ public class HistoListAdapter extends BaseAdapter {
         }
 
         //valorisation du contenu du holder (donc de la ligne)
-        if (lesCartes.get(position).getDatecreation().toString() != null && lesCartes.get(position).getCategorie().toString() != null && lesCartes.get(position).getQuestion() != null) {
+        if (lesCartes.get(position).getDatecreation().toString() != null && lesCartes.get(position).getCategorie().toString() != null && lesCartes.get(position).getQuestion() != null) {//NPE
             android.text.format.DateFormat df = new android.text.format.DateFormat();
             holder.txtListDateCard.setText(df.format("yyyy-MM-dd hh'h'mm", lesCartes.get(position).getDatecreation()));
             holder.txtListCategory.setText(lesCartes.get(position).getCategorie().toString());
