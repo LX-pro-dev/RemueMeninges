@@ -2,7 +2,6 @@ package com.gauthier.remuemeninges.Vue;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,7 +33,6 @@ public class CardActivity extends AppCompatActivity{
     TextView reponseTV;
     TextView clueTV;
     Carte carte;
-    Controle controle;
 
         @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,13 +49,13 @@ public class CardActivity extends AppCompatActivity{
             questionTV.setText(carte.getQuestion());
 
             reponseTV = findViewById(R.id.cardTextViewResponse);
-            reponseTV.setText(carte.getReponse().toString());
+            reponseTV.setText(carte.getReponse());
 
             clueTV = findViewById(R.id.cardTextViewClue);
             clueTV.setText(carte.getIndice());
 
             categoryTV = findViewById(R.id.cardLblCategory);
-            categoryTV.setText(carte.getCategorie().toString());
+            categoryTV.setText(carte.getCategorie());
 
             levelRB = findViewById(R.id.cardRatingBar);
             levelRB.setRating((int)carte.getLevel());

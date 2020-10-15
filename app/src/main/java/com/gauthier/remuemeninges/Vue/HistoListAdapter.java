@@ -113,7 +113,8 @@ public class HistoListAdapter extends BaseAdapter {
         }
 
         //valorisation du contenu du holder (donc de la ligne)
-        if (lesCartes.get(position).getDatecreation().toString() != null && lesCartes.get(position).getCategorie().toString() != null && lesCartes.get(position).getQuestion() != null) {//NPE
+        Carte card = lesCartes.get(position);
+        if (card != null && card.getDatecreation() != null && card.getCategorie() != null && card.getQuestion() != null) {//NPE
             android.text.format.DateFormat df = new android.text.format.DateFormat();
             holder.txtListDateCard.setText(df.format("yyyy-MM-dd hh'h'mm", lesCartes.get(position).getDatecreation()));
             holder.txtListCategory.setText(lesCartes.get(position).getCategorie().toString());
@@ -139,9 +140,8 @@ public class HistoListAdapter extends BaseAdapter {
                     controle.delCarte(lesCartes.get(position));
                     Log.d("histolist delete", "" + lesCartes.get(position).getNumCarte());
 
-                } catch (Exception e) {
+                } catch (Exception e) { }
 
-                }
                 if (position == -1) {
                     Toast toast = Toast.makeText(contexte.getApplicationContext(), "erreur ! carte non supprimée !", Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 0);

@@ -31,7 +31,8 @@ public final class Controle {
     /**
      * création de l'instance
      *
-     * @return instance
+     * @param contexte
+     * @return
      */
     public static final Controle getInstance(Context contexte) {//au lieu de faire new pour créer le contrôleur
         if (contexte != null) {
@@ -118,91 +119,6 @@ public final class Controle {
         //requête serveur
         accesDistant.envoi("modify", carte.convertToJSONObject());
         //modification de la carte dans la liste de cartes
-    }
-
-    /**
-     * récupérer le numéro de l'objet sérialisé
-     *
-     * @return
-     */
-    public Integer getNumCarte() {
-        if (carte == null) {
-            return null;
-        }
-        return carte.getNumCarte();
-    }
-
-    /**
-     * récupérer la langue de l'objet sérialisé
-     * ne sert pas encore car pas de gestion de la langue des cartes
-     *
-     * @return
-     */
-    public String getTxtLangue() {
-        if (carte == null) {
-            return null;
-        }
-        return carte.getLangue();
-    }
-
-    /**
-     * récupérer la question de l'objet sérialisé
-     *
-     * @return
-     */
-    public String getTxtQuestion() {
-        if (carte == null) {
-            return null;
-        }
-        return carte.getQuestion();
-    }
-
-    /**
-     * récupérer la réponse de l'objet sérialisé
-     *
-     * @return
-     */
-    public String getTxtReponse() {
-        if (carte == null) {
-            return null;
-        }
-        return carte.getReponse();
-    }
-
-    /**
-     * récupérer l'indice de l'objet sérialisé
-     *
-     * @return
-     */
-    public String getTxtIndice() {
-        if (carte == null) {
-            return null;
-        }
-        return carte.getIndice();
-    }
-
-    /**
-     * récupérer la categorie l'objet sérialisé
-     *
-     * @return
-     */
-    public Integer getCategorie() {
-        if (carte == null) {
-            return null;
-        }
-        return carte.getCategorie();
-    }
-
-    /**
-     * récupérer le niveau de difficulté de l'objet sérialisé
-     *
-     * @return
-     */
-    public Integer getLevel() {
-        if (carte == null) {
-            return null;
-        }
-        return carte.getLevel();
     }
 
     public Carte getCarte() {

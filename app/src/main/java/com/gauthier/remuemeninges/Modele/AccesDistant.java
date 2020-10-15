@@ -28,12 +28,9 @@ public class AccesDistant implements AsyncResponse {
     private Controle controle;
     private SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.FRENCH);
     int numCarte;
-    private String langue;
-    private String question;
-    private String indice;
-    private String reponse;
-    private int categorie;
-    private int level;
+    private Carte carte;
+    private Carte carte1;
+
 
     /**
      * constructeur
@@ -46,6 +43,7 @@ public class AccesDistant implements AsyncResponse {
      * retour du serveur distant
      *
      * @param output
+     * @param operation
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -53,6 +51,7 @@ public class AccesDistant implements AsyncResponse {
         Log.d("serveur", output + "************" + operation);
 
         switch (operation) {
+
             // "tous" pour récupérer toutes les cartes, à travailler : PUT, DELETE et POST
             case "tous":
                 try {
@@ -79,23 +78,24 @@ public class AccesDistant implements AsyncResponse {
                 break;
 
             case "delete":
-                try {
-                    JSONArray jsonInfo = new JSONArray(output);
-                    Log.d("processFinish delete", "" + output);
-                    //suppression de la carte dans la liste de cartes
-                    controle.getLesCartes().remove(output);
-                } catch (JSONException e) {
-                    Log.d("erreur delete", "conversion JSON impossible" + e.toString() + "******************");
-                    e.printStackTrace();
+                ArrayList<Carte> cards = controle.getLesCartes();
+                for (Carte card : cards) {
+                    if (card.getNumCarte() == Integer.parseInt(output)) {
+                        carte1 = card;
+                    }
                 }
+                cards.remove(carte1);
+                Log.d("processFinish delete", "" + output);
+                //suppression de la carte dans la liste de cartes
                 break;
 
             case "enreg":
-                JSONObject objet = null;
+                JSONObject objet;
                 try {
                     objet = new JSONObject(output);
+                    cards = controle.getLesCartes();
                     Carte carte = convertJSonToCarte(objet);//faut-il un if(object != null)?
-                    controle.getLesCartes().set(carte.getNumCarte(), carte);
+                    cards.add(carte);
                 } catch (JSONException e) {
                     Log.d("erreur enreg", "conversion JSON impossible" + e.toString() + "******************");
                     e.printStackTrace();
@@ -103,20 +103,36 @@ public class AccesDistant implements AsyncResponse {
                 break;
 
             case "modify":
-                JSONObject object = null;
+                JSONObject object;
                 try {
                     object = new JSONObject(output);
-                    Carte carte = convertJSonToCarte(object);//faut-il un if(object != null)?
-                    controle.getLesCartes().add(carte);
+                    cards = controle.getLesCartes();
+                    Carte carte = convertJSonToCarte(object);
+                    for (Carte card : cards) {
+                        if (card.getNumCarte().equals(carte.getNumCarte())) {
+                            int index = cards.indexOf(card);
+                            if (carte.getQuestion() != null) {
+                                card.setQuestion(carte.getQuestion());
+                            } else if (carte.getIndice() != null) {
+                                card.setIndice(carte.getIndice());
+                            } else if (carte.getReponse() != null) {
+                                card.setReponse(carte.getReponse());
+                            } else if (carte.getLevel() != null) {
+                                card.setLevel(carte.getLevel());
+                            } else if (carte.getCategorie() != null) {
+                                card.setCategorie(carte.getCategorie());
+                            }
+                            controle.getLesCartes().set(index, card);
+                        }
+                    }
                 } catch (JSONException e) {
                     Log.d("erreur enreg", "conversion JSON impossible" + e.toString() + "******************");
                     e.printStackTrace();
                 }
                 break;
-
-
+            default:
+                throw new IllegalStateException("Unexpected value: " + operation);
         }
-
     }
 
     public void envoi(String operation, JSONObject lesDonneesJSON) {//JSONArray pour les envois de données de la carte à enregistrer
@@ -124,7 +140,6 @@ public class AccesDistant implements AsyncResponse {
             Log.d("envoi", operation + " " + lesDonneesJSON.toString());
         } else {
             Log.d("envoi", operation + " null");
-
         }
         AccesHTTP accesDonnees = new AccesHTTP();
 
@@ -132,51 +147,103 @@ public class AccesDistant implements AsyncResponse {
         //lien de délégation
         accesDonnees.delegate = (AsyncResponse) this;
 
-        if (operation == "tous") {
-            //ajout paramètres
-            accesDonnees.addParam("operation", operation);
-            accesDonnees.addParam("langue", "fr");//"fr" en dur car pas encore travaillé sur le choix de la langue
-            Log.d("serveur tous", accesDonnees.toString());
+        switch (operation) {
+            case "tous":
+                //ajout paramètres
+                accesDonnees.addParam("operation", operation);
+                accesDonnees.addParam("langue", "fr");//"fr" en dur car pas encore travaillé sur le choix de la langue
 
-            accesDonnees.execute(SERVERADDR, "GET");
+                Log.d("serveur tous", accesDonnees.toString());
 
-        } else if (operation == "enreg") {
-            //ajout paramètres
-            accesDonnees.setBodyParams(lesDonneesJSON.toString());
-            Log.d("serveur enreg", accesDonnees.toString());
+                accesDonnees.execute(SERVERADDR, "GET");
 
-            accesDonnees.execute(SERVERADDR, "POST");
+                break;
+            case "enreg":
+                //ajout paramètres
+                if (lesDonneesJSON != null) {
+                    accesDonnees.setBodyParams(lesDonneesJSON.toString());
+                    Log.d("serveur enreg", accesDonnees.toString());
+                }
 
-        } else if (operation == "delete") {
-            //ajout de paramètres
-            accesDonnees.setBodyParams(lesDonneesJSON.toString());
-            Log.d("serveur delete", lesDonneesJSON.toString());
+                accesDonnees.execute(SERVERADDR, "POST");
 
-            accesDonnees.execute(SERVERADDR, "DELETE");
+                break;
+            case "delete":
+                //ajout de paramètres
+                if (lesDonneesJSON != null) {
+                    accesDonnees.setBodyParams(lesDonneesJSON.toString());
+                    Log.d("serveur delete", lesDonneesJSON.toString());
+                }
 
-        } else if (operation == "modify") {
-            //ajout de paramètres
-            accesDonnees.setBodyParams(lesDonneesJSON.toString());
-            Log.d("serveur modify", accesDonnees.toString());
+                accesDonnees.execute(SERVERADDR, "DELETE");
 
-            accesDonnees.execute(SERVERADDR, "PUT");
+                break;
+            case "modify":
+                //ajout de paramètres
+                if (lesDonneesJSON != null) {
+                    accesDonnees.setBodyParams(lesDonneesJSON.toString());
+                    Log.d("serveur modify", accesDonnees.toString());
+                }
+
+                accesDonnees.execute(SERVERADDR, "PUT");
+                break;
         }
     }
 
     private Carte convertJSonToCarte(JSONObject lesDonneesJSON) {
         try {
-            int numCarte = lesDonneesJSON.getInt("id");
-            String langue = lesDonneesJSON.getString("langue");
-            String question = lesDonneesJSON.getString("question");
-            String indice = lesDonneesJSON.getString("indice");
-            String reponse = lesDonneesJSON.getString("reponse");
-            int categorie = lesDonneesJSON.getInt("category");
-            int level = lesDonneesJSON.getInt("level");
+            if (lesDonneesJSON.getInt("id") != 0) {
+                numCarte = lesDonneesJSON.getInt("id");
+            }
+/////////////////////////////////////
+            //pb ac toString() de lesDonneesJSON
+            String langue;
+            if (lesDonneesJSON.getString("langue") == null) {
+                langue = "coucou";
+            } else {
+                langue = lesDonneesJSON.getString("langue");
+            }
+
+            String question;
+            if (lesDonneesJSON.getString("question") == null) {
+                question = "coucou";
+            } else {
+                question = lesDonneesJSON.getString("question");
+            }
+
+            String indice;
+            if (lesDonneesJSON.getString("indice") == null) {
+                indice = "coucou";
+            } else {
+                indice = lesDonneesJSON.getString("indice");
+            }
+
+            String reponse;
+            if (lesDonneesJSON.getString("reponse") == null) {
+                reponse = "coucou";
+            } else {
+                reponse = lesDonneesJSON.getString("reponse");
+            }
+
+            int categorie;
+            if (lesDonneesJSON.getInt("category") != 0) {
+                categorie = lesDonneesJSON.getInt("category");
+            } else {
+                categorie = 1;
+            }
+
+            int level;
+            if (lesDonneesJSON.getInt("level") != 0) {
+                level = lesDonneesJSON.getInt("level");
+            } else {
+                level = 1;
+            }
+
+            carte = new Carte(numCarte, langue, question, indice, reponse, categorie, level, new Date());
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Carte carte = new Carte(numCarte, langue, question, indice, reponse, categorie, level, new Date());
         return carte;
     }
 }

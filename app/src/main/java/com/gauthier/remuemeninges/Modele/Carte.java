@@ -149,4 +149,28 @@ public class Carte implements Comparable {//j'ai enlevé implement Comparable
     public int compareTo(Object o) {
         return 0;
     }
+
+    public void setCategorie(Integer categorie) {
+        this.categorie = categorie;
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
+    public void setReponse(String reponse) {
+        this.reponse = reponse;
+    }
+
+    public void setIndice(String indice) {
+        this.indice = indice;
+    }
+
+    public void setLangue(String langue) {
+        this.langue = langue;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
 }

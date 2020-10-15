@@ -140,10 +140,11 @@ carte puissent la traduire dans la leur
                     Toast.makeText(CreateCardActivity.this, "saisie incorrecte", Toast.LENGTH_LONG).show();
                 } else {
                     if (isModifyCard) {
-                        int index = Controle.getInstance(CreateCardActivity.this).getLesCartes().indexOf(carte);
-                        Controle.getInstance(CreateCardActivity.this).getLesCartes().set(index, new Carte(carte.getNumCarte(), "fr", question, indice, reponse, categorie, level, carte.getDatecreation()));//NPE!!!
-                        Controle.getInstance(CreateCardActivity.this).modifyCarte(carte);
-                        Log.d("carte modifiée", "*****" + Controle.getInstance(CreateCardActivity.this).getLesCartes().get(index).getQuestion());
+                        controle = Controle.getInstance(CreateCardActivity.this);
+                        int index = controle.getLesCartes().indexOf(carte);
+                        Carte card = new Carte(carte.getNumCarte(), "fr", question, indice, reponse, categorie, level, carte.getDatecreation());
+                        controle.getLesCartes().set(index, card);//NPE!!!
+                        controle.getInstance(CreateCardActivity.this).modifyCarte(card);
                         Toast toast = Toast.makeText(CreateCardActivity.this, "La carte a été modifiée", Toast.LENGTH_LONG);
                         toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 0);
                         toast.show();
