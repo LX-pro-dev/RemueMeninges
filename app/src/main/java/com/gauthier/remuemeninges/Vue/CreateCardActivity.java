@@ -141,7 +141,7 @@ carte puissent la traduire dans la leur
                 } else {
                     if (isModifyCard) {
                         int index = Controle.getInstance(CreateCardActivity.this).getLesCartes().indexOf(carte);
-                        Controle.getInstance(CreateCardActivity.this).getLesCartes().set(index, new Carte("fr", question, indice, reponse, categorie, level));//NPE!!!
+                        Controle.getInstance(CreateCardActivity.this).getLesCartes().set(index, new Carte(carte.getNumCarte(), "fr", question, indice, reponse, categorie, level, carte.getDatecreation()));//NPE!!!
                         Controle.getInstance(CreateCardActivity.this).modifyCarte(carte);
                         Log.d("carte modifiée", "*****" + Controle.getInstance(CreateCardActivity.this).getLesCartes().get(index).getQuestion());
                         Toast toast = Toast.makeText(CreateCardActivity.this, "La carte a été modifiée", Toast.LENGTH_LONG);
