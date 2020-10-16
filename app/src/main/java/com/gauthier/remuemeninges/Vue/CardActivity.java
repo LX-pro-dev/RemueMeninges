@@ -1,20 +1,21 @@
 package com.gauthier.remuemeninges.Vue;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.RatingBar;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.gauthier.remuemeninges.Controle.Controle;
 import com.gauthier.remuemeninges.Modele.Carte;
 import com.gauthier.remuemeninges.R;
 
 import java.util.ArrayList;
 
-public class CardActivity extends AppCompatActivity{
+public class CardActivity extends AppCompatActivity {
     /*
     1 tirer une carte au sort (sans remise donc exclure les num précédents) parmi la liste
     il faudrait sauvegarder les num de cartes déjà tirées dans une var
@@ -34,7 +35,7 @@ public class CardActivity extends AppCompatActivity{
     TextView clueTV;
     Carte carte;
 
-        @Override
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card);
@@ -55,10 +56,10 @@ public class CardActivity extends AppCompatActivity{
             clueTV.setText(carte.getIndice());
 
             categoryTV = findViewById(R.id.cardLblCategory);
-            categoryTV.setText(carte.getCategorie());
+            categoryTV.setText(carte.getCategorie().toString());
 
             levelRB = findViewById(R.id.cardRatingBar);
-            levelRB.setRating((int)carte.getLevel());
+            levelRB.setRating((int) carte.getLevel());
 
             //remettre à vide la carte
             Controle.getInstance(this).setCarte(null);
@@ -99,44 +100,48 @@ public class CardActivity extends AppCompatActivity{
 
     /**
      * montrer le contenu du textview de l'indice
+     *
      * @param view
      */
     public void cardBtnShowClue(View view) {
-        Log.d ("CardActivity", "indice = " + carte.getIndice() );
+        Log.d("CardActivity", "indice = " + carte.getIndice());
         clueTV.setText(carte.getIndice());
         clueTV.setVisibility(View.VISIBLE);
     }
 
     /**
      * montrer le contenu de la réponse
+     *
      * @param view
      */
     public void cardBtnShowAnswer(View view) {
-        Log.d ("CardActivity", "reponse = " + carte.getReponse() );
+        Log.d("CardActivity", "reponse = " + carte.getReponse());
         reponseTV.setText(carte.getReponse());
         reponseTV.setVisibility(View.VISIBLE);
     }
 
     /**
      * retour à la page d'accueil
+     *
      * @param view
      */
     public void cardBtndHome(View view) {
         //on crée une nouvelle intent
-        Intent intent=new Intent(this,MainActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         //on lance l'intent
         startActivity(intent);
     }
 
     /**
      * afficher une nouvelle carte
+     *
      * @param view
      */
     public void cardBtnEditNewCard(View view) {
-       //les contenus (indice et réponse) de la carte sont rednu invisibles
+        //les contenus (indice et réponse) de la carte sont rednu invisibles
         clueTV.setVisibility(View.INVISIBLE);
-       reponseTV.setVisibility(View.INVISIBLE);
-       //on relance le tirage d'une carte
-       init();
+        reponseTV.setVisibility(View.INVISIBLE);
+        //on relance le tirage d'une carte
+        init();
     }
 }

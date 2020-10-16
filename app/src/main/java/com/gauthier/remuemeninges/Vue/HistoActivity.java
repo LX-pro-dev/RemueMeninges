@@ -161,7 +161,7 @@ public class HistoActivity extends AppCompatActivity {
         });
     }
 
-    /**
+     /**
      * demande d'afficher la carte dans CardActivity
      * @param carte
      */

@@ -140,7 +140,13 @@ public class HistoListAdapter extends BaseAdapter {
                     controle.delCarte(lesCartes.get(position));
                     Log.d("histolist delete", "" + lesCartes.get(position).getNumCarte());
 
-                } catch (Exception e) { }
+                    //rafraichir la liste
+                    notifyDataSetChanged();
+                    /////////////////////////////////////////////
+                    // pas de rafraichissment de liste affichée si on ne retourne pas d'abord sur l'accueil!
+                    ////////////////////////////////////////////
+                } catch (Exception e) {
+                }
 
                 if (position == -1) {
                     Toast toast = Toast.makeText(contexte.getApplicationContext(), "erreur ! carte non supprimée !", Toast.LENGTH_LONG);
@@ -151,8 +157,6 @@ public class HistoListAdapter extends BaseAdapter {
                     Toast toast = Toast.makeText(contexte.getApplicationContext(), "carte supprimée", Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 0);
                     toast.show();
-                    //rafraichir la liste
-                    notifyDataSetChanged();//pas de prise en compte de la modif dans la liste si on ne retourne pas d'abord sur l'accueil!
                 }
             }
 
