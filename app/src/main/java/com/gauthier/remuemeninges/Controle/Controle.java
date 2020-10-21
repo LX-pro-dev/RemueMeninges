@@ -6,8 +6,15 @@ import android.util.Log;
 import com.gauthier.remuemeninges.Modele.AccesDistant;
 import com.gauthier.remuemeninges.Modele.Carte;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by Alexandre GAUTHIER on 14/05/2020.
@@ -19,6 +26,9 @@ public final class Controle {
     private static AccesDistant accesDistant;
     private static Context contexte;
     private ArrayList<Carte> lesCartes = new ArrayList<>();
+    private CardEventListener listener = null;
+    private SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.FRENCH);
+
 
     /**
      * contructeur privé
@@ -101,16 +111,6 @@ public final class Controle {
     }
 
     /**
-     * ajouter une carte dans la base distante et la collection
-     *
-     * @param carte
-     */
-    public void setCarte(Carte carte) {
-        Log.i("Controle", "setCarte");
-        Controle.carte = carte;
-    }
-
-    /**
      * modifier une carte dans la base distante
      *
      * @param carte
@@ -128,5 +128,81 @@ public final class Controle {
         return carte;
     }
 
+    /**
+     * ajouter une carte dans la base distante et la collection
+     *
+     * @param carte
+     */
+    public void setCarte(Carte carte) {
+        Log.i("Controle", "setCarte");
+        Controle.carte = carte;
+    }
 
+    public void setListener(CardEventListener listener) {
+        this.listener = listener;
+    }
+
+    // notification du listener
+    public void cardDeleted(int id) {
+
+        Carte carte1 = null;
+        for (Carte card : lesCartes) {
+            if (card.getNumCarte() == id) {
+                carte1 = card;
+            }
+        }
+
+        lesCartes.remove(carte1);
+
+        if (listener != null) {
+            listener.onCardDeleted(id);
+
+        }
+    }
+
+    public void cardModified(String output) {
+        Carte carte = null;
+        carte.cardModified(output);
+        if (listener != null) {
+            listener.onCardModified(carte);
+        }
+    }
+
+    public void addCard(String output) {
+        JSONObject objet;
+        try {
+            objet = new JSONObject(output);
+            ArrayList<Carte> cards = lesCartes;
+            Carte carte = null;
+            carte.convertJSonToCarte(objet);//faut-il un if(object != null)?
+            cards.add(carte);
+        } catch (JSONException e) {
+            Log.d("erreur enreg", "conversion JSON impossible" + e.toString() + "******************");
+            e.printStackTrace();
+        }
+    }
+
+    public void createList(String output) {
+        try {
+            JSONArray jsonInfo = new JSONArray(output);
+            ArrayList<Carte> lesCartes = new ArrayList<>();
+            for (int i = 0; i < jsonInfo.length(); i++) {
+                JSONObject info = new JSONObject(jsonInfo.get(i).toString());
+                Integer numCarte = info.getInt("id");
+                String langue = info.getString("langue");
+                String question = info.getString("question");
+                String indice = info.getString("indice");
+                String reponse = info.getString("reponse");
+                Integer categorie = info.getInt("category");
+                Integer level = info.getInt("level");
+                Date dateCreation = dateFormatter.parse(info.getString("datecreation"));
+                Carte carte = new Carte(numCarte, langue, question, indice, reponse, categorie, level, dateCreation);
+                lesCartes.add(carte);
+            }
+            this.setLesCartes(lesCartes);
+        } catch (JSONException | ParseException e) {
+            Log.d("erreur tous", "conversion JSON impossible" + e.toString() + "******************");
+            e.printStackTrace();
+        }
+    }
 }

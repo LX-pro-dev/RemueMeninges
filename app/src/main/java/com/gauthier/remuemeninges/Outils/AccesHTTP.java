@@ -22,6 +22,7 @@ public class AccesHTTP extends AsyncTask<String, Integer, Long> {
     private String bodyParams;//partir de Gson (à importer) pour créer le message json
 
     public void setOperation(String operation) {
+
         this.operation = operation;
     }
 
@@ -29,6 +30,7 @@ public class AccesHTTP extends AsyncTask<String, Integer, Long> {
      * Constructeur : ne fait rien
      */
     public AccesHTTP() {
+
         super();
     }
 

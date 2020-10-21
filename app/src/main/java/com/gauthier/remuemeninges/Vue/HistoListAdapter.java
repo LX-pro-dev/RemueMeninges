@@ -40,6 +40,7 @@ public class HistoListAdapter extends BaseAdapter {
     }
 
     public ArrayList<Carte> getItems() {
+
         return lesCartes;
     }
 
@@ -55,6 +56,7 @@ public class HistoListAdapter extends BaseAdapter {
      */
     @Override
     public int getCount() {
+
         return lesCartes.size();
     }
 
@@ -132,34 +134,19 @@ public class HistoListAdapter extends BaseAdapter {
             // on recherche l'objet graphique ac R.id
             // et on applique setOnClickListener() qui redéfinie la méthode onClick(View v)
             public void onClick(View v) {
-                int position = -1;
                 try {
                     //on récupère la position de la ligne dans la liste
-                    position = (int) v.getTag();
                     //demande de suppression au controleur
-                    controle.delCarte(lesCartes.get(position));
                     Log.d("histolist delete", "" + lesCartes.get(position).getNumCarte());
+                    controle.delCarte(lesCartes.get(position));
 
-                    //rafraichir la liste
-                    notifyDataSetChanged();
-                    /////////////////////////////////////////////
-                    // pas de rafraichissment de liste affichée si on ne retourne pas d'abord sur l'accueil!
-                    ////////////////////////////////////////////
                 } catch (Exception e) {
-                }
-
-                if (position == -1) {
+                    e.printStackTrace();
                     Toast toast = Toast.makeText(contexte.getApplicationContext(), "erreur ! carte non supprimée !", Toast.LENGTH_LONG);
-                    toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 0);
-                    toast.show();
-                } else {
-                    //affiché message de destruction de la carte
-                    Toast toast = Toast.makeText(contexte.getApplicationContext(), "carte supprimée", Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 0);
                     toast.show();
                 }
             }
-
         });
 
         //événement : clic sur bouton modify
@@ -173,7 +160,6 @@ public class HistoListAdapter extends BaseAdapter {
 
             public void onClick(View v) {
                 //on récupère la position de la ligne dans la liste
-                int position = (int) v.getTag();
                 Log.i("HistoL onClick modify", "position = " + position);
 
                 //demande d'affichage de la carte dans CreateActivity
@@ -206,14 +192,14 @@ public class HistoListAdapter extends BaseAdapter {
             // on recherche l'objet graphique ac R.id
             // et on applique setOnClickListener() qui redéfinie la méthode onClick(View v)
             public void onClick(View v) {
-                //récupère la position de la ligne
-                int position = (int) v.getTag();
                 //demande de l'affichage de la carte dans CardActivity
                 ((HistoActivity) contexte).afficheCarte(lesCartes.get(position));
             }
         });
         return convertView;
     }
+
+
 
 
     private class ViewHolder {
@@ -225,4 +211,24 @@ public class HistoListAdapter extends BaseAdapter {
         TextView txtListQuestion;
 
     }
+
+    public void deleteCard(int idCardDeleted) {
+        Carte card1 = null;
+        for (Carte card : lesCartes) {
+            if (card.getNumCarte() == idCardDeleted) {
+                card1 = card;
+            }
+        }
+        if (card1 != null) {
+            lesCartes.remove(card1);
+            //rafraichir la liste
+            notifyDataSetChanged();
+        }
+    }
+
+    public void modifyCard(Carte carte) {
+
+    }
+
+
 }

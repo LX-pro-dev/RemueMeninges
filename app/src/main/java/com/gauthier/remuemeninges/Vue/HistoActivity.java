@@ -5,15 +5,18 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.gauthier.remuemeninges.Controle.CardEventListener;
 import com.gauthier.remuemeninges.Controle.Controle;
 import com.gauthier.remuemeninges.Modele.Carte;
 import com.gauthier.remuemeninges.R;
@@ -21,7 +24,7 @@ import com.gauthier.remuemeninges.R;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class HistoActivity extends AppCompatActivity {
+public class HistoActivity extends AppCompatActivity implements CardEventListener {
 
     private Controle controle;
     private HistoListAdapter adapter;
@@ -48,7 +51,29 @@ public class HistoActivity extends AppCompatActivity {
     }
 
     /**
-     * créer une liste adapter
+     * Dispatch onResume() to fragments.  Note that for better inter-operation
+     * with older versions of the platform, at the point of this call the
+     * fragments attached to the activity are <em>not</em> resumed.
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //on s'inscrit à l'événement delete ou modify du controleur
+        controle.setListener(this);
+    }
+
+    /**
+     * Dispatch onPause() to fragments.
+     */
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //on se désinscrit au listener
+        controle.setListener(null);
+    }
+
+    /**
+     * créer une ListAdapter
      */
     private void creerList() {
         ArrayList<Carte> lesCartes = controle.getLesCartes();
@@ -161,8 +186,9 @@ public class HistoActivity extends AppCompatActivity {
         });
     }
 
-     /**
+    /**
      * demande d'afficher la carte dans CardActivity
+     *
      * @param carte
      */
     public void afficheCarte(Carte carte) {
@@ -176,6 +202,7 @@ public class HistoActivity extends AppCompatActivity {
 
     /**
      * demande d'afficher la carte dans CreateCardActivity
+     *
      * @param carte
      */
     public void modifyCarte(Carte carte) {
@@ -185,7 +212,30 @@ public class HistoActivity extends AppCompatActivity {
         intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK | intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
+
+    @Override
+    public void onCardDeleted(int idCardDeleted) {
+        //suppression de la carte
+        adapter.deleteCard(idCardDeleted);
+
+        //affiché message de destruction de la carte
+        Toast toast = Toast.makeText(this, "carte supprimée", Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 0);
+        toast.show();
+    }
+
+    @Override
+    public void onCardModified(Carte carte) {
+        adapter.modifyCard(carte);
+
+        //affiché message de destruction de la carte
+        Toast toast = Toast.makeText(this, "carte modifiée", Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 0);
+        toast.show();
+
+    }
 }
+
 
 
 

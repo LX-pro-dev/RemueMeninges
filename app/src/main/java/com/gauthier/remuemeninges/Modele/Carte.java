@@ -1,5 +1,7 @@
 package com.gauthier.remuemeninges.Modele;
 
+import android.util.Log;
+
 import com.gauthier.remuemeninges.Controle.Controle;
 
 import org.json.JSONException;
@@ -23,7 +25,9 @@ public class Carte implements Comparable {//j'ai enlevé implement Comparable
     private Date datecreation;
     private Controle controle;
 
-
+    /**
+     * attribuer un numéro de carte
+     */
     public void resultNumCarte() {
         if (numCarte == null) {
             numCarte = 1;
@@ -32,7 +36,7 @@ public class Carte implements Comparable {//j'ai enlevé implement Comparable
         }
     }
 
-    //constructeur
+    //constructeurs
     public Carte(String langue, String question, String indice, String reponse, Integer categorie, Integer level) {
         this.categorie = categorie;
         this.question = question;
@@ -53,51 +57,10 @@ public class Carte implements Comparable {//j'ai enlevé implement Comparable
         this.datecreation = datecreation;
     }
 
-    //getters
-    public Integer getNumCarte() {
-        return numCarte;
-    }
-
-    public Integer getCategorie() {
-        return categorie;
-    }
-
-    public String getQuestion() {
-        return question;
-    }
-
-    public String getReponse() {
-        return reponse;
-    }
-
-    public String getIndice() {
-        return indice;
-    }
-
-    public void setDatecreation(Date datecreation) {
-        this.datecreation = datecreation;
-    }
-
-    public void setNumCarte(Integer numCarte) {
-        this.numCarte = numCarte;
-    }
-
-    public String getLangue() {
-        return langue;
-    }
-
-    public Integer getLevel() {
-        return level;
-    }
-
-    public Date getDatecreation() {
-        return datecreation;
-    }
 
     /**
-     * conversion de carte au format JSONArray
-     *
-     * @return
+     * convertir une carte au format JSONArray
+     *@return
      */
     public JSONObject convertToJSONObject() {
 //        List<Serializable> laListe= new ArrayList<>();
@@ -173,4 +136,123 @@ public class Carte implements Comparable {//j'ai enlevé implement Comparable
     public void setLevel(Integer level) {
         this.level = level;
     }
+
+    /**
+     * Modifier une carte existante
+     * @param output de type JSONObject
+     */
+    public void cardModified(String output) {
+        JSONObject object;
+        ArrayList<Carte> cards = controle.getLesCartes();
+        try {
+            object = new JSONObject(output);
+
+            Carte carte = null;
+            carte.convertJSonToCarte(object);
+
+            for (Carte card : cards) {
+                if (card.getNumCarte().equals(carte.getNumCarte())) {
+                    int index = cards.indexOf(card);
+                    cards.set(index, card);
+                }
+            }
+        } catch (JSONException e) {
+            Log.d("erreur enreg", "conversion JSON impossible" + e.toString() + "******************");
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * transformer un JSONObject en objet de type Carte
+     * @param lesDonneesJSON
+     * @return
+     */
+    public Carte convertJSonToCarte(JSONObject lesDonneesJSON) {
+        Carte carte = null;
+        try {
+            if (lesDonneesJSON.getInt("id") != 0) {
+                numCarte = lesDonneesJSON.getInt("id");
+            }
+
+            String langue;
+            if (lesDonneesJSON.getString("langue") == null) {
+                langue = "coucou";
+            } else {
+                langue = lesDonneesJSON.getString("langue");
+            }
+
+            String question;
+            if (lesDonneesJSON.getString("question") == null) {
+                question = "coucou";
+            } else {
+                question = lesDonneesJSON.getString("question");
+            }
+
+            String indice;
+            if (lesDonneesJSON.getString("indice") == null) {
+                indice = "coucou";
+            } else {
+                indice = lesDonneesJSON.getString("indice");
+            }
+
+            String reponse;
+            if (lesDonneesJSON.getString("reponse") == null) {
+                reponse = "coucou";
+            } else {
+                reponse = lesDonneesJSON.getString("reponse");
+            }
+
+            int categorie;
+            if (lesDonneesJSON.getInt("category") != 0) {
+                categorie = lesDonneesJSON.getInt("category");
+            } else {
+                categorie = 1;
+            }
+
+            int level;
+            if (lesDonneesJSON.getInt("level") != 0) {
+                level = lesDonneesJSON.getInt("level");
+            } else {
+                level = 1;
+            }
+
+            carte = new Carte(numCarte, langue, question, indice, reponse, categorie, level, new Date());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return carte;
+    }
+
+    //getters et setters
+    public Integer getNumCarte() {
+        return numCarte;
+    }
+
+    public Integer getCategorie() { return categorie; }
+
+    public String getQuestion() {
+        return question;
+    }
+
+    public String getReponse() {
+        return reponse;
+    }
+
+    public String getIndice() {
+        return indice;
+    }
+
+    public void setDatecreation(Date datecreation) {
+        this.datecreation = datecreation;
+    }
+
+    public void setNumCarte(Integer numCarte) {  this.numCarte = numCarte;  }
+
+    public String getLangue() {  return langue; }
+
+    public Integer getLevel() {   return level; }
+
+    public Date getDatecreation() { return datecreation; }
+
 }
