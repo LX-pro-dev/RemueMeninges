@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.gauthier.remuemeninges.Controle.Controle;
 import com.gauthier.remuemeninges.Modele.Carte;
+import com.gauthier.remuemeninges.Modele.Member;
 import com.gauthier.remuemeninges.R;
 
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class HistoListAdapter extends BaseAdapter {
     private LayoutInflater inflater;
     private Controle controle;
     private Context contexte;
+    private Member member;
 
     /**
      * Constructeur
@@ -37,6 +39,7 @@ public class HistoListAdapter extends BaseAdapter {
         this.inflater = LayoutInflater.from(contexte);
         this.controle = Controle.getInstance(null);
         this.contexte = contexte;
+        this.member = Member.getInstance(null);
     }
 
     public ArrayList<Carte> getItems() {
@@ -106,6 +109,12 @@ public class HistoListAdapter extends BaseAdapter {
             holder.txtListCategory = (TextView) convertView.findViewById(R.id.histoCategory);
             holder.txtListQuestion = (TextView) convertView.findViewById(R.id.histoQuestion);
             holder.histoRatingBar = (RatingBar) convertView.findViewById(R.id.histoRatingBarLevel);
+            if (member.isCreator(member)) {
+                holder.btDeleteCard.setVisibility(View.GONE);
+            } else {
+                holder.btDeleteCard.setVisibility(View.GONE);
+                holder.btModifycard.setVisibility(View.GONE);
+            }
 
             //affecter le holder à la vue
             convertView.setTag(holder);
@@ -199,17 +208,17 @@ public class HistoListAdapter extends BaseAdapter {
         return convertView;
     }
 
-
-
-
-    private class ViewHolder {
-        ImageButton btModifycard;
-        RatingBar histoRatingBar;
-        ImageButton btDeleteCard;
-        TextView txtListDateCard;
-        TextView txtListCategory;
-        TextView txtListQuestion;
-
+    /**
+     * modifier le contenu d'une carte
+     *
+     * @param carte
+     */
+    public void modifyCard(Carte carte) {
+        for (Carte card : lesCartes) {
+            if (card.getNumCarte() == carte.getNumCarte()) {
+                card = carte;
+            }
+        }
     }
 
     public void deleteCard(int idCardDeleted) {
@@ -226,9 +235,13 @@ public class HistoListAdapter extends BaseAdapter {
         }
     }
 
-    public void modifyCard(Carte carte) {
+    private class ViewHolder {
+        ImageButton btModifycard;
+        RatingBar histoRatingBar;
+        ImageButton btDeleteCard;
+        TextView txtListDateCard;
+        TextView txtListCategory;
+        TextView txtListQuestion;
 
     }
-
-
 }

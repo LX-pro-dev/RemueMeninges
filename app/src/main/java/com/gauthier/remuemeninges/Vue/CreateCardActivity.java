@@ -66,6 +66,7 @@ carte puissent la traduire dans la leur
             txtReponse.setText(carte.getReponse());
             txtIndice.setText(carte.getIndice());
             ratingLevel.setRating(carte.getLevel());
+
             switch (carte.getCategorie()) {
                 case 1:
                     rbCat1.setChecked(true);
@@ -145,10 +146,10 @@ carte puissent la traduire dans la leur
                         Carte card = new Carte(carte.getNumCarte(), "fr", question, indice, reponse, categorie, level, carte.getDatecreation());
                         controle.getLesCartes().set(index, card);//NPE!!!
                         controle.getInstance(CreateCardActivity.this).modifyCarte(card);
+
                         Toast toast = Toast.makeText(CreateCardActivity.this, "La carte a été modifiée", Toast.LENGTH_LONG);
                         toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 0);
                         toast.show();
-                        isModifyCard = false;
                     } else {
                         afficheResult(question, indice, reponse, level, categorie);
                         Toast toast = Toast.makeText(CreateCardActivity.this, "La carte a été créée", Toast.LENGTH_LONG);
@@ -156,7 +157,9 @@ carte puissent la traduire dans la leur
                         toast.show();
                     }
                 }
+                isModifyCard = false;
                 clearCard();
+                Log.d("createCard", isModifyCard + "");
             }
         });
     }

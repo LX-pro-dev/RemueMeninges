@@ -142,7 +142,11 @@ public final class Controle {
         this.listener = listener;
     }
 
-    // notification du listener
+    /**
+     * suppression d'une carte de la liste à partir du retour du serveur
+     *
+     * @param id de la carte à supprimer
+     */
     public void cardDeleted(int id) {
 
         Carte carte1 = null;
@@ -155,27 +159,38 @@ public final class Controle {
         lesCartes.remove(carte1);
 
         if (listener != null) {
+            // notification du listener
             listener.onCardDeleted(id);
 
         }
     }
 
+    /**
+     * Modifier une carte de la liste à partir du retour du serveur
+     *
+     * @param output JSONObject
+     */
     public void cardModified(String output) {
-        Carte carte = null;
-        carte.cardModified(output);
+        Carte carte = new Carte();
+        carte.carteModifiee(lesCartes, output);
         if (listener != null) {
+            // notification du listener
             listener.onCardModified(carte);
         }
     }
 
+    /**
+     * ajouter une carte à la liste à partir du retour du serveur
+     *
+     * @param output
+     */
     public void addCard(String output) {
+        Log.d("addCard", output);
         JSONObject objet;
         try {
             objet = new JSONObject(output);
-            ArrayList<Carte> cards = lesCartes;
-            Carte carte = null;
-            carte.convertJSonToCarte(objet);//faut-il un if(object != null)?
-            cards.add(carte);
+            lesCartes.add(convertJSonToCarte(objet));
+
         } catch (JSONException e) {
             Log.d("erreur enreg", "conversion JSON impossible" + e.toString() + "******************");
             e.printStackTrace();
@@ -205,4 +220,91 @@ public final class Controle {
             e.printStackTrace();
         }
     }
+
+    /**
+     * transformer un JSONObject en objet de type Carte
+     *
+     * @param lesDonneesJSON
+     * @return
+     */
+    public Carte convertJSonToCarte(JSONObject lesDonneesJSON) {
+        Carte carte = null;
+        try {
+            int numCarte = 0;
+            if (lesDonneesJSON.getInt("id") != 0) {
+                numCarte = lesDonneesJSON.getInt("id");
+            }
+
+            String langue;
+            if (lesDonneesJSON.getString("langue") == null) {
+                langue = "coucou";
+            } else {
+                langue = lesDonneesJSON.getString("langue");
+            }
+
+            String question;
+            if (lesDonneesJSON.getString("question") == null) {
+                question = "coucou";
+            } else {
+                question = lesDonneesJSON.getString("question");
+            }
+
+            String indice;
+            if (lesDonneesJSON.getString("indice") == null) {
+                indice = "coucou";
+            } else {
+                indice = lesDonneesJSON.getString("indice");
+            }
+
+            String reponse;
+            if (lesDonneesJSON.getString("reponse") == null) {
+                reponse = "coucou";
+            } else {
+                reponse = lesDonneesJSON.getString("reponse");
+            }
+
+            int categorie;
+            if (lesDonneesJSON.getInt("category") != 0) {
+                categorie = lesDonneesJSON.getInt("category");
+            } else {
+                categorie = 1;
+            }
+
+            int level;
+            if (lesDonneesJSON.getInt("level") != 0) {
+                level = lesDonneesJSON.getInt("level");
+            } else {
+                level = 1;
+            }
+
+            carte = new Carte(numCarte, langue, question, indice, reponse, categorie, level, new Date());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return carte;
+    }
+
+/**
+ * Modifier une carte existante
+ //     *
+ //     * @param lesCartes
+ //     * @param output de type JSONObject
+ //     */
+//    public void carteModifiee(ArrayList<Carte> lesCartes, String output) {
+//        JSONObject object;
+//        try {
+//            object = new JSONObject(output);
+//
+//            for (Carte card : this.lesCartes) {
+//                if (card.getNumCarte().equals(carte.convertJSonToCarte(object))) {
+//                    int index = this.lesCartes.indexOf(card);
+//                    this.lesCartes.set(index, card);
+//                }
+//            }
+//        } catch (JSONException e) {
+//            Log.d("erreur enreg", "conversion JSON impossible" + e.toString() + "******************");
+//            e.printStackTrace();
+//        }
+//    }
 }

@@ -56,7 +56,8 @@ public class CardActivity extends AppCompatActivity {
             clueTV.setText(carte.getIndice());
 
             categoryTV = findViewById(R.id.cardLblCategory);
-            categoryTV.setText(carte.getCategorie().toString());
+            String category = getCategory(carte.getCategorie());
+            categoryTV.setText(category);
 
             levelRB = findViewById(R.id.cardRatingBar);
             levelRB.setRating((int) carte.getLevel());
@@ -82,7 +83,8 @@ public class CardActivity extends AppCompatActivity {
 
             //la catégorie
             categoryTV = findViewById(R.id.cardLblCategory);
-            categoryTV.setText(carte.getCategorie().toString());
+            String category = getCategory(carte.getCategorie());
+            categoryTV.setText(category);
 
             //la question
             questionTV = findViewById(R.id.cardTextViewQuestion);
@@ -96,6 +98,30 @@ public class CardActivity extends AppCompatActivity {
             reponseTV = findViewById(R.id.cardTextViewResponse);
             Log.d("CardActivity", "init reponse = " + carte.getReponse());
         }
+    }
+
+    /**
+     * récupérer le string de la catégorie correspondante
+     * @param categorie
+     * @return
+     */
+    private String getCategory(Integer categorie) {
+        int cat = categorie;
+        switch (cat) {
+            case 1 :
+                return getString(R.string.cat1);
+            case 2:
+                return getString(R.string.cat2);
+            case 3:
+                return getString(R.string.cat3);
+            case 4:
+                return getString(R.string.cat4);
+            case 5:
+                return getString(R.string.cat5);
+            case 6:
+                return getString(R.string.cat6);
+        }
+        return null;
     }
 
     /**

@@ -3,6 +3,7 @@ package com.gauthier.remuemeninges.Modele;
 import android.util.Log;
 
 import com.gauthier.remuemeninges.Controle.Controle;
+import com.gauthier.remuemeninges.Vue.CreateCardActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,6 +38,15 @@ public class Carte implements Comparable {//j'ai enlevé implement Comparable
     }
 
     //constructeurs
+    public Carte() {
+        this.categorie = 1;
+        this.question = "coucou";
+        this.indice = "les";
+        this.reponse = "cocos";
+        this.langue = "fr";
+        this.level = 1;
+    }
+
     public Carte(String langue, String question, String indice, String reponse, Integer categorie, Integer level) {
         this.categorie = categorie;
         this.question = question;
@@ -60,21 +70,16 @@ public class Carte implements Comparable {//j'ai enlevé implement Comparable
 
     /**
      * convertir une carte au format JSONArray
-     *@return
+     *
+     * @return
      */
     public JSONObject convertToJSONObject() {
-//        List<Serializable> laListe= new ArrayList<>();
-//        laListe.add(langue);
-//        laListe.add(question);
-//        laListe.add(indice);
-//        laListe.add(reponse);
-//        laListe.add(categorie);
-//        laListe.add(level);
+
         JSONObject carte = new JSONObject();
         try {
             if (getNumCarte() != 0) {
                 String numCarte = getNumCarte().toString();
-                carte.put("id",  numCarte);
+                carte.put("id", numCarte);
                 carte.put("langue", "fr");
             }
             carte.put("question", getQuestion());
@@ -90,80 +95,8 @@ public class Carte implements Comparable {//j'ai enlevé implement Comparable
     }
 
     /**
-     * Parcourir la liste de carte et rechercher dans les textes de question
-     * s'il y a le mot clé correspondant et recréer une liste de cartes
-     *
-     * @param lesCartes
-     * @param keyword
-     * @return
-     */
-    public static ArrayList<Carte> search(ArrayList<Carte> lesCartes, String keyword) {
-        ArrayList<Carte> listMotCle = new ArrayList<>();
-        for (Carte carte : lesCartes) {
-            if (carte.question.contains(keyword)) {
-                listMotCle.add(carte);
-            }
-        }
-        return listMotCle;
-    }
-
-
-    @Override
-    public int compareTo(Object o) {
-        return 0;
-    }
-
-    public void setCategorie(Integer categorie) {
-        this.categorie = categorie;
-    }
-
-    public void setQuestion(String question) {
-        this.question = question;
-    }
-
-    public void setReponse(String reponse) {
-        this.reponse = reponse;
-    }
-
-    public void setIndice(String indice) {
-        this.indice = indice;
-    }
-
-    public void setLangue(String langue) {
-        this.langue = langue;
-    }
-
-    public void setLevel(Integer level) {
-        this.level = level;
-    }
-
-    /**
-     * Modifier une carte existante
-     * @param output de type JSONObject
-     */
-    public void cardModified(String output) {
-        JSONObject object;
-        ArrayList<Carte> cards = controle.getLesCartes();
-        try {
-            object = new JSONObject(output);
-
-            Carte carte = null;
-            carte.convertJSonToCarte(object);
-
-            for (Carte card : cards) {
-                if (card.getNumCarte().equals(carte.getNumCarte())) {
-                    int index = cards.indexOf(card);
-                    cards.set(index, card);
-                }
-            }
-        } catch (JSONException e) {
-            Log.d("erreur enreg", "conversion JSON impossible" + e.toString() + "******************");
-            e.printStackTrace();
-        }
-    }
-
-    /**
      * transformer un JSONObject en objet de type Carte
+     *
      * @param lesDonneesJSON
      * @return
      */
@@ -224,12 +157,84 @@ public class Carte implements Comparable {//j'ai enlevé implement Comparable
         return carte;
     }
 
+    public void carteModifiee(ArrayList<Carte> lesCartes, String output) {
+        JSONObject object;
+        try {
+            object = new JSONObject(output);
+            Carte carte = new Carte();
+            carte.convertJSonToCarte(object);
+            for (Carte card : lesCartes) {
+                if (card.getNumCarte().equals(carte.getNumCarte())) {
+                    int index = lesCartes.indexOf(card);
+                    lesCartes.set(index, carte);
+                }
+            }
+        } catch (JSONException e) {
+            Log.d("erreur enreg", "conversion JSON impossible" + e.toString() + "******************");
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Parcourir la liste de carte et rechercher dans les textes de question
+     * s'il y a le mot clé correspondant et recréer une liste de cartes
+     *
+     * @param lesCartes
+     * @param keyword
+     * @return
+     */
+    public static ArrayList<Carte> search(ArrayList<Carte> lesCartes, String keyword) {
+        ArrayList<Carte> listMotCle = new ArrayList<>();
+        for (Carte carte : lesCartes) {
+            if (carte.question.contains(keyword)) {
+                listMotCle.add(carte);
+            }
+        }
+        return listMotCle;
+    }
+
+
+    @Override
+    public int compareTo(Object o) {
+        return 0;
+    }
+
+    public void setCategorie(Integer categorie) {
+        this.categorie = categorie;
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
+    public void setReponse(String reponse) {
+        this.reponse = reponse;
+    }
+
+    public void setIndice(String indice) {
+        this.indice = indice;
+    }
+
+    public void setLangue(String langue) {
+        this.langue = langue;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
+
+
+
+
+
     //getters et setters
     public Integer getNumCarte() {
         return numCarte;
     }
 
-    public Integer getCategorie() { return categorie; }
+    public Integer getCategorie() {
+        return categorie;
+    }
 
     public String getQuestion() {
         return question;
@@ -247,12 +252,21 @@ public class Carte implements Comparable {//j'ai enlevé implement Comparable
         this.datecreation = datecreation;
     }
 
-    public void setNumCarte(Integer numCarte) {  this.numCarte = numCarte;  }
+    public void setNumCarte(Integer numCarte) {
+        this.numCarte = numCarte;
+    }
 
-    public String getLangue() {  return langue; }
+    public String getLangue() {
+        return langue;
+    }
 
-    public Integer getLevel() {   return level; }
+    public Integer getLevel() {
+        return level;
+    }
 
-    public Date getDatecreation() { return datecreation; }
+    public Date getDatecreation() {
+        return datecreation;
+    }
+
 
 }
