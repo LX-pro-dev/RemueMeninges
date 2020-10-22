@@ -109,7 +109,9 @@ public class HistoListAdapter extends BaseAdapter {
             holder.txtListCategory = (TextView) convertView.findViewById(R.id.histoCategory);
             holder.txtListQuestion = (TextView) convertView.findViewById(R.id.histoQuestion);
             holder.histoRatingBar = (RatingBar) convertView.findViewById(R.id.histoRatingBarLevel);
-            if (member.isCreator(member)) {
+            if (member.isAdmin(member)) {
+
+            } else if (member.isCreator(member)) {
                 holder.btDeleteCard.setVisibility(View.GONE);
             } else {
                 holder.btDeleteCard.setVisibility(View.GONE);
