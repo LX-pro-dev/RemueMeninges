@@ -2,19 +2,32 @@ package com.gauthier.remuemeninges.Vue;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.gauthier.remuemeninges.Controle.Controle;
 import com.gauthier.remuemeninges.Modele.Member;
 import com.gauthier.remuemeninges.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 
 public class MainActivity extends AppCompatActivity {
     private Controle controle;
     private Member member;
+    private FirebaseRemoteConfig mFirebaseRemoteConfig;
+
+    // Remote Config keys info bidons de l'exemple de google mais en lien avec le fichier xml
+    private static final String IS_ADMIN = "is_admin";
+    private static final String IS_CREATOR = "is_creator";
+    private static final String WELCOME_MESSAGE_CAPS_KEY = "welcome_message_caps";
 
     /*
     1 faire une menu :
@@ -37,7 +50,32 @@ public class MainActivity extends AppCompatActivity {
             ecouteMenu((Button) findViewById(R.id.home_btn_play), CardActivity.class);
             ecouteMenu((Button) findViewById(R.id.home_btn_list), HistoActivity.class);
         }
+
+        // Get Remote Config instance.
+        // [START get_remote_config_instance]
+        mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+        // [END get_remote_config_instance]
+
+        // Create a Remote Config Setting to enable developer mode, which you can use to increase
+        // the number of fetches available per hour during development. Also use Remote Config
+        // Setting to set the minimum fetch interval.
+        // [START enable_dev_mode]
+        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
+                .setMinimumFetchIntervalInSeconds(0)
+                .build();
+        mFirebaseRemoteConfig.setConfigSettingsAsync(configSettings);
+        // [END enable_dev_mode]
+
+        // Set default Remote Config parameter values. An app uses the in-app default values, and
+        // when you need to adjust those defaults, you set an updated value for only the values you
+        // want to change in the Firebase console. See Best Practices in the README for more
+        // information.
+        // [START set_default_values]
+        mFirebaseRemoteConfig.setDefaultsAsync(R.xml.remote_config_defaults);
+        // [END set_default_values]
+
     }
+
 
     /**
      * Ouvrir l'activity correspondante
