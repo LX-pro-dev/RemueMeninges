@@ -16,8 +16,12 @@ import com.gauthier.remuemeninges.Controle.Controle;
 import com.gauthier.remuemeninges.Modele.Carte;
 import com.gauthier.remuemeninges.Modele.Member;
 import com.gauthier.remuemeninges.R;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 
 import java.util.ArrayList;
+
+import static com.gauthier.remuemeninges.Vue.MainActivity.IS_ADMIN;
+import static com.gauthier.remuemeninges.Vue.MainActivity.IS_CREATOR;
 
 /**
  * Created by Alexandre GAUTHIER on 18/05/2020.
@@ -109,9 +113,11 @@ public class HistoListAdapter extends BaseAdapter {
             holder.txtListCategory = (TextView) convertView.findViewById(R.id.histoCategory);
             holder.txtListQuestion = (TextView) convertView.findViewById(R.id.histoQuestion);
             holder.histoRatingBar = (RatingBar) convertView.findViewById(R.id.histoRatingBarLevel);
-            if (member.isAdmin(member)) {
 
-            } else if (member.isCreator(member)) {
+            FirebaseRemoteConfig mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+            if (mFirebaseRemoteConfig.getBoolean(IS_ADMIN)) {
+
+            } else if (mFirebaseRemoteConfig.getBoolean(IS_CREATOR)) {
                 holder.btDeleteCard.setVisibility(View.GONE);
             } else {
                 holder.btDeleteCard.setVisibility(View.GONE);

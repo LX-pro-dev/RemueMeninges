@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "959543338474",
+    "firebase_url": "https://remue-meninges.firebaseio.com",
+    "project_id": "remue-meninges",
+    "storage_bucket": "remue-meninges.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:959543338474:android:f07310851a7e5dabb0be93",
+        "android_client_info": {
+          "package_name": "com.gauthier.remuemeninges"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "959543338474-8mc4p2p9c4m0bgliv6qfd975fiucaqia.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxKGtuNJFHtsjOw16_fX-DWED8g-tJR7o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "959543338474-8mc4p2p9c4m0bgliv6qfd975fiucaqia.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -6,16 +6,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.gauthier.remuemeninges.Controle.Controle;
 import com.gauthier.remuemeninges.Modele.Member;
 import com.gauthier.remuemeninges.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 
@@ -24,10 +20,9 @@ public class MainActivity extends AppCompatActivity {
     private Member member;
     private FirebaseRemoteConfig mFirebaseRemoteConfig;
 
-    // Remote Config keys info bidons de l'exemple de google mais en lien avec le fichier xml
-    private static final String IS_ADMIN = "is_admin";
-    private static final String IS_CREATOR = "is_creator";
-    private static final String WELCOME_MESSAGE_CAPS_KEY = "welcome_message_caps";
+    // Remote Config keys en lien avec le fichier "remote_config_defaults.xml"
+    public static final String IS_ADMIN = "is_admin";
+    public static final String IS_CREATOR = "is_creator";
 
     /*
     1 faire une menu :
@@ -41,15 +36,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         controle = Controle.getInstance(this);
         member = Member.getInstance(this);
-        if (member.isAdmin(member) || member.isCreator(member)) {
-            ecouteMenu((Button) findViewById(R.id.home_btn_play), CardActivity.class);
-            ecouteMenu((Button) findViewById(R.id.home_btn_create), CreateCardActivity.class);
-            ecouteMenu((Button) findViewById(R.id.home_btn_list), HistoActivity.class);
-        } else {
-            findViewById(R.id.home_btn_create).setVisibility(View.GONE);
-            ecouteMenu((Button) findViewById(R.id.home_btn_play), CardActivity.class);
-            ecouteMenu((Button) findViewById(R.id.home_btn_list), HistoActivity.class);
-        }
+
 
         // Get Remote Config instance.
         // [START get_remote_config_instance]
@@ -74,6 +61,28 @@ public class MainActivity extends AppCompatActivity {
         mFirebaseRemoteConfig.setDefaultsAsync(R.xml.remote_config_defaults);
         // [END set_default_values]
 
+        fetchButtonsVisibility();
+
+    }
+
+    /**
+     * gérer la présence des boutons en fonctions des autorisations octroyées par le statut du membre
+     */
+    private void fetchButtonsVisibility() {
+        //if (member.isAdmin(member) || member.isCreator(member)) {
+        Log.d("fetchButtonsVisibility", "IS_ADMIN " + mFirebaseRemoteConfig.getBoolean(IS_ADMIN));
+        if (mFirebaseRemoteConfig.getBoolean(IS_ADMIN) || mFirebaseRemoteConfig.getBoolean(IS_CREATOR)) {
+            ecouteMenu((Button) findViewById(R.id.home_btn_play), CardActivity.class);
+            ecouteMenu((Button) findViewById(R.id.home_btn_create), CreateCardActivity.class);
+            ecouteMenu((Button) findViewById(R.id.home_btn_list), HistoActivity.class);
+            if (mFirebaseRemoteConfig.getBoolean(IS_CREATOR)) {
+                findViewById(R.id.btDeleteCard).setVisibility(View.GONE);
+            }
+        } else {
+            ecouteMenu((Button) findViewById(R.id.home_btn_play), CardActivity.class);
+            ecouteMenu((Button) findViewById(R.id.home_btn_list), HistoActivity.class);
+            findViewById(R.id.home_btn_create).setVisibility(View.GONE);
+        }
     }
 
 
