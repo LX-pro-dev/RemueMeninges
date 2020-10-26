@@ -6,9 +6,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.gauthier.remuemeninges.BuildConfig;
 import com.gauthier.remuemeninges.Controle.Controle;
 import com.gauthier.remuemeninges.Modele.Member;
 import com.gauthier.remuemeninges.R;
@@ -17,9 +19,9 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 
 public class MainActivity extends AppCompatActivity {
     private Controle controle;
-    private Member member;
     private FirebaseRemoteConfig mFirebaseRemoteConfig;
 
+    private static final String TAG = "MainActivity";
     // Remote Config keys en lien avec le fichier "remote_config_defaults.xml"
     public static final String IS_ADMIN = "is_admin";
     public static final String IS_CREATOR = "is_creator";
@@ -33,10 +35,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         controle = Controle.getInstance(this);
-        member = Member.getInstance(this);
-
 
         // Get Remote Config instance.
         // [START get_remote_config_instance]
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         // Setting to set the minimum fetch interval.
         // [START enable_dev_mode]
         FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
-                .setMinimumFetchIntervalInSeconds(0)
+                .setMinimumFetchIntervalInSeconds(BuildConfig.DEBUG ? 0 : 60*15)
                 .build();
         mFirebaseRemoteConfig.setConfigSettingsAsync(configSettings);
         // [END enable_dev_mode]
@@ -61,23 +62,43 @@ public class MainActivity extends AppCompatActivity {
         mFirebaseRemoteConfig.setDefaultsAsync(R.xml.remote_config_defaults);
         // [END set_default_values]
 
-        fetchButtonsVisibility();
+        fetchConfig();
 
+    }
+
+
+    /**
+     * fetch visibility of different button from remote config service and activate it
+     */
+    private void fetchConfig() {
+        mFirebaseRemoteConfig.fetchAndActivate()
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        boolean updated = task.getResult();
+                        Log.d(TAG, "Config params updated: " + updated);
+                        Toast.makeText(MainActivity.this, "Fetch and activate succeeded",
+                                Toast.LENGTH_SHORT).show();
+
+                    } else {
+                        Toast.makeText(MainActivity.this, "Fetch failed",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                    buildVisibility();
+                });
     }
 
     /**
      * gérer la présence des boutons en fonctions des autorisations octroyées par le statut du membre
      */
-    private void fetchButtonsVisibility() {
-        //if (member.isAdmin(member) || member.isCreator(member)) {
+    private void buildVisibility() {
         Log.d("fetchButtonsVisibility", "IS_ADMIN " + mFirebaseRemoteConfig.getBoolean(IS_ADMIN));
+        Log.d("fetchButtonsVisibility", "IS_CREATOR " + mFirebaseRemoteConfig.getBoolean(IS_CREATOR));
+
         if (mFirebaseRemoteConfig.getBoolean(IS_ADMIN) || mFirebaseRemoteConfig.getBoolean(IS_CREATOR)) {
             ecouteMenu((Button) findViewById(R.id.home_btn_play), CardActivity.class);
             ecouteMenu((Button) findViewById(R.id.home_btn_create), CreateCardActivity.class);
             ecouteMenu((Button) findViewById(R.id.home_btn_list), HistoActivity.class);
-            if (mFirebaseRemoteConfig.getBoolean(IS_CREATOR)) {
-                findViewById(R.id.btDeleteCard).setVisibility(View.GONE);
-            }
+
         } else {
             ecouteMenu((Button) findViewById(R.id.home_btn_play), CardActivity.class);
             ecouteMenu((Button) findViewById(R.id.home_btn_list), HistoActivity.class);

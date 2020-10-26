@@ -43,7 +43,7 @@ public class HistoListAdapter extends BaseAdapter {
         this.inflater = LayoutInflater.from(contexte);
         this.controle = Controle.getInstance(null);
         this.contexte = contexte;
-        this.member = Member.getInstance(null);
+        this.member = Member.getInstance();
     }
 
     public ArrayList<Carte> getItems() {
