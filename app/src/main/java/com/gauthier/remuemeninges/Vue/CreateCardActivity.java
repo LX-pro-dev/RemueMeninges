@@ -17,21 +17,17 @@ import com.gauthier.remuemeninges.Controle.Controle;
 import com.gauthier.remuemeninges.Modele.Carte;
 import com.gauthier.remuemeninges.R;
 
-public class CreateCardActivity extends AppCompatActivity {
+import static com.gauthier.remuemeninges.Vue.HistoListAdapter.toModify;
 
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_card);
-        init();
-    }
-/*
-on devra proposer d'écrire la carte aussi en anglais par défaut pour que les autres créateurs
-de carte dans d'autres langues qui ne connaissent pas la langue dans laquelle on a écrit notre
-carte puissent la traduire dans la leur
-*/
+public class CreateCardActivity extends AppCompatActivity {
 
     //propriétés pour manipuler les objets graphiques du xml
     private EditText txtQuestion;
+    /*
+    on devra proposer d'écrire la carte aussi en anglais par défaut pour que les autres créateurs
+    de carte dans d'autres langues qui ne connaissent pas la langue dans laquelle on a écrit notre
+    carte puissent la traduire dans la leur
+    */
     private EditText txtReponse;
     private EditText txtIndice;
     private RadioButton rbCat1;
@@ -45,23 +41,27 @@ carte puissent la traduire dans la leur
     private Carte carte;
     private boolean isModifyCard = false;
 
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_create_card);
+        init();
+    }
 
     private void init() {
-        ratingLevel = (RatingBar) findViewById(R.id.creaRatingBarLevel);
-        txtQuestion = (EditText) findViewById(R.id.creaTxtQuestion);
-        txtReponse = (EditText) findViewById(R.id.creaTxtReponse);
-        txtIndice = (EditText) findViewById(R.id.creaTxtIndice);
-        rbCat1 = (RadioButton) findViewById(R.id.creaRbCat1);
-        rbCat2 = (RadioButton) findViewById(R.id.creaRbCat2);
-        rbCat3 = (RadioButton) findViewById(R.id.creaRbCat3);
-        rbCat4 = (RadioButton) findViewById(R.id.creaRbCat4);
-        rbCat5 = (RadioButton) findViewById(R.id.creaRbCat5);
-        rbCat6 = (RadioButton) findViewById(R.id.creaRbCat6);
+        ratingLevel = findViewById(R.id.creaRatingBarLevel);
+        txtQuestion = findViewById(R.id.creaTxtQuestion);
+        txtReponse = findViewById(R.id.creaTxtReponse);
+        txtIndice = findViewById(R.id.creaTxtIndice);
+        rbCat1 = findViewById(R.id.creaRbCat1);
+        rbCat2 = findViewById(R.id.creaRbCat2);
+        rbCat3 = findViewById(R.id.creaRbCat3);
+        rbCat4 = findViewById(R.id.creaRbCat4);
+        rbCat5 = findViewById(R.id.creaRbCat5);
+        rbCat6 = findViewById(R.id.creaRbCat6);
 
-        carte = Controle.getInstance(this).getCarte();//je veux récupérer la carte envoyée depuis histo mais elle est conservée et je ne peux plus passer dans creation de carte, il me fait passer directement la carte que je voulais modifier
+        carte = Controle.getInstance(this).getCarte();
 
         if (carte != null) {
-            isModifyCard = true;
             txtQuestion.setText(carte.getQuestion());
             txtReponse.setText(carte.getReponse());
             txtIndice.setText(carte.getIndice());
@@ -101,7 +101,7 @@ carte puissent la traduire dans la leur
 
 
     private void ecouteEnregistrer() {
-        ((Button) findViewById(R.id.creaBtnEnregistrer)).setOnClickListener(new Button.OnClickListener() {
+        findViewById(R.id.creaBtnEnregistrer).setOnClickListener(new Button.OnClickListener() {
             //pour gérer un événement sur on objet graphique
             // on recherche l'objet graphique ac R.id
             // et on applique setOnClickListener() qui redéfinie la méthode onClick(View v)
@@ -140,12 +140,12 @@ carte puissent la traduire dans la leur
                 if (question == null && reponse == null) {
                     Toast.makeText(CreateCardActivity.this, "saisie incorrecte", Toast.LENGTH_LONG).show();
                 } else {
-                    if (isModifyCard) {
+                    if (toModify) {
                         controle = Controle.getInstance(CreateCardActivity.this);
                         int index = controle.getLesCartes().indexOf(carte);
                         Carte card = new Carte(carte.getNumCarte(), "fr", question, indice, reponse, categorie, level, carte.getDatecreation());
                         controle.getLesCartes().set(index, card);//NPE!!!
-                        controle.getInstance(CreateCardActivity.this).modifyCarte(card);
+                        Controle.getInstance(CreateCardActivity.this).modifyCarte(card);
 
                         Toast toast = Toast.makeText(CreateCardActivity.this, "La carte a été modifiée", Toast.LENGTH_LONG);
                         toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 0);
@@ -157,7 +157,7 @@ carte puissent la traduire dans la leur
                         toast.show();
                     }
                 }
-                isModifyCard = false;
+                toModify = false;
                 clearCard();
                 Log.d("createCard", isModifyCard + "");
             }
@@ -188,6 +188,7 @@ carte puissent la traduire dans la leur
         txtIndice.getText().clear();
         rbCat1.setChecked(true);
         ratingLevel.setRating(1);
+        Controle.getInstance(this).setCarte(null);
     }
 
     public void creaBtnHome(View view) {

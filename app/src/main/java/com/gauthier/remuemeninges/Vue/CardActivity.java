@@ -102,24 +102,38 @@ public class CardActivity extends AppCompatActivity {
 
     /**
      * récupérer le string de la catégorie correspondante
+     *
      * @param categorie
      * @return
      */
     private String getCategory(Integer categorie) {
         int cat = categorie;
+        String s;
         switch (cat) {
-            case 1 :
-                return getString(R.string.cat1);
+            case 1:
+                s = getString(R.string.cat1);
+                s = s.substring(7, s.length() - 1);
+                return s;
             case 2:
-                return getString(R.string.cat2);
+                s = getString(R.string.cat2);
+                s = s.substring(7, s.length() - 1);
+                return s;
             case 3:
-                return getString(R.string.cat3);
+                s = getString(R.string.cat3);
+                s = s.substring(7, s.length() - 1);
+                return s;
             case 4:
-                return getString(R.string.cat4);
+                s = getString(R.string.cat4);
+                s = s.substring(7, s.length() - 1);
+                return s;
             case 5:
-                return getString(R.string.cat5);
+                s = getString(R.string.cat5);
+                s = s.substring(7, s.length() - 1);
+                return s;
             case 6:
-                return getString(R.string.cat6);
+                s = getString(R.string.cat6);
+                s = s.substring(7, s.length() - 1);
+                return s;
         }
         return null;
     }

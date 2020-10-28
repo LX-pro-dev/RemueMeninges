@@ -30,12 +30,12 @@
     <string name="card_btn_read_question">listen the question</string>
     <string name="card_btn_read_clue">listen the clue</string>
     <string name="card_btn_read_answer">listen the answer</string>
-    <string name="cat1">Geography and nature</string>
-    <string name="cat2">Bible</string>
-    <string name="cat3">Law and prophets</string>
-    <string name="cat4">History</string>
-    <string name="cat5">The sky</string>
-    <string name="cat6">Tote</string>
+    <string name="cat1">Cat 1: Geography and nature</string>
+    <string name="cat2">Cat 2: Bible</string>
+    <string name="cat3">Cat 3: Law and prophets</string>
+    <string name="cat4">Cat 4: History</string>
+    <string name="cat5">Cat 5: The sky</string>
+    <string name="cat6">Cat 6: Tote</string>
     <string name="categorie">CATEGORY</string>
     <string name="histo_title">List of cards</string>
     <string name="histo_txt_recherche_par_mot_cl">Search by keyword</string>
@@ -51,4 +51,6 @@
     <string name="list_histo_level">"level : "</string>
     <string name="list_histo_bt_delete">delete carad</string>
     <string name="modifier_la_carte">modify card</string>
+    <string name="cat_4_a_6">Cat 4: Law and prophets    Cat 5: History    Cat 6: Tote</string>
+    <string name="cat_1_a_3">Cat 1: Geography and nature    Cat 2: Bible    C3: The sky</string>
 </resources>

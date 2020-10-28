@@ -14,7 +14,7 @@ import java.util.Date;
 /**
  * Created by Alexandre GAUTHIER on 14/05/2020.
  */
-public class Carte implements Comparable {//j'ai enlevé implement Comparable
+public class Carte implements Comparable {
     //propriétés
     private Integer numCarte;
     private Integer categorie;

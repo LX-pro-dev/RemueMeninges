@@ -20,6 +20,7 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 
 import java.util.ArrayList;
 
+import static android.provider.Settings.System.getString;
 import static com.gauthier.remuemeninges.Vue.MainActivity.IS_ADMIN;
 import static com.gauthier.remuemeninges.Vue.MainActivity.IS_CREATOR;
 
@@ -32,6 +33,7 @@ public class HistoListAdapter extends BaseAdapter {
     private Controle controle;
     private Context contexte;
     private Member member;
+    public static boolean toModify = false;
 
     /**
      * Constructeur
@@ -178,7 +180,7 @@ public class HistoListAdapter extends BaseAdapter {
             public void onClick(View v) {
                 //on récupère la position de la ligne dans la liste
                 Log.i("HistoL onClick modify", "position = " + position);
-
+                toModify = true;
                 //demande d'affichage de la carte dans CreateActivity
                 ((HistoActivity) contexte).modifyCarte(lesCartes.get(position));
             }
@@ -215,6 +217,8 @@ public class HistoListAdapter extends BaseAdapter {
         });
         return convertView;
     }
+
+
 
     /**
      * modifier le contenu d'une carte

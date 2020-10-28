@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">RemueMeninges</string>
-    <string name="cat3">La loi et les prophètes</string>
-    <string name="cat4">Histoire</string>
-    <string name="cat5">Le ciel</string>
-    <string name="cat6">Divers</string>
+    <string name="cat3">Cat 3 = La loi et les prophètes</string>
+    <string name="cat4">Cat 4 = Histoire</string>
+    <string name="cat5">Cat 5 = Le ciel</string>
+    <string name="cat6">Cat 6 = Divers</string>
     <string name="ce_n_est_pas_une_couleur">Ce n\'est pas une couleur c\'est autre chose sois dit entre nous </string>
     <string name="blanc">Blanc</string>
     <string name="quelle_est_la_couleur_du_cheval_blanc_d_henri_iv_a_blanc_b_rouge_c_vert_d_rose">Quelle est la couleur du cheval blanc d\'Henri IV ? a) blanc b) rouge c) vert d) rose</string>
@@ -48,6 +48,8 @@
     <string name="list_histo_level">"niveau de difficulté : "</string>
     <string name="list_histo_bt_delete">suppression de la carte</string>
     <string name="modifier_la_carte">modifier la carte</string>
-    <string name="cat1">Géographie et nature</string>
-    <string name="cat2">Bible</string>
+    <string name="cat1">"Cat 1 = Géographie et nature "</string>
+    <string name="cat2">Cat 2 = Bible</string>
+    <string name="cat_4_a_6">Cat 4 = La loi et les prophètes       Cat 5 = Histoire       Cat 6 = Divers</string>
+    <string name="cat_1_a_3">Cat 1 = Géographie et nature Cat 2 = Bible Cat 3 = le ciel</string>
 </resources>

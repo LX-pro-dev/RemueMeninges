@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal"
+    android:gravity="center_horizontal"
     android:orientation="vertical"
     tools:context=".Vue.CreateCardActivity">
 
@@ -40,14 +42,14 @@
                     android:layout_height="wrap_content"
                     android:checked="true"
                     android:padding="5sp"
-                    android:text="@string/cat1"
+                    android:text="Cat 1"
                     android:textSize="@dimen/radio_btn" />
 
                 <RadioButton
                     android:id="@+id/creaRbCat2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/cat2"
+                    android:text="Cat 2"
                     android:textSize="@dimen/radio_btn" />
 
                 <RadioButton
@@ -55,14 +57,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5sp"
-                    android:text="@string/cat3"
+                    android:text="Cat 3"
                     android:textSize="@dimen/radio_btn" />
 
                 <RadioButton
                     android:id="@+id/creaRbCat4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/cat4"
+                    android:text="Cat 4"
                     android:textSize="@dimen/radio_btn" />
 
                 <RadioButton
@@ -70,17 +72,33 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5sp"
-                    android:text="@string/cat5"
+                    android:text="Cat 5"
                     android:textSize="@dimen/radio_btn" />
 
                 <RadioButton
                     android:id="@+id/creaRbCat6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/cat6"
+                    android:text="Cat 6"
                     android:textSize="@dimen/radio_btn" />
 
             </RadioGroup>
+
+            <TextView
+                android:id="@+id/tvCat1a3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@string/cat_1_a_3"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tvCat4a6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@string/cat_4_a_6"
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/creaTextViewQuestion"

@@ -75,12 +75,17 @@
 
                 <ScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp">
+
 
                     <TextView
                         android:id="@+id/cardLblQuestion"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
                         android:gravity="center"
                         android:inputType="textAutoCorrect|textMultiLine"
                         android:textSize="@dimen/txt_view" />
@@ -116,6 +121,8 @@
                     android:id="@+id/cardTextViewClue"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:gravity="center"
                     android:textSize="@dimen/txt_view"
                     android:visibility="invisible" />
@@ -149,6 +156,8 @@
                     android:id="@+id/cardTextViewResponse"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:gravity="center"
                     android:textSize="@dimen/txt_view"
                     android:visibility="invisible"

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".Vue.HistoActivity">
 
@@ -25,17 +25,19 @@
         android:text="@string/histo_txt_recherche_par_mot_cl"
         android:textSize="@dimen/txt_view"
         android:textStyle="bold" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10sp"
             android:background="@color/colorAccent"
-            app:srcCompat="@android:drawable/ic_menu_search"
-           />
+            app:srcCompat="@android:drawable/ic_menu_search" />
+
         <EditText
             android:id="@+id/histo_keyword"
             android:layout_width="match_parent"
@@ -44,14 +46,13 @@
     </LinearLayout>
 
 
-
     <RadioGroup
         android:id="@+id/histo_rg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10sp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
+        android:layout_marginHorizontal="10sp"
         android:orientation="horizontal">
 
         <RadioButton
@@ -76,6 +77,22 @@
             android:layout_weight="1"
             android:text="@string/histo_rb_category" />
     </RadioGroup>
+
+    <TextView
+        android:id="@+id/tvCat1a3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/cat_1_a_3"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tvCat4a6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/cat_4_a_6"
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/textViewListeCard"

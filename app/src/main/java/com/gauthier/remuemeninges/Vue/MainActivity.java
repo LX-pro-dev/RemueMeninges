@@ -1,6 +1,7 @@
 package com.gauthier.remuemeninges.Vue;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,7 +21,7 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 public class MainActivity extends AppCompatActivity {
     private Controle controle;
     private FirebaseRemoteConfig mFirebaseRemoteConfig;
-
+    private SharedPreferences sharedPreferences;
     private static final String TAG = "MainActivity";
     // Remote Config keys en lien avec le fichier "remote_config_defaults.xml"
     public static final String IS_ADMIN = "is_admin";
@@ -38,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
         controle = Controle.getInstance(this);
+
+        sharedPreferences = getPreferences(MODE_PRIVATE);//mode private : seul notre appli y a accès
 
         // Get Remote Config instance.
         // [START get_remote_config_instance]
