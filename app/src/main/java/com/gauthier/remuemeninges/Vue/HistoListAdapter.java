@@ -20,9 +20,7 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 
 import java.util.ArrayList;
 
-import static android.provider.Settings.System.getString;
-import static com.gauthier.remuemeninges.Vue.MainActivity.IS_ADMIN;
-import static com.gauthier.remuemeninges.Vue.MainActivity.IS_CREATOR;
+import static com.gauthier.remuemeninges.Vue.MainActivity.APP_UUID;
 
 /**
  * Created by Alexandre GAUTHIER on 18/05/2020.
@@ -117,9 +115,9 @@ public class HistoListAdapter extends BaseAdapter {
             holder.histoRatingBar = (RatingBar) convertView.findViewById(R.id.histoRatingBarLevel);
 
             FirebaseRemoteConfig mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
-            if (mFirebaseRemoteConfig.getBoolean(IS_ADMIN)) {
+            if (mFirebaseRemoteConfig.getString(APP_UUID).equals("2")) {
 
-            } else if (mFirebaseRemoteConfig.getBoolean(IS_CREATOR)) {
+            } else if (mFirebaseRemoteConfig.getString(APP_UUID).equals("1")) {
                 holder.btDeleteCard.setVisibility(View.GONE);
             } else {
                 holder.btDeleteCard.setVisibility(View.GONE);
@@ -217,7 +215,6 @@ public class HistoListAdapter extends BaseAdapter {
         });
         return convertView;
     }
-
 
 
     /**

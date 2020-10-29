@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<defaultsMap> <!--/clés et valeurs bidon pour l'instant-->
+<defaultsMap>
     <entry>
-        <key>is_admin</key>
-        <value>false</value>
-    </entry>
-    <entry>
-        <key>is_creator</key>
-        <value>true</value>
+        <key>app_uuid</key>
+        <value>0</value>
     </entry>
 </defaultsMap><!-- END xml_defaults -->

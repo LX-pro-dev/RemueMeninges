@@ -18,15 +18,17 @@ import com.gauthier.remuemeninges.R;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 
+import java.util.UUID;
+
 public class MainActivity extends AppCompatActivity {
     private Controle controle;
     private FirebaseRemoteConfig mFirebaseRemoteConfig;
     private SharedPreferences sharedPreferences;
+    private UUID uuid;
+    public static String app_uuid;
     private static final String TAG = "MainActivity";
     // Remote Config keys en lien avec le fichier "remote_config_defaults.xml"
-    public static final String IS_ADMIN = "is_admin";
-    public static final String IS_CREATOR = "is_creator";
-
+    public static final String APP_UUID = "app_uuid";
     /*
     1 faire une menu :
     choix de la langue (doit définir automatiquement la langue des cartes à proposer ou à créer)
@@ -39,8 +41,17 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
         controle = Controle.getInstance(this);
-
         sharedPreferences = getPreferences(MODE_PRIVATE);//mode private : seul notre appli y a accès
+
+        if(uuid != null)    uuid = UUID.fromString(sharedPreferences.getString(APP_UUID, null));
+
+        else {
+            uuid = UUID.randomUUID();
+            Log.d("uuid", ""+uuid);
+            app_uuid = uuid.toString();
+            sharedPreferences.edit().putString(APP_UUID,app_uuid).apply();
+        }
+
 
         // Get Remote Config instance.
         // [START get_remote_config_instance]
@@ -94,10 +105,9 @@ public class MainActivity extends AppCompatActivity {
      * gérer la présence des boutons en fonctions des autorisations octroyées par le statut du membre
      */
     private void buildVisibility() {
-        Log.d("fetchButtonsVisibility", "IS_ADMIN " + mFirebaseRemoteConfig.getBoolean(IS_ADMIN));
-        Log.d("fetchButtonsVisibility", "IS_CREATOR " + mFirebaseRemoteConfig.getBoolean(IS_CREATOR));
+        Log.d("fetchButtonsVisibility", "app_uuid " + mFirebaseRemoteConfig.getString(APP_UUID));
 
-        if (mFirebaseRemoteConfig.getBoolean(IS_ADMIN) || mFirebaseRemoteConfig.getBoolean(IS_CREATOR)) {
+        if (mFirebaseRemoteConfig.getString(APP_UUID).equals("1") || mFirebaseRemoteConfig.getString(APP_UUID).equals("2")) {
             ecouteMenu((Button) findViewById(R.id.home_btn_play), CardActivity.class);
             ecouteMenu((Button) findViewById(R.id.home_btn_create), CreateCardActivity.class);
             ecouteMenu((Button) findViewById(R.id.home_btn_list), HistoActivity.class);
