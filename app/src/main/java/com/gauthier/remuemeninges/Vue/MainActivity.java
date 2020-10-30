@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.gauthier.remuemeninges.BuildConfig;
 import com.gauthier.remuemeninges.Controle.Controle;
-import com.gauthier.remuemeninges.Modele.Member;
 import com.gauthier.remuemeninges.R;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
@@ -29,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     // Remote Config keys en lien avec le fichier "remote_config_defaults.xml"
     public static final String APP_UUID = "app_uuid";
+
     /*
     1 faire une menu :
     choix de la langue (doit définir automatiquement la langue des cartes à proposer ou à créer)
@@ -43,14 +43,14 @@ public class MainActivity extends AppCompatActivity {
         controle = Controle.getInstance(this);
         sharedPreferences = getPreferences(MODE_PRIVATE);//mode private : seul notre appli y a accès
 
-        if(uuid != null)    uuid = UUID.fromString(sharedPreferences.getString(APP_UUID, null));
-
-        else {
+        if (sharedPreferences.getString(APP_UUID, null) != null) {
+            app_uuid = sharedPreferences.getString(APP_UUID, null);
+        } else {
             uuid = UUID.randomUUID();
-            Log.d("uuid", ""+uuid);
             app_uuid = uuid.toString();
-            sharedPreferences.edit().putString(APP_UUID,app_uuid).apply();
+            sharedPreferences.edit().putString(APP_UUID, app_uuid).apply();
         }
+        Log.d("uuid", "" + app_uuid);
 
 
         // Get Remote Config instance.
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         // Setting to set the minimum fetch interval.
         // [START enable_dev_mode]
         FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
-                .setMinimumFetchIntervalInSeconds(BuildConfig.DEBUG ? 0 : 60*15)
+                .setMinimumFetchIntervalInSeconds(BuildConfig.DEBUG ? 0 : 60 * 15)
                 .build();
         mFirebaseRemoteConfig.setConfigSettingsAsync(configSettings);
         // [END enable_dev_mode]
