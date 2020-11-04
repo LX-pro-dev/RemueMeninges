@@ -45,9 +45,14 @@ public class MainActivity extends AppCompatActivity {
 
         if (sharedPreferences.getString(APP_UUID, null) != null) {
             app_uuid = sharedPreferences.getString(APP_UUID, null);
+
         } else {
             uuid = UUID.randomUUID();
             app_uuid = uuid.toString();
+            String[] tab = app_uuid.split("-");
+            app_uuid = "";
+            for (String g : tab) app_uuid += g;
+            Log.d("generate app_uuid", app_uuid);
             sharedPreferences.edit().putString(APP_UUID, app_uuid).apply();
         }
         Log.d("uuid", "" + app_uuid);
@@ -105,18 +110,16 @@ public class MainActivity extends AppCompatActivity {
      * gérer la présence des boutons en fonctions des autorisations octroyées par le statut du membre
      */
     private void buildVisibility() {
-        Log.d("fetchButtonsVisibility", "app_uuid " + mFirebaseRemoteConfig.getString(APP_UUID));
+        Log.d("fetchButtonsVisibility", "app_uuid " + mFirebaseRemoteConfig.getString(app_uuid));
 
-        if (mFirebaseRemoteConfig.getString(APP_UUID).equals("1") || mFirebaseRemoteConfig.getString(APP_UUID).equals("2")) {
-            ecouteMenu((Button) findViewById(R.id.home_btn_play), CardActivity.class);
-            ecouteMenu((Button) findViewById(R.id.home_btn_create), CreateCardActivity.class);
-            ecouteMenu((Button) findViewById(R.id.home_btn_list), HistoActivity.class);
-
-        } else {
-            ecouteMenu((Button) findViewById(R.id.home_btn_play), CardActivity.class);
-            ecouteMenu((Button) findViewById(R.id.home_btn_list), HistoActivity.class);
+        if (mFirebaseRemoteConfig.getString(app_uuid).equals("3")) {
             findViewById(R.id.home_btn_create).setVisibility(View.GONE);
         }
+        ecouteMenu((Button) findViewById(R.id.home_btn_play), CardActivity.class);
+        ecouteMenu((Button) findViewById(R.id.home_btn_create), CreateCardActivity.class);
+        ecouteMenu((Button) findViewById(R.id.home_btn_list), HistoActivity.class);
+
+
     }
 
 
