@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private Controle controle;
     private FirebaseRemoteConfig mFirebaseRemoteConfig;
     private SharedPreferences sharedPreferences;
+    private ProgressBar progressBar;
     private UUID uuid;
     public static String app_uuid;
     private static final String TAG = "MainActivity";
@@ -111,15 +113,21 @@ public class MainActivity extends AppCompatActivity {
      */
     private void buildVisibility() {
         Log.d("fetchButtonsVisibility", "app_uuid " + mFirebaseRemoteConfig.getString(app_uuid));
-
-        if (mFirebaseRemoteConfig.getString(app_uuid).equals("3")) {
-            findViewById(R.id.home_btn_create).setVisibility(View.GONE);
-        }
         ecouteMenu((Button) findViewById(R.id.home_btn_play), CardActivity.class);
         ecouteMenu((Button) findViewById(R.id.home_btn_create), CreateCardActivity.class);
         ecouteMenu((Button) findViewById(R.id.home_btn_list), HistoActivity.class);
-
-
+        progressBar = findViewById(R.id.progress_circular);
+        // 1 : admin, 2: creator, 3 player
+        if (mFirebaseRemoteConfig.getString(app_uuid).equals("1") || mFirebaseRemoteConfig.getString(app_uuid).equals("2")) {
+            findViewById(R.id.home_btn_create).setVisibility(View.VISIBLE);
+            findViewById(R.id.home_btn_play).setVisibility(View.VISIBLE);
+            findViewById(R.id.home_btn_list).setVisibility(View.VISIBLE);
+            findViewById(R.id.progress_circular).setVisibility(View.GONE);
+        } else {
+            findViewById(R.id.home_btn_play).setVisibility(View.VISIBLE);
+            findViewById(R.id.home_btn_list).setVisibility(View.VISIBLE);
+            findViewById(R.id.progress_circular).setVisibility(View.GONE);
+        }
     }
 
 

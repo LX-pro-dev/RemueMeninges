@@ -115,13 +115,16 @@ public class HistoListAdapter extends BaseAdapter {
             holder.histoRatingBar = (RatingBar) convertView.findViewById(R.id.histoRatingBarLevel);
 
             FirebaseRemoteConfig mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
-            if (mFirebaseRemoteConfig.getString(app_uuid).equals("2")) {
-
-            } else if (mFirebaseRemoteConfig.getString(app_uuid).equals("1")) {
-                holder.btDeleteCard.setVisibility(View.GONE);
-            } else {
-                holder.btDeleteCard.setVisibility(View.GONE);
-                holder.btModifycard.setVisibility(View.GONE);
+            switch (mFirebaseRemoteConfig.getString(app_uuid)) { // 1 : admin, 2: creator, 3 player
+                case "1":
+                    break;
+                case "2":
+                    holder.btDeleteCard.setVisibility(View.GONE);
+                    break;
+                case "3":
+                    holder.btDeleteCard.setVisibility(View.GONE);
+                    holder.btModifycard.setVisibility(View.GONE);
+                    break;
             }
 
             //affecter le holder à la vue
