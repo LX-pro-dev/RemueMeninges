@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
@@ -34,6 +35,7 @@ public class HistoActivity extends AppCompatActivity implements CardEventListene
     private RadioButton histoRbCategoy;
     private ListView lstHisto;
     private Button btn_list_home;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,7 @@ public class HistoActivity extends AppCompatActivity implements CardEventListene
         histoRbDate = (RadioButton) findViewById(R.id.histoRbDate);
         histoRbLevel = (RadioButton) findViewById(R.id.histoRbLevel);
         histoRbCategoy = (RadioButton) findViewById(R.id.histoRbCategoy);
+        progressBar = findViewById(R.id.progress_histo);
         ecouteRetourMenu();
         ArrayList<Carte> lesCartesFull;
         creerList();
@@ -58,6 +61,8 @@ public class HistoActivity extends AppCompatActivity implements CardEventListene
     @Override
     protected void onResume() {
         super.onResume();
+        //on va chercher la maj de la liste de cartes sur le net
+        this.controle = Controle.getInstance(this);
         //on s'inscrit à l'événement delete ou modify du controleur
         controle.setListener(this);
     }
@@ -76,15 +81,21 @@ public class HistoActivity extends AppCompatActivity implements CardEventListene
      * créer une ListAdapter
      */
     private void creerList() {
-        ArrayList<Carte> lesCartes = controle.getLesCartes();
-        //sort(lesCartes, Collections.<Carte>reverseOrder());
-        ListView lstHisto = (ListView) findViewById(R.id.lstHisto);
-        if (lesCartes != null) {
-            adapter = new HistoListAdapter(this, tri(lesCartes));
-        } else {
-            adapter = new HistoListAdapter(this, new ArrayList<Carte>());
+        if (controle.getLesCartes() != null) {
+            ArrayList<Carte> lesCartes = controle.getLesCartes();
+            //sort(lesCartes, Collections.<Carte>reverseOrder());
+            ListView lstHisto = (ListView) findViewById(R.id.lstHisto);
+            progressBar.setVisibility(View.GONE);
+            lstHisto.setVisibility(View.VISIBLE);
+
+            if (lesCartes != null) {
+                adapter = new HistoListAdapter(this, tri(lesCartes));
+            } else {
+                adapter = new HistoListAdapter(this, new ArrayList<Carte>());
+            }
+            lstHisto.setAdapter(adapter);
         }
-        lstHisto.setAdapter(adapter);
+
     }
 
     /**

@@ -103,11 +103,18 @@
         android:textSize="@dimen/txt_view"
         android:textStyle="bold" />
 
+    <ProgressBar
+        android:id="@+id/progress_histo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="25dp" />
+
     <ListView
         android:id="@+id/lstHisto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:visibility="gone" />
 
     <Button
         android:id="@+id/btn_list_home"

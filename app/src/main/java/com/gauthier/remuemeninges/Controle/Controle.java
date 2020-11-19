@@ -223,7 +223,6 @@ public final class Controle {
 
     /**
      * transformer un JSONObject en objet de type Carte
-     *
      * @param lesDonneesJSON
      * @return
      */
@@ -284,27 +283,4 @@ public final class Controle {
         }
         return carte;
     }
-
-/**
- * Modifier une carte existante
- //     *
- //     * @param lesCartes
- //     * @param output de type JSONObject
- //     */
-//    public void carteModifiee(ArrayList<Carte> lesCartes, String output) {
-//        JSONObject object;
-//        try {
-//            object = new JSONObject(output);
-//
-//            for (Carte card : this.lesCartes) {
-//                if (card.getNumCarte().equals(carte.convertJSonToCarte(object))) {
-//                    int index = this.lesCartes.indexOf(card);
-//                    this.lesCartes.set(index, card);
-//                }
-//            }
-//        } catch (JSONException e) {
-//            Log.d("erreur enreg", "conversion JSON impossible" + e.toString() + "******************");
-//            e.printStackTrace();
-//        }
-//    }
 }
