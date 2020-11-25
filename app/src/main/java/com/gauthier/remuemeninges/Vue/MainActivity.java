@@ -42,6 +42,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        init();
+
+    }
+
+    private void init() {
         setContentView(R.layout.activity_main);
         controle = Controle.getInstance(this);
         sharedPreferences = getPreferences(MODE_PRIVATE);//mode private : seul notre appli y a accès
@@ -86,6 +91,17 @@ public class MainActivity extends AppCompatActivity {
 
         fetchConfig();
 
+        Button crashButton = new Button(this);
+        crashButton.setText("Crash!");
+        crashButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                throw new RuntimeException("Test Crash"); // Force a crash
+            }
+        });
+
+        addContentView(crashButton, new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT));
     }
 
 
@@ -107,17 +123,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                     buildVisibility();
                 });
-        Button crashButton = new Button(this);
-        crashButton.setText("Crash!");
-        crashButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                throw new RuntimeException("Test Crash"); // Force a crash
-            }
-        });
-
-        addContentView(crashButton, new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT));
     }
 
     /**

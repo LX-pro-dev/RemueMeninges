@@ -62,7 +62,7 @@ public class HistoActivity extends AppCompatActivity implements CardEventListene
     protected void onResume() {
         super.onResume();
         //on va chercher la maj de la liste de cartes sur le net
-        this.controle = Controle.getInstance(this);
+       this.controle = Controle.getInstance(this);
         //on s'inscrit à l'événement delete ou modify du controleur
         controle.setListener(this);
     }
