@@ -52,13 +52,16 @@ public class MainActivity extends AppCompatActivity {
         sharedPreferences = getPreferences(MODE_PRIVATE);//mode private : seul notre appli y a accès
 
         if (sharedPreferences.getString(APP_UUID, null) != null) {
-            app_uuid = sharedPreferences.getString(APP_UUID, null);
-
+            if (sharedPreferences.getString(APP_UUID, null).charAt(0) == '_') {
+                app_uuid = sharedPreferences.getString(APP_UUID, null);
+            } else {
+                app_uuid = "_" + sharedPreferences.getString(APP_UUID, null);
+            }
         } else {
             uuid = UUID.randomUUID();
             app_uuid = uuid.toString();
             String[] tab = app_uuid.split("-");
-            app_uuid = "";
+            app_uuid = "_";
             for (String g : tab) app_uuid += g;
             Log.d("generate app_uuid", app_uuid);
             sharedPreferences.edit().putString(APP_UUID, app_uuid).apply();
