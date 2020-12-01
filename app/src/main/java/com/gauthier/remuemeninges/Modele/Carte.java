@@ -3,7 +3,6 @@ package com.gauthier.remuemeninges.Modele;
 import android.util.Log;
 
 import com.gauthier.remuemeninges.Controle.Controle;
-import com.gauthier.remuemeninges.Vue.CreateCardActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -100,8 +99,9 @@ public class Carte implements Comparable {
      * @param lesDonneesJSON
      * @return
      */
-    public Carte convertJSonToCarte(JSONObject lesDonneesJSON) {
+    public static Carte convertJSonToCarte(JSONObject lesDonneesJSON) {
         Carte carte = null;
+        int numCarte = 0;
         try {
             if (lesDonneesJSON.getInt("id") != 0) {
                 numCarte = lesDonneesJSON.getInt("id");
@@ -161,8 +161,7 @@ public class Carte implements Comparable {
         JSONObject object;
         try {
             object = new JSONObject(output);
-            Carte carte = new Carte();
-            carte.convertJSonToCarte(object);
+            Carte carte = convertJSonToCarte(object);
             for (Carte card : lesCartes) {
                 if (card.getNumCarte().equals(carte.getNumCarte())) {
                     int index = lesCartes.indexOf(card);
@@ -222,9 +221,6 @@ public class Carte implements Comparable {
     public void setLevel(Integer level) {
         this.level = level;
     }
-
-
-
 
 
     //getters et setters
