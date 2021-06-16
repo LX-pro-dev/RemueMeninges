@@ -3,7 +3,7 @@ package com.gauthier.remuemeninges.Controle;
 import android.content.Context;
 import android.util.Log;
 
-import com.gauthier.remuemeninges.Modele.AccesDistant;
+import com.gauthier.remuemeninges.Outils.AccesDistant;
 import com.gauthier.remuemeninges.Modele.Carte;
 
 import org.json.JSONArray;

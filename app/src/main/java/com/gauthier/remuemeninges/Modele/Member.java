@@ -1,7 +1,5 @@
 package com.gauthier.remuemeninges.Modele;
 
-import android.content.Context;
-
 /**
  * Created by Alexandre GAUTHIER on 2020/10/21.
  */

@@ -1,4 +1,4 @@
-package com.gauthier.remuemeninges.Modele;
+package com.gauthier.remuemeninges.Outils;
 
 import android.os.Build;
 import android.util.Log;
@@ -6,6 +6,7 @@ import android.util.Log;
 import androidx.annotation.RequiresApi;
 
 import com.gauthier.remuemeninges.Controle.Controle;
+import com.gauthier.remuemeninges.Modele.Carte;
 import com.gauthier.remuemeninges.Outils.AccesHTTP;
 import com.gauthier.remuemeninges.Outils.AsyncResponse;
 

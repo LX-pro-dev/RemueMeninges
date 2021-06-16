@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#91B8FF"
     android:orientation="vertical"
+    android:padding="10dp"
     tools:context=".Vue.CardActivity">
 
     <ScrollView
@@ -55,7 +57,7 @@
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="15sp"
                 android:gravity="center"
-                android:padding="5dp"
+                android:padding="10dp"
                 android:textSize="@dimen/txt_view"
                 android:textStyle="bold" />
 
@@ -92,6 +94,7 @@
                         android:layout_marginRight="10dp"
                         android:gravity="center"
                         android:inputType="textAutoCorrect|textMultiLine"
+                        android:padding="10dp"
                         android:textSize="@dimen/txt_view" />
                 </ScrollView>
 
@@ -129,6 +132,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:gravity="center"
+                    android:padding="10dp"
                     android:textSize="@dimen/txt_view"
                     android:visibility="invisible" />
 
@@ -165,6 +169,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:gravity="center"
+                    android:padding="10dp"
                     android:textSize="@dimen/txt_view"
                     android:visibility="invisible"
                     tools:ignore="DuplicateIds" />

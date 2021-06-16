@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#6E9AEB"
     android:orientation="vertical"
-    tools:context=".Vue.MainActivity"
-    android:background="#6E9AEB">
+    tools:context=".Vue.MainActivity">
 
     <TextView
         android:id="@+id/titre"
@@ -23,7 +23,7 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="350sp"
+        android:layout_height="250sp"
         android:layout_marginTop="20sp"
         android:layout_marginBottom="40dp"
         android:contentDescription="@string/img_party"

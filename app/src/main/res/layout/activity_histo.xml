@@ -43,7 +43,11 @@
             android:id="@+id/histo_keyword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textAutoCorrect|text" />
+            android:backgroundTint="#9E7A2B"
+            android:inputType="textAutoCorrect|text"
+            android:textColor=" #9E7A2B"
+            android:textColorLink="@color/colorPrimaryDark"
+            android:textCursorDrawable="@color/colorPrimaryDark" />
     </LinearLayout>
 
 
