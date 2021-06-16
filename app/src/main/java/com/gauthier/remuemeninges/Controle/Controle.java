@@ -86,7 +86,7 @@ public final class Controle {
      * @param level
      */
     public void creerCarte(String langue, String question, String indice, String reponse, Integer categorie, Integer level) {// création du profil
-        // Appelle de cette méthode dans Main pour obtenir les infos de profil
+        //Appel de cette méthode dans Main pour obtenir les infos de profil
         //on crée des cartes en français uniquement pour l'instant voir s'il n'y a pas conflit avec afficheResult()
         Carte uneCarte = new Carte(langue, question, indice, reponse, categorie, level);
         uneCarte.setDatecreation(new Date());

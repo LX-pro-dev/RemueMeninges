@@ -69,7 +69,6 @@ public class Carte implements Comparable {
 
     /**
      * convertir une carte au format JSONArray
-     *
      * @return
      */
     public JSONObject convertToJSONObject() {
@@ -95,7 +94,6 @@ public class Carte implements Comparable {
 
     /**
      * transformer un JSONObject en objet de type Carte
-     *
      * @param lesDonneesJSON
      * @return
      */

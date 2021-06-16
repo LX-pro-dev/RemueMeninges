@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center_horizontal"
+    android:background="#EBC36E"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     tools:context=".Vue.CreateCardActivity">
@@ -40,8 +41,9 @@
                     android:id="@+id/creaRbCat1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:buttonTint=" #3A5D9E"
                     android:checked="true"
-                    android:padding="5sp"
+                    android:padding="10dp"
                     android:text="Cat 1"
                     android:textSize="@dimen/radio_btn" />
 
@@ -49,6 +51,7 @@
                     android:id="@+id/creaRbCat2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:buttonTint=" #3A5D9E"
                     android:text="Cat 2"
                     android:textSize="@dimen/radio_btn" />
 
@@ -56,6 +59,7 @@
                     android:id="@+id/creaRbCat3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:buttonTint=" #3A5D9E"
                     android:padding="5sp"
                     android:text="Cat 3"
                     android:textSize="@dimen/radio_btn" />
@@ -64,6 +68,7 @@
                     android:id="@+id/creaRbCat4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:buttonTint=" #3A5D9E"
                     android:text="Cat 4"
                     android:textSize="@dimen/radio_btn" />
 
@@ -71,6 +76,7 @@
                     android:id="@+id/creaRbCat5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:buttonTint=" #3A5D9E"
                     android:padding="5sp"
                     android:text="Cat 5"
                     android:textSize="@dimen/radio_btn" />
@@ -79,6 +85,7 @@
                     android:id="@+id/creaRbCat6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:buttonTint=" #3A5D9E"
                     android:text="Cat 6"
                     android:textSize="@dimen/radio_btn" />
 
@@ -123,6 +130,7 @@
                     android:ems="10"
                     android:hint="@string/quelle_est_la_couleur_du_cheval_blanc_d_henri_iv_a_blanc_b_rouge_c_vert_d_rose"
                     android:inputType="textAutoCorrect|textMultiLine"
+                    android:padding="10dp"
                     android:textSize="@dimen/txt_view" />
 
                 <ImageButton
@@ -158,6 +166,7 @@
                     android:hint="@string/ce_n_est_pas_une_couleur"
                     android:importantForAutofill="no"
                     android:inputType="textAutoCorrect|textMultiLine"
+                    android:padding="10dp"
                     android:textSize="@dimen/txt_view" />
 
                 <ImageButton
@@ -176,6 +185,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20sp"
                 android:gravity="center"
+                android:padding="10dp"
                 android:text="@string/crea_response"
                 android:textSize="@dimen/txt_view"
                 android:textStyle="bold" />
@@ -223,6 +233,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:numStars="3"
+                android:progressTint=" #9E7A2B"
                 android:rating="1" />
 
             <Button
@@ -232,6 +243,7 @@
                 android:layout_gravity="center|bottom"
                 android:layout_marginTop="20sp"
                 android:layout_marginBottom="5sp"
+                android:backgroundTint=" #9E7A2B"
                 android:text="@string/crea_enregistrer_card"
                 android:textSize="@dimen/btn_txt" />
 
@@ -243,6 +255,7 @@
                 android:layout_marginEnd="5sp"
                 android:layout_marginRight="5sp"
                 android:layout_marginBottom="5sp"
+                android:backgroundTint=" #6E9AEB"
                 android:onClick="creaBtnHome"
                 android:text="@string/create_btn_accueil"
                 android:textSize="@dimen/btn_txt" />

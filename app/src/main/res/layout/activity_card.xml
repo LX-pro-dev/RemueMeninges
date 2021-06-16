@@ -9,7 +9,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background=" #91B8FF">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -20,7 +21,9 @@
                 android:id="@+id/cardTextViewLevel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:gravity="center"
+                android:padding="10dp"
                 android:text="@string/card_level"
                 android:textSize="@dimen/txt_view"
                 android:textStyle="bold" />
@@ -32,7 +35,8 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="15sp"
                 android:numStars="3"
-                android:paddingTop="5sp" />
+                android:paddingTop="5sp"
+                android:progressTint="#9E7A2B" />
 
             <TextView
                 android:id="@+id/cardTxtViewCategory"
@@ -107,6 +111,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:backgroundTint="#EBC36E"
                 android:onClick="cardBtnShowClue"
                 android:text="@string/card_indice"
                 android:textSize="@dimen/btn_txt" />
@@ -142,6 +147,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:backgroundTint="#EBC36E"
                 android:onClick="cardBtnShowAnswer"
                 android:text="@string/card_answer"
                 android:textSize="@dimen/btn_txt" />
@@ -186,7 +192,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="20dp"
-                    android:background="#FFFFFF"
+                    android:background="#6E9AEB"
                     android:gravity="bottom|end"
                     android:onClick="cardBtndHome"
                     android:padding="20dp"
@@ -201,6 +207,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="20dp"
+                    android:backgroundTint=" #9E7A2B"
                     android:gravity="end"
                     android:onClick="cardBtnEditNewCard"
                     android:padding="20dp"

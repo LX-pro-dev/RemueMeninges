@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background=" #EBC36E"
     android:orientation="vertical"
     tools:context=".Vue.HistoActivity">
 
@@ -35,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10sp"
-            android:background="@color/colorAccent"
+            android:background="#9E7A2B"
             app:srcCompat="@android:drawable/ic_menu_search" />
 
         <EditText
@@ -60,6 +61,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:buttonTint="#6E9AEB"
             android:checked="true"
             android:text="@string/histo_rb_date" />
 
@@ -68,6 +70,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:buttonTint="#6E9AEB"
             android:text="@string/histo_rb_level" />
 
         <RadioButton
@@ -75,6 +78,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:buttonTint="#6E9AEB"
             android:text="@string/histo_rb_category" />
     </RadioGroup>
 
@@ -107,7 +111,8 @@
         android:id="@+id/progress_histo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="25dp" />
+        android:layout_margin="25dp"
+        android:progressTint="#6E9AEB" />
 
     <ListView
         android:id="@+id/lstHisto"

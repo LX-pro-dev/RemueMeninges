@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Vue.MainActivity">
+    tools:context=".Vue.MainActivity"
+    android:background="#6E9AEB">
 
     <TextView
         android:id="@+id/titre"
@@ -14,15 +15,17 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20sp"
         android:text="@string/remue_meninges"
-        android:textColor="#A30339"
-        android:textSize="@dimen/title_txt"
+        android:textColor="#3A5D9E"
+        android:textColorHighlight="#EBC36E"
+        android:textSize="42sp"
         android:textStyle="bold" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="250sp"
+        android:layout_height="350sp"
         android:layout_marginTop="20sp"
+        android:layout_marginBottom="40dp"
         android:contentDescription="@string/img_party"
         app:srcCompat="@drawable/theme" />
 
@@ -30,7 +33,8 @@
         android:id="@+id/progress_circular"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="25dp" />
+        android:layout_margin="25dp"
+        android:progressTint="#EBC36E" />
 
     <Button
         android:id="@+id/home_btn_play"
@@ -38,10 +42,13 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20sp"
+        android:background="#EBC36E"
+        android:padding="10dp"
         android:text="@string/home_bt_play"
+        android:textColor="#3A5D9E"
         android:textSize="@dimen/title_txt"
         android:textStyle="bold"
-        android:visibility="gone" />
+        android:visibility="visible" />
 
     <Button
         android:id="@+id/home_btn_create"
@@ -49,10 +56,13 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20sp"
+        android:backgroundTint="#3A5D9E"
+        android:padding="10dp"
         android:text="@string/home_bt_create"
+        android:textColor="#EBC36E"
         android:textSize="@dimen/title_txt"
         android:textStyle="bold"
-        android:visibility="gone" />
+        android:visibility="visible" />
 
     <Button
         android:id="@+id/home_btn_list"
@@ -60,9 +70,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20sp"
+        android:background="#EBC36E"
+        android:padding="10dp"
         android:text="@string/home_bt_list"
+        android:textColor="#3A5D9E"
         android:textSize="@dimen/title_txt"
         android:textStyle="bold"
-        android:visibility="gone" />
+        android:visibility="visible" />
 
 </LinearLayout>
