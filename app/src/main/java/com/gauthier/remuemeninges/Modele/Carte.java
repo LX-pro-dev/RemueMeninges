@@ -69,6 +69,7 @@ public class Carte implements Comparable {
 
     /**
      * convertir une carte au format JSONArray
+     *
      * @return
      */
     public JSONObject convertToJSONObject() {
@@ -94,6 +95,7 @@ public class Carte implements Comparable {
 
     /**
      * transformer un JSONObject en objet de type Carte
+     *
      * @param lesDonneesJSON
      * @return
      */
@@ -183,6 +185,8 @@ public class Carte implements Comparable {
     public static ArrayList<Carte> search(ArrayList<Carte> lesCartes, String keyword) {
         ArrayList<Carte> listMotCle = new ArrayList<>();
         for (Carte carte : lesCartes) {
+            Log.i("search: keyword : ", keyword + "**************");
+            Log.i("search: question : ", carte.question + "*******************");
             if (carte.question.contains(keyword)) {
                 listMotCle.add(carte);
             }

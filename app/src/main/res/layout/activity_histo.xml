@@ -46,6 +46,7 @@
             android:backgroundTint="#9E7A2B"
             android:inputType="textAutoCorrect|text"
             android:textColor=" #9E7A2B"
+            android:textColorHighlight="@color/colorPrimaryDark"
             android:textColorLink="@color/colorPrimaryDark"
             android:textCursorDrawable="@color/colorPrimaryDark" />
     </LinearLayout>

@@ -61,9 +61,9 @@ public class HistoActivity extends AppCompatActivity implements CardEventListene
     @Override
     protected void onResume() {
         super.onResume();
-        //on va chercher la maj de la liste de cartes sur le net
+        // Chercher la maj de la liste de cartes sur le net
        this.controle = Controle.getInstance(this);
-        //on s'inscrit à l'événement delete ou modify du controleur
+        //S'inscrire à l'événement delete ou modify du controleur
         controle.setListener(this);
     }
 
@@ -73,7 +73,7 @@ public class HistoActivity extends AppCompatActivity implements CardEventListene
     @Override
     protected void onPause() {
         super.onPause();
-        //on se désinscrit au listener
+        //Se désinscrire du listener
         controle.setListener(null);
     }
 
@@ -104,13 +104,13 @@ public class HistoActivity extends AppCompatActivity implements CardEventListene
      * @param lesCartes
      * @return
      */
-    private ArrayList<Carte> tri(ArrayList<Carte> lesCartes) {//crash car les cartes crééer n'ont pas de date
+    private ArrayList<Carte> tri(ArrayList<Carte> lesCartes) {
 
         Log.i("TAG", "nb cartes = " + lesCartes.size());
-        //récupérer l'état du radiogroup (date, level catégorie)
-        //récupération de la collection
+        // Récupérer l'état du radiogroup (date, level catégorie)
+        // Récupération de la collection
         Collections.sort(lesCartes, (o1, o2) -> {
-            //tri en fonction des dates de création des cartes
+            // Tri en fonction des dates de création des cartes
             if (histoRbDate.isChecked()) {
                 if (o1.getDatecreation() == null || o2.getDatecreation() == null) {
                     return 0;
@@ -120,32 +120,31 @@ public class HistoActivity extends AppCompatActivity implements CardEventListene
                     return 0;
                 }
                 return -1;
-                //tri en fonction du niveau de difficulté de la carte
+                // Tri en fonction du niveau de difficulté de la carte
             } else if (histoRbLevel.isChecked()) {
                 return o1.getLevel().compareTo(o2.getLevel());
-                //tri en fonction de la catégorie de la carte
+                // Tri en fonction de la catégorie de la carte
             } else if (histoRbCategoy.isChecked()) {
                 return o1.getCategorie().compareTo(o2.getCategorie());
             }
-            return 0;   //j'ai mis ce return là sans être persuadé que ce soit bon...
+            return 0;
         });
         Log.i("TAG", "nb cartes après tri = " + lesCartes.size());
         return lesCartes;
     }
 
-    //écouter les événements (2 méthodes): changement de rb et ajout d'un mot clé / txtQuestion
+    //Ecouter les événements (2 méthodes): changement de rb et ajout d'un mot clé / txtQuestion
     public void setListeners() {
-        //attache l'écouteur au btn search
+        // Attache l'écouteur au btn search
         histo_keyword.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
 
-                Log.i("TAG", s.toString().toLowerCase());
+                Log.i("TAG", s.toString());
                 if (s.toString().isEmpty()) {
                     adapter.updateItems(controle.getLesCartes());
                 } else {
-                    //appeler la méthode search pour l'applicquer à la liste
-                    //faire un appel à Cartes.search() pour mettre à jour la liste des cartes
+                    // Faire un appel à Cartes.search() pour mettre à jour la liste des cartes
                     adapter.updateItems(Carte.search(adapter.getItems(), s.toString()));
                 }
             }
@@ -158,18 +157,21 @@ public class HistoActivity extends AppCompatActivity implements CardEventListene
             public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
         });
+
         histoRbDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 adapter.updateItems(tri(adapter.getItems()));
             }
         });
+
         histoRbLevel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 adapter.updateItems(tri(adapter.getItems()));
             }
         });
+
         histoRbCategoy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -183,13 +185,13 @@ public class HistoActivity extends AppCompatActivity implements CardEventListene
      */
     public void ecouteRetourMenu() {
         ((Button) findViewById(R.id.btn_list_home)).setOnClickListener(new ImageButton.OnClickListener() {
-            //pour gérer un événement sur on objet graphique
-            // on recherche l'objet graphique ac R.id
-            // et on applique setOnClickListener() qui redéfinie la méthode onClick(View v)
+            // Pour gérer un événement sur on objet graphique
+            // On recherche l'objet graphique ac R.id
+            // Et on applique setOnClickListener() qui redéfinie la méthode onClick(View v)
 
             public void onClick(View v) {
                 Intent intent = new Intent(HistoActivity.this, MainActivity.class);
-                //permet de ne pas garder en mémoire l'activité courante lorsque l'on ouvre une nouvelle activity
+                // Permet de ne pas garder en mémoire l'activité courante lorsque l'on ouvre une nouvelle activity
                 intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK | intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
@@ -213,7 +215,6 @@ public class HistoActivity extends AppCompatActivity implements CardEventListene
 
     /**
      * demande d'afficher la carte dans CreateCardActivity
-     *
      * @param carte
      */
     public void modifyCarte(Carte carte) {
@@ -226,10 +227,10 @@ public class HistoActivity extends AppCompatActivity implements CardEventListene
 
     @Override
     public void onCardDeleted(int idCardDeleted) {
-        //suppression de la carte
+        // Suppression de la carte
         adapter.deleteCard(idCardDeleted);
 
-        //affiché message de destruction de la carte
+        // Afficher message de destruction de la carte
         Toast toast = Toast.makeText(this, "carte supprimée", Toast.LENGTH_LONG);
         toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 0);
         toast.show();
@@ -239,7 +240,7 @@ public class HistoActivity extends AppCompatActivity implements CardEventListene
     public void onCardModified(Carte carte) {
         adapter.modifyCard(carte);
 
-        //affiché message de destruction de la carte
+        //Afficher message de destruction de la carte
         Toast toast = Toast.makeText(this, "carte modifiée", Toast.LENGTH_LONG);
         toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 0);
         toast.show();
