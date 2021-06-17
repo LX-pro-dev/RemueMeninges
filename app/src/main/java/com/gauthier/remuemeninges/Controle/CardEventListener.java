@@ -9,5 +9,4 @@ public interface CardEventListener {
     void onCardDeleted(int idCardDeleted);
 
     void onCardModified(Carte carte);
-
 }

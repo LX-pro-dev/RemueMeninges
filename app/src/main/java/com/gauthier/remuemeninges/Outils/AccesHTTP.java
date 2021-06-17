@@ -1,7 +1,6 @@
 package com.gauthier.remuemeninges.Outils;
 
 import android.os.AsyncTask;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -14,15 +13,14 @@ import java.net.URLEncoder;
  * Created by Alexandre GAUTHIER on 14/05/2020.
  */
 public class AccesHTTP extends AsyncTask<String, Integer, Long> {
-    // propriétés
+    // Propriétés
     public String ret = ""; // information retournée par le serveur
     public AsyncResponse delegate = null; // gestion du retour asynchrone
     private String parametres = ""; // paramètres à envoyer en POST au serveur
-    private String operation = "";//type d'opération à effectuer
-    private String bodyParams;//partir de Gson (à importer) pour créer le message json
+    private String operation = "";// type d'opération à effectuer
+    private String bodyParams; // partir de Gson (à importer) pour créer le message json
 
     public void setOperation(String operation) {
-
         this.operation = operation;
     }
 
@@ -30,26 +28,16 @@ public class AccesHTTP extends AsyncTask<String, Integer, Long> {
      * Constructeur : ne fait rien
      */
     public AccesHTTP() {
-
         super();
     }
 
 
     public void setBodyParams(String bodyParams) {
-
         this.bodyParams = bodyParams;
-
-//        this.bodyParams = new JSONObject();
-//        try {
-//            this.bodyParams.put("lesdonnees", bodyParams);
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
     }
 
     /**
      * Construction de la chaîne de paramètres à envoyer en POST au serveur
-     *
      * @param nom
      * @param valeur
      */
@@ -70,7 +58,6 @@ public class AccesHTTP extends AsyncTask<String, Integer, Long> {
     /**
      * Méthode appelée par la méthode execute
      * permet d'envoyer au serveur une liste de paramètres en GET
-     *
      * @param options contient l'adresse du serveur dans la case 0 de urls
      * @return null
      */
@@ -96,7 +83,7 @@ public class AccesHTTP extends AsyncTask<String, Integer, Long> {
                 connexion.setDoOutput(true);
                 connexion.setRequestProperty("Content-Type", "application/json");
                 connexion.setFixedLengthStreamingMode(bodyParams.toString().getBytes().length);
-                // création de la requete d'envoi sur la connexion, avec les paramètres
+                // création de la requête d'envoi sur la connexion, avec les paramètres
                 writer = new PrintWriter(connexion.getOutputStream());
                 writer.print(bodyParams.toString());
                 // Une fois l'envoi réalisé, vide le canal d'envoi
@@ -125,7 +112,6 @@ public class AccesHTTP extends AsyncTask<String, Integer, Long> {
 
     /**
      * Sur le retour du serveur, envoi l'information retournée à processFinish
-     *
      * @param result
      */
     @Override
@@ -133,6 +119,4 @@ public class AccesHTTP extends AsyncTask<String, Integer, Long> {
         // ret contient l'information récupérée
         delegate.processFinish(this.ret, this.operation);
     }
-
-
 }

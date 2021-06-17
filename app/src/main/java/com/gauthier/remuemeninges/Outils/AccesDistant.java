@@ -2,23 +2,9 @@ package com.gauthier.remuemeninges.Outils;
 
 import android.os.Build;
 import android.util.Log;
-
 import androidx.annotation.RequiresApi;
-
 import com.gauthier.remuemeninges.Controle.Controle;
-import com.gauthier.remuemeninges.Modele.Carte;
-import com.gauthier.remuemeninges.Outils.AccesHTTP;
-import com.gauthier.remuemeninges.Outils.AsyncResponse;
-
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
 
 /**
  * Created by Alexandre GAUTHIER on 14/05/2020.
@@ -27,10 +13,6 @@ public class AccesDistant implements AsyncResponse {
     //constante
     private static final String SERVERADDR = "http://alexdev.remue-meninges.secondlab.net/serveur.php";
     private Controle controle;
-    int numCarte;
-    private Carte carte;
-    private Carte carte1;
-
 
     /**
      * constructeur
@@ -41,7 +23,6 @@ public class AccesDistant implements AsyncResponse {
 
     /**
      * retour du serveur distant
-     *
      * @param output
      * @param operation
      */
@@ -88,12 +69,12 @@ public class AccesDistant implements AsyncResponse {
         AccesHTTP accesDonnees = new AccesHTTP();
 
         accesDonnees.setOperation(operation);
-        //lien de délégation
+        // Lien de délégation
         accesDonnees.delegate = (AsyncResponse) this;
 
         switch (operation) {
             case "tous":
-                //ajout paramètres
+                // Ajout paramètres
                 accesDonnees.addParam("operation", operation);
                 accesDonnees.addParam("langue", "fr");//"fr" en dur car pas encore travaillé sur le choix de la langue
 
@@ -103,7 +84,7 @@ public class AccesDistant implements AsyncResponse {
 
                 break;
             case "enreg":
-                //ajout paramètres
+                // Ajout paramètres
                 if (lesDonneesJSON != null) {
                     accesDonnees.setBodyParams(lesDonneesJSON.toString());
                     Log.d("serveur enreg", accesDonnees.toString());
@@ -113,7 +94,7 @@ public class AccesDistant implements AsyncResponse {
 
                 break;
             case "delete":
-                //ajout de paramètres
+                // Ajout de paramètres
                 if (lesDonneesJSON != null) {
                     accesDonnees.setBodyParams(lesDonneesJSON.toString());
                     Log.d("serveur delete", lesDonneesJSON.toString());
@@ -123,7 +104,7 @@ public class AccesDistant implements AsyncResponse {
 
                 break;
             case "modify":
-                //ajout de paramètres
+                // Ajout de paramètres
                 if (lesDonneesJSON != null) {
                     accesDonnees.setBodyParams(lesDonneesJSON.toString());
                     Log.d("serveur modify", accesDonnees.toString());

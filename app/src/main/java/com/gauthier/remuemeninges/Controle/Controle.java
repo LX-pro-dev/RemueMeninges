@@ -2,14 +2,11 @@ package com.gauthier.remuemeninges.Controle;
 
 import android.content.Context;
 import android.util.Log;
-
 import com.gauthier.remuemeninges.Outils.AccesDistant;
 import com.gauthier.remuemeninges.Modele.Carte;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -40,7 +37,6 @@ public final class Controle {
 
     /**
      * création de l'instance
-     *
      * @param contexte
      * @return
      */
@@ -58,7 +54,6 @@ public final class Controle {
 
     /**
      * récupérer la liste des cartes
-     *
      * @return
      */
     public ArrayList<Carte> getLesCartes() {
@@ -67,7 +62,6 @@ public final class Controle {
 
     /**
      * ajouter la liste des cartes
-     *
      * @param lesCartes
      */
     public void setLesCartes(ArrayList<Carte> lesCartes) {
@@ -77,7 +71,6 @@ public final class Controle {
 
     /**
      * Création de carte
-     *
      * @param langue
      * @param question
      * @param indice
@@ -99,7 +92,6 @@ public final class Controle {
 
     /**
      * supprimer une carte dans la base distante et la collection
-     *
      * @param carte
      */
     public void delCarte(Carte carte) {
@@ -107,12 +99,10 @@ public final class Controle {
         //requête serveur
         accesDistant.envoi("delete", carte.convertToJSONObject());
         Log.d("delCarte()", "json =" + carte.convertToJSONObject());
-
     }
 
     /**
      * modifier une carte dans la base distante
-     *
      * @param carte
      */
     public void modifyCarte(Carte carte) {
@@ -130,7 +120,6 @@ public final class Controle {
 
     /**
      * ajouter une carte dans la base distante et la collection
-     *
      * @param carte
      */
     public void setCarte(Carte carte) {
@@ -144,11 +133,9 @@ public final class Controle {
 
     /**
      * suppression d'une carte de la liste à partir du retour du serveur
-     *
      * @param id de la carte à supprimer
      */
     public void cardDeleted(int id) {
-
         Carte carte1 = null;
         for (Carte card : lesCartes) {
             if (card.getNumCarte() == id) {
@@ -157,17 +144,14 @@ public final class Controle {
         }
 
         lesCartes.remove(carte1);
-
         if (listener != null) {
             // notification du listener
             listener.onCardDeleted(id);
-
         }
     }
 
     /**
      * Modifier une carte de la liste à partir du retour du serveur
-     *
      * @param output JSONObject
      */
     public void cardModified(String output) {
@@ -181,7 +165,6 @@ public final class Controle {
 
     /**
      * ajouter une carte à la liste à partir du retour du serveur
-     *
      * @param output
      */
     public void addCard(String output) {
@@ -190,7 +173,6 @@ public final class Controle {
         try {
             objet = new JSONObject(output);
             lesCartes.add(convertJSonToCarte(objet));
-
         } catch (JSONException e) {
             Log.d("erreur enreg", "conversion JSON impossible" + e.toString() + "******************");
             e.printStackTrace();

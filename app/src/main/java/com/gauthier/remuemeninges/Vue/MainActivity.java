@@ -9,15 +9,12 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.gauthier.remuemeninges.BuildConfig;
 import com.gauthier.remuemeninges.Controle.Controle;
 import com.gauthier.remuemeninges.R;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
-
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {

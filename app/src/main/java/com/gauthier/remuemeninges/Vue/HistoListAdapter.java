@@ -11,13 +11,11 @@ import android.widget.ImageButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.gauthier.remuemeninges.Controle.Controle;
 import com.gauthier.remuemeninges.Modele.Carte;
 import com.gauthier.remuemeninges.Modele.Member;
 import com.gauthier.remuemeninges.R;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
-
 import java.util.ArrayList;
 
 import static com.gauthier.remuemeninges.Vue.MainActivity.app_uuid;

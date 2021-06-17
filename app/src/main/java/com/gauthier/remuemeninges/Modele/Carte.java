@@ -1,12 +1,9 @@
 package com.gauthier.remuemeninges.Modele;
 
 import android.util.Log;
-
 import com.gauthier.remuemeninges.Controle.Controle;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -69,7 +66,6 @@ public class Carte implements Comparable {
 
     /**
      * convertir une carte au format JSONArray
-     *
      * @return
      */
     public JSONObject convertToJSONObject() {
@@ -95,7 +91,6 @@ public class Carte implements Comparable {
 
     /**
      * transformer un JSONObject en objet de type Carte
-     *
      * @param lesDonneesJSON
      * @return
      */
@@ -177,7 +172,6 @@ public class Carte implements Comparable {
     /**
      * Parcourir la liste de carte et rechercher dans les textes de question
      * s'il y a le mot clé correspondant et recréer une liste de cartes
-     *
      * @param lesCartes
      * @param keyword
      * @return
@@ -193,7 +187,6 @@ public class Carte implements Comparable {
         }
         return listMotCle;
     }
-
 
     @Override
     public int compareTo(Object o) {
@@ -262,9 +255,5 @@ public class Carte implements Comparable {
         return level;
     }
 
-    public Date getDatecreation() {
-        return datecreation;
-    }
-
-
+    public Date getDatecreation() { return datecreation; }
 }
