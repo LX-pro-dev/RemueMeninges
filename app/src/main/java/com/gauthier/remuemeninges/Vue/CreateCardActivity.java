@@ -21,13 +21,8 @@ import static com.gauthier.remuemeninges.Vue.HistoListAdapter.toModify;
 
 public class CreateCardActivity extends AppCompatActivity {
 
-    //propriétés pour manipuler les objets graphiques du xml
+    // Propriétés pour manipuler les objets graphiques du xml
     private EditText txtQuestion;
-    /*
-    on devra proposer d'écrire la carte aussi en anglais par défaut pour que les autres créateurs
-    de carte dans d'autres langues qui ne connaissent pas la langue dans laquelle on a écrit notre
-    carte puissent la traduire dans la leur
-    */
     private EditText txtReponse;
     private EditText txtIndice;
     private RadioButton rbCat1;
@@ -102,9 +97,9 @@ public class CreateCardActivity extends AppCompatActivity {
 
     private void ecouteEnregistrer() {
         findViewById(R.id.creaBtnEnregistrer).setOnClickListener(new Button.OnClickListener() {
-            //pour gérer un événement sur on objet graphique
-            // on recherche l'objet graphique ac R.id
-            // et on applique setOnClickListener() qui redéfinie la méthode onClick(View v)
+            //pour gérer un événement sur un objet graphique
+            // 1) rechercher l'objet graphique ac R.id
+            // 2) appliquer setOnClickListener() qui redéfinie la méthode onClick(View v)
 
 
             public void onClick(View v) {
@@ -115,8 +110,8 @@ public class CreateCardActivity extends AppCompatActivity {
                 Integer categorie = 6;
                 Integer level = 1;
 
-                //récupération des données saisies
-                try {// pour éviter les pb de saisie : char au lieu d'un int
+                // Récupération des données saisies
+                try {// Eviter les probèmes de saisie : char au lieu d'un int
                     question = txtQuestion.getText().toString();
                     reponse = txtReponse.getText().toString();
                     indice = txtIndice.getText().toString();
@@ -133,10 +128,9 @@ public class CreateCardActivity extends AppCompatActivity {
                         categorie = 5;
                     }
                 } catch (Exception e) {
-                }//l'exception ne fera rien
-                // comme on a initailisé les variables à 0 on va tester si elles sont restées à 0!
+                }
 
-                //controle des données saisies
+                // Contrôle des données saisies
                 if (question == null && reponse == null) {
                     Toast.makeText(CreateCardActivity.this, "saisie incorrecte", Toast.LENGTH_LONG).show();
                 } else {
@@ -174,9 +168,8 @@ public class CreateCardActivity extends AppCompatActivity {
      * @param categorie
      */
     private void afficheResult(String question, String indice, String reponse, int level, int categorie) {
-        //création de la carte et récupération des infos
+        //Création de la carte et récupération des infos
         this.controle.creerCarte("fr", question, indice, reponse, categorie, level);
-
     }
 
     /**

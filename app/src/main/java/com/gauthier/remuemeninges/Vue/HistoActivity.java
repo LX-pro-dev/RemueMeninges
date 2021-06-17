@@ -48,7 +48,6 @@ public class HistoActivity extends AppCompatActivity implements CardEventListene
         histoRbCategoy = (RadioButton) findViewById(R.id.histoRbCategoy);
         progressBar = findViewById(R.id.progress_histo);
         ecouteRetourMenu();
-        ArrayList<Carte> lesCartesFull;
         creerList();
         setListeners();
     }
@@ -61,9 +60,9 @@ public class HistoActivity extends AppCompatActivity implements CardEventListene
     @Override
     protected void onResume() {
         super.onResume();
-        // Chercher la maj de la liste de cartes sur le net
+        // Chercher la mise à jour de la liste de cartes sur le net
        this.controle = Controle.getInstance(this);
-        //S'inscrire à l'événement delete ou modify du controleur
+        //S'inscrire à l'événement delete ou modify du contrôleur
         controle.setListener(this);
     }
 
@@ -83,7 +82,6 @@ public class HistoActivity extends AppCompatActivity implements CardEventListene
     private void creerList() {
         if (controle.getLesCartes() != null) {
             ArrayList<Carte> lesCartes = controle.getLesCartes();
-            //sort(lesCartes, Collections.<Carte>reverseOrder());
             ListView lstHisto = (ListView) findViewById(R.id.lstHisto);
             progressBar.setVisibility(View.GONE);
             lstHisto.setVisibility(View.VISIBLE);
@@ -95,7 +93,6 @@ public class HistoActivity extends AppCompatActivity implements CardEventListene
             }
             lstHisto.setAdapter(adapter);
         }
-
     }
 
     /**
@@ -133,7 +130,7 @@ public class HistoActivity extends AppCompatActivity implements CardEventListene
         return lesCartes;
     }
 
-    //Ecouter les événements (2 méthodes): changement de rb et ajout d'un mot clé / txtQuestion
+    // Ecouter les événements (2 méthodes): changement de rb et ajout d'un mot clé / txtQuestion
     public void setListeners() {
         // Attache l'écouteur au btn search
         histo_keyword.addTextChangedListener(new TextWatcher() {
@@ -185,7 +182,8 @@ public class HistoActivity extends AppCompatActivity implements CardEventListene
      */
     public void ecouteRetourMenu() {
         ((Button) findViewById(R.id.btn_list_home)).setOnClickListener(new ImageButton.OnClickListener() {
-            // Pour gérer un événement sur on objet graphique
+            //
+            // Gérer un événement sur on objet graphique
             // On recherche l'objet graphique ac R.id
             // Et on applique setOnClickListener() qui redéfinie la méthode onClick(View v)
 
@@ -195,13 +193,11 @@ public class HistoActivity extends AppCompatActivity implements CardEventListene
                 intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK | intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
-
         });
     }
 
     /**
      * demande d'afficher la carte dans CardActivity
-     *
      * @param carte
      */
     public void afficheCarte(Carte carte) {
@@ -210,7 +206,6 @@ public class HistoActivity extends AppCompatActivity implements CardEventListene
         Intent intent = new Intent(HistoActivity.this, CardActivity.class);
         intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK | intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
-
     }
 
     /**
@@ -244,7 +239,6 @@ public class HistoActivity extends AppCompatActivity implements CardEventListene
         Toast toast = Toast.makeText(this, "carte modifiée", Toast.LENGTH_LONG);
         toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 0);
         toast.show();
-
     }
 }
 

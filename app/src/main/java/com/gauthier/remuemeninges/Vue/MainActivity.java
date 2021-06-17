@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
@@ -32,18 +31,10 @@ public class MainActivity extends AppCompatActivity {
     // Remote Config keys en lien avec le fichier "remote_config_defaults.xml"
     public static final String APP_UUID = "app_uuid";
 
-    /*
-    1 faire une menu :
-    choix de la langue (doit définir automatiquement la langue des cartes à proposer ou à créer)
-    enregistrement du user (définition de son profil (admin, créateur de carte, joueur)
-    choix du mode nuit
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         init();
-
     }
 
     private void init() {
@@ -93,18 +84,6 @@ public class MainActivity extends AppCompatActivity {
         // [END set_default_values]
 
         fetchConfig();
-
-        Button crashButton = new Button(this);
-        crashButton.setText("Crash!");
-        crashButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                throw new RuntimeException("Test Crash"); // Force a crash
-            }
-        });
-
-        addContentView(crashButton, new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT));
     }
 
 
@@ -160,12 +139,12 @@ public class MainActivity extends AppCompatActivity {
     public void ecouteMenu(Button btn, final Class classe) {
         btn.setOnClickListener(new ImageButton.OnClickListener() {
             @Override
-            //pour gérer un événement sur on objet graphique
-            // on recherche l'objet graphique ac R.id
-            // et on applique setOnClickListener() qui redéfinie la méthode onClick(View v)
+            // Gérer un événement sur on objet graphique
+            // 1) on recherche l'objet graphique ac R.id
+            // 2) on applique setOnClickListener() qui redéfinie la méthode onClick(View v)
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, classe);
-                //permet de ne pas garder en mémoire l'activité courante lorsque l'on ouvre une nouvelle activity
+                // Ne pas garder en mémoire l'activité courante lorsque l'on ouvre une nouvelle activity
                 intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK | intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }

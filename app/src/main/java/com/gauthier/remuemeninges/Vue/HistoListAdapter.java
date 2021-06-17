@@ -47,7 +47,6 @@ public class HistoListAdapter extends BaseAdapter {
     }
 
     public ArrayList<Carte> getItems() {
-
         return lesCartes;
     }
 
@@ -58,18 +57,15 @@ public class HistoListAdapter extends BaseAdapter {
 
     /**
      * retourne le nb de lignes de la liste
-     *
      * @return
      */
     @Override
     public int getCount() {
-
         return lesCartes.size();
     }
 
     /**
      * retourne l'item de la ligne actuelle
-     *
      * @param i = position
      * @return
      */
@@ -80,7 +76,6 @@ public class HistoListAdapter extends BaseAdapter {
 
     /**
      * retourne un indice par rapport à la ligne actuelle
-     *
      * @param i
      * @return
      */
@@ -99,12 +94,12 @@ public class HistoListAdapter extends BaseAdapter {
      */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        //déclaration d'un holder
+        //Déclaration d'un holder
         ViewHolder holder;
         // si la ligne n'existe pas encore
         if (convertView == null) {
             holder = new ViewHolder();
-            //la ligne est construite avec un formatage (inflater) relié à layout_list_histo
+            //La ligne est construite avec un formatage (inflater) relié à layout_list_histo
             convertView = inflater.inflate(R.layout.layout_list_histo, null);
             //chaque propriété du holder est reliée à une propriété graphique
             holder.btDeleteCard = (ImageButton) convertView.findViewById(R.id.btDeleteCard);
@@ -127,14 +122,14 @@ public class HistoListAdapter extends BaseAdapter {
                     break;
             }
 
-            //affecter le holder à la vue
+            // Affecter le holder à la vue
             convertView.setTag(holder);
         } else {
-            //récupération du holder dans la ligne existante
+            //Récupération du holder dans la ligne existante
             holder = (ViewHolder) convertView.getTag();
         }
 
-        //valorisation du contenu du holder (donc de la ligne)
+        // Valorisation du contenu du holder (donc de la ligne)
         Carte card = lesCartes.get(position);
         if (card != null && card.getDatecreation() != null && card.getCategorie() != null && card.getQuestion() != null) {//NPE
             android.text.format.DateFormat df = new android.text.format.DateFormat();
@@ -145,18 +140,18 @@ public class HistoListAdapter extends BaseAdapter {
         }
 
 
-        //événement : clic sur bouton delete
+        //Evénement : clic sur bouton delete
         holder.btDeleteCard.setTag(position);
         Log.i("Histo holder", "position = " + position);
-        //clic sur la croix pour supprimer le profil enregistré
+        // Clic sur la croix pour supprimer le profil enregistré
         holder.btDeleteCard.setOnClickListener(new View.OnClickListener() {
-            //pour gérer un événement sur un objet graphique
-            // on recherche l'objet graphique ac R.id
-            // et on applique setOnClickListener() qui redéfinie la méthode onClick(View v)
+            // Pour gérer un événement sur un objet graphique:
+            // 1) on recherche l'objet graphique ac R.id
+            // 2) on applique setOnClickListener() qui redéfinie la méthode onClick(View v)
             public void onClick(View v) {
                 try {
-                    //on récupère la position de la ligne dans la liste
-                    //demande de suppression au controleur
+                    // On récupère la position de la ligne dans la liste
+                    // Demande de suppression au controleur
                     Log.d("histolist delete", "" + lesCartes.get(position).getNumCarte());
                     controle.delCarte(lesCartes.get(position));
 
@@ -169,50 +164,49 @@ public class HistoListAdapter extends BaseAdapter {
             }
         });
 
-        //événement : clic sur bouton modify
+        // Evénement : clic sur bouton modify
         holder.btModifycard.setTag(position);
         Log.i("Histo holder", "position = " + position);
-        //clic sur la croix pour supprimer le profil enregistré
+        // Clic sur la croix pour supprimer le profil enregistré
         holder.btModifycard.setOnClickListener(new View.OnClickListener() {
-            //pour gérer un événement sur on objet graphique
-            // on recherche l'objet graphique ac R.id
-            // et on applique setOnClickListener() qui redéfinie la méthode onClick(View v)
+            // Gérer un événement sur on objet graphique
+            // 1) on recherche l'objet graphique ac R.id
+            // 2) on applique setOnClickListener() qui redéfinie la méthode onClick(View v)
 
             public void onClick(View v) {
-                //on récupère la position de la ligne dans la liste
+                // Récupération de la position de la ligne dans la liste
                 Log.i("HistoL onClick modify", "position = " + position);
                 toModify = true;
-                //demande d'affichage de la carte dans CreateActivity
+                // Affichage de la carte dans CreateActivity
                 ((HistoActivity) contexte).modifyCarte(lesCartes.get(position));
             }
         });
 
-        //clic sur le reste de la ligne pour afficher la carte enregistrée (date ou question)
+        // Clic sur le reste de la ligne pour afficher la carte enregistrée (date ou question)
         holder.txtListDateCard.setTag(position);
         holder.txtListDateCard.setOnClickListener(new View.OnClickListener() {
-            //pour gérer un événement sur on objet graphique
-            // on recherche l'objet graphique ac R.id
-            // et on applique setOnClickListener() qui redéfinie la méthode onClick(View v)
-
+            // Gérer un événement sur on objet graphique
+            // 1) on recherche l'objet graphique ac R.id
+            // 2) on applique setOnClickListener() qui redéfinie la méthode onClick(View v)
             public void onClick(View v) {
-                //récupère la position de la ligne dans la liste
+                // Récupération de la position de la ligne dans la liste
                 int position = (int) v.getTag();
                 Log.i("HistoList onClick", "position = " + position);
 
-                //demande de l'affichage de la carte dans CardActivity
+                // Affichage de la carte dans CardActivity
                 ((HistoActivity) contexte).afficheCarte(lesCartes.get(position));
             }
         });
 
         holder.txtListQuestion.setTag(position);
-        //clic sur le reste de la ligne pour afficher le profil enregistré
+        // Clic sur le reste de la ligne pour afficher le profil enregistré
         Log.i("HistoList onClick", "position = " + position);
         holder.txtListQuestion.setOnClickListener(new View.OnClickListener() {
-            //pour gérer un événement sur on objet graphique
-            // on recherche l'objet graphique ac R.id
-            // et on applique setOnClickListener() qui redéfinie la méthode onClick(View v)
+            // Gérer un événement sur on objet graphique
+            // 1) on recherche l'objet graphique ac R.id
+            // 2) on applique setOnClickListener() qui redéfinie la méthode onClick(View v)
             public void onClick(View v) {
-                //demande de l'affichage de la carte dans CardActivity
+                // Affichage de la carte dans CardActivity
                 ((HistoActivity) contexte).afficheCarte(lesCartes.get(position));
             }
         });
@@ -222,7 +216,6 @@ public class HistoListAdapter extends BaseAdapter {
 
     /**
      * modifier le contenu d'une carte
-     *
      * @param carte
      */
     public void modifyCard(Carte carte) {
@@ -242,7 +235,7 @@ public class HistoListAdapter extends BaseAdapter {
         }
         if (card1 != null) {
             lesCartes.remove(card1);
-            //rafraichir la liste
+            // Rafraichir la liste
             notifyDataSetChanged();
         }
     }
@@ -254,6 +247,5 @@ public class HistoListAdapter extends BaseAdapter {
         TextView txtListDateCard;
         TextView txtListCategory;
         TextView txtListQuestion;
-
     }
 }

@@ -16,18 +16,7 @@ import com.gauthier.remuemeninges.R;
 import java.util.ArrayList;
 
 public class CardActivity extends AppCompatActivity {
-    /*
-    1 tirer une carte au sort (sans remise donc exclure les num précédents) parmi la liste
-    il faudrait sauvegarder les num de cartes déjà tirées dans une var
-    2 afficher le contenu sauf l'indice et la réponse
-    (s'il n'y a pas d'indice soit mettre le bouton en grisé,
-    soit remplir automatiquement : "il n'y a pas d'indice")
-    3 afficher l'indice ou la réponse qd on appui sur le bouton
-    4 relancer un tirage au sort si on appui sur le bouton nouvelle carte
-    5 retourner à l'accueil si on appui sur le bouton accueil
-    6 si on appui sur un bouton "nouvelle carte" ou "accueil", il faudrait afficher
-    une boite de dialogue pour définir le niveau de difficulté de la question (et en faire une moyenne)
-     */
+
     RatingBar levelRB;
     TextView categoryTV;
     TextView questionTV;
@@ -45,7 +34,7 @@ public class CardActivity extends AppCompatActivity {
     public void init() {
         carte = Controle.getInstance(this).getCarte();
         if (carte != null) {
-            //récupération et affichage des informations de la carte
+            // Récupération et affichage des informations de la carte
             questionTV = findViewById(R.id.cardTextViewQuestion);
             questionTV.setText(carte.getQuestion());
 
@@ -62,39 +51,37 @@ public class CardActivity extends AppCompatActivity {
             levelRB = findViewById(R.id.cardRatingBar);
             levelRB.setRating((int) carte.getLevel());
 
-            //remettre à vide la carte
+            // Remettre à vide la carte
             Controle.getInstance(this).setCarte(null);
 
         } else {
-            //récupération de la liste des cartes
+            // Récupération de la liste des cartes
             ArrayList<Carte> listCartes = Controle.getInstance(this).getLesCartes();
-            //tirage au sort du numéro de carte à afficher
+            // Tirage au sort du numéro de carte à afficher
             int indice = (int) (Math.random() * listCartes.size());
-            //copie de la carte dans la list des cartes à l'indice "indice"
+            // Copie de la carte dans la list des cartes à l'indice "indice"
             carte = listCartes.get(indice);
-            //pour savoir si j'ai bien une nouvelle carte de tirée car beaucoup de carte avec le même contenu
             Log.i("CardActibvity", "num de la carte : " + indice);
 
-            //récupération et affichage des informations de la carte
-
-            //le niveau de difficulté
+            //// Récupération et affichage des informations de la carte :
+            // Le niveau de difficulté
             levelRB = findViewById(R.id.cardRatingBar);
             levelRB.setRating((int) carte.getLevel());
 
-            //la catégorie
+            // la catégorie
             categoryTV = findViewById(R.id.cardLblCategory);
             String category = getCategory(carte.getCategorie());
             categoryTV.setText(category);
 
-            //la question
+            // la question
             questionTV = findViewById(R.id.cardTextViewQuestion);
             questionTV.setText(carte.getQuestion());
 
-            //l'indice
+            // l'indice
             clueTV = findViewById(R.id.cardTextViewClue);
             Log.d("CardActivity", "init clue = " + carte.getIndice());
 
-            //la réponse
+            // la réponse
             reponseTV = findViewById(R.id.cardTextViewResponse);
             Log.d("CardActivity", "init reponse = " + carte.getReponse());
         }
@@ -134,7 +121,6 @@ public class CardActivity extends AppCompatActivity {
 
     /**
      * montrer le contenu du textview de l'indice
-     *
      * @param view
      */
     public void cardBtnShowClue(View view) {
@@ -145,7 +131,6 @@ public class CardActivity extends AppCompatActivity {
 
     /**
      * montrer le contenu de la réponse
-     *
      * @param view
      */
     public void cardBtnShowAnswer(View view) {
@@ -156,26 +141,24 @@ public class CardActivity extends AppCompatActivity {
 
     /**
      * retour à la page d'accueil
-     *
      * @param view
      */
     public void cardBtndHome(View view) {
-        //on crée une nouvelle intent
+        // Création d'une nouvel intent
         Intent intent = new Intent(this, MainActivity.class);
-        //on lance l'intent
+        // Lancer l'intent
         startActivity(intent);
     }
 
     /**
      * afficher une nouvelle carte
-     *
      * @param view
      */
     public void cardBtnEditNewCard(View view) {
-        //les contenus (indice et réponse) de la carte sont rednu invisibles
+        // Les contenus (indice et réponse) de la carte sont rendus invisibles
         clueTV.setVisibility(View.INVISIBLE);
         reponseTV.setVisibility(View.INVISIBLE);
-        //on relance le tirage d'une carte
+        // Relancer le tirage d'une carte
         init();
     }
 }
