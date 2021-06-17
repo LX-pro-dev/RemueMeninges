@@ -111,28 +111,22 @@ public class CardActivity extends AppCompatActivity {
         String s;
         switch (cat) {
             case 1:
-                s = getString(R.string.cat1);
-                s = s.substring(7, s.length() - 1);
+                s = getString(R.string.categorie1);
                 return s;
             case 2:
-                s = getString(R.string.cat2);
-                s = s.substring(7, s.length() - 1);
+                s = getString(R.string.categorie2);
                 return s;
             case 3:
-                s = getString(R.string.cat3);
-                s = s.substring(7, s.length() - 1);
+                s = getString(R.string.categorie3);
                 return s;
             case 4:
-                s = getString(R.string.cat4);
-                s = s.substring(7, s.length() - 1);
+                s = getString(R.string.categorie4);
                 return s;
             case 5:
-                s = getString(R.string.cat5);
-                s = s.substring(7, s.length() - 1);
+                s = getString(R.string.categorie5);
                 return s;
             case 6:
-                s = getString(R.string.cat6);
-                s = s.substring(7, s.length() - 1);
+                s = getString(R.string.categorie6);
                 return s;
         }
         return null;

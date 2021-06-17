@@ -53,4 +53,10 @@
     <string name="modifier_la_carte">modify card</string>
     <string name="cat_4_a_6">Cat 4: Law and prophets    Cat 5: History    Cat 6: Tote</string>
     <string name="cat_1_a_3">Cat 1: Geography and nature    Cat 2: Bible    C3: The sky</string>
+    <string name="categorie1">Geography and nature</string>
+    <string name="categorie2">Bible</string>
+    <string name="categorie3">Law and prophets</string>
+    <string name="categorie4">History</string>
+    <string name="categorie5">Sky</string>
+    <string name="categorie6">Tote</string>
 </resources>

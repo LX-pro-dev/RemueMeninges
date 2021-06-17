@@ -52,4 +52,10 @@
     <string name="cat2">"Cat 2 = Bible"</string>
     <string name="cat_4_a_6">"Cat 4 = La loi et les prophètes       Cat 5 = Histoire       Cat 6 = Divers"</string>
     <string name="cat_1_a_3">"Cat 1 = Géographie et nature Cat 2 = Bible Cat 3 = le ciel"</string>
+    <string name="categorie1">Géographie et nature</string>
+    <string name="categorie2">Bible</string>
+    <string name="categorie3">Loi et prophètes</string>
+    <string name="categorie4">Histoire</string>
+    <string name="categorie5">Ciel</string>
+    <string name="categorie6">Divers</string>
 </resources>
