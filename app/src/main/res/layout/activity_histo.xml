@@ -12,6 +12,7 @@
         android:id="@+id/textViewSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/jura_semibold"
         android:gravity="center"
         android:text="@string/histo_title"
         android:textSize="@dimen/title_txt"
@@ -23,6 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="50sp"
         android:layout_marginLeft="50sp"
+        android:fontFamily="@font/roboto_bold"
         android:text="@string/histo_txt_recherche_par_mot_cl"
         android:textSize="@dimen/txt_view"
         android:textStyle="bold" />
@@ -68,7 +70,10 @@
             android:layout_weight="1"
             android:buttonTint="#6E9AEB"
             android:checked="true"
-            android:text="@string/histo_rb_date" />
+            android:fontFamily="@font/roboto_bold"
+            android:text="@string/histo_rb_date"
+            android:textColor="#000000"
+            android:textStyle="bold" />
 
         <RadioButton
             android:id="@+id/histoRbLevel"
@@ -76,6 +81,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:buttonTint="#6E9AEB"
+            android:fontFamily="@font/roboto_bold"
             android:text="@string/histo_rb_level" />
 
         <RadioButton
@@ -84,6 +90,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:buttonTint="#6E9AEB"
+            android:fontFamily="@font/roboto_bold"
             android:text="@string/histo_rb_category" />
     </RadioGroup>
 
@@ -91,14 +98,17 @@
         android:id="@+id/tvCat1a3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_bold"
         android:gravity="center_horizontal"
         android:text="@string/cat_1_a_3"
-        android:textSize="12sp" />
+        android:textSize="12sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tvCat4a6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_bold"
         android:gravity="center_horizontal"
         android:text="@string/cat_4_a_6"
         android:textSize="12sp" />
@@ -107,6 +117,7 @@
         android:id="@+id/textViewListeCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/jura_semibold"
         android:gravity="center"
         android:text="@string/histo_liste_des_cartes_de_jeu"
         android:textSize="@dimen/txt_view"
