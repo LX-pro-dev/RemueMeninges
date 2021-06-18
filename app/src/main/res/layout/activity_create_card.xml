@@ -35,8 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20sp"
                 android:gravity="center_horizontal"
-                android:orientation="horizontal"
-                android:padding="5sp">
+                android:orientation="horizontal">
 
                 <RadioButton
                     android:id="@+id/creaRbCat1"
@@ -44,7 +43,6 @@
                     android:layout_height="wrap_content"
                     android:buttonTint=" #3A5D9E"
                     android:checked="true"
-                    android:padding="10dp"
                     android:text="Cat 1"
                     android:textSize="@dimen/radio_btn" />
 
