@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
+import static com.gauthier.remuemeninges.Modele.Carte.convertJSonToCarte;
+
 /**
  * Created by Alexandre GAUTHIER on 14/05/2020.
  */
@@ -205,68 +207,5 @@ public final class Controle {
             Log.d("erreur tous", "conversion JSON impossible" + e.toString() + "******************");
             e.printStackTrace();
         }
-    }
-
-    /**
-     * transformer un JSONObject en objet de type Carte
-     * @param lesDonneesJSON
-     * @return
-     */
-    public Carte convertJSonToCarte(JSONObject lesDonneesJSON) {
-        Carte carte = null;
-        try {
-            int numCarte = 0;
-            if (lesDonneesJSON.getInt("id") != 0) {
-                numCarte = lesDonneesJSON.getInt("id");
-            }
-
-            String langue;
-            if (lesDonneesJSON.getString("langue") == null) {
-                langue = "coucou";
-            } else {
-                langue = lesDonneesJSON.getString("langue");
-            }
-
-            String question;
-            if (lesDonneesJSON.getString("question") == null) {
-                question = "coucou";
-            } else {
-                question = lesDonneesJSON.getString("question");
-            }
-
-            String indice;
-            if (lesDonneesJSON.getString("indice") == null) {
-                indice = "coucou";
-            } else {
-                indice = lesDonneesJSON.getString("indice");
-            }
-
-            String reponse;
-            if (lesDonneesJSON.getString("reponse") == null) {
-                reponse = "coucou";
-            } else {
-                reponse = lesDonneesJSON.getString("reponse");
-            }
-
-            int categorie;
-            if (lesDonneesJSON.getInt("category") != 0) {
-                categorie = lesDonneesJSON.getInt("category");
-            } else {
-                categorie = 1;
-            }
-
-            int level;
-            if (lesDonneesJSON.getInt("level") != 0) {
-                level = lesDonneesJSON.getInt("level");
-            } else {
-                level = 1;
-            }
-
-            carte = new Carte(numCarte, langue, question, indice, reponse, categorie, level, new Date());
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return carte;
     }
 }

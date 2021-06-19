@@ -6,6 +6,9 @@ package com.gauthier.remuemeninges.Modele;
 public final class Member {
     //singleton pattern
     private static Member instance = null;//accessible par la classe
+    private boolean isMember;
+    private boolean isCreator;
+    private boolean isAdmin;
 
     /**
      * contructeur privé
@@ -26,11 +29,26 @@ public final class Member {
     }
 
     public boolean isAdmin() {
-        return false;
+        return isAdmin;
     }
 
     public boolean isCreator() {
-        return true;
+        return isCreator;
     }
 
+    public boolean isMember() {
+        return isMember;
+    }
+
+    public void setMember(boolean member) {
+        isMember = member;
+    }
+
+    public void setCreator(boolean creator) {
+        isCreator = creator;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
+    }
 }

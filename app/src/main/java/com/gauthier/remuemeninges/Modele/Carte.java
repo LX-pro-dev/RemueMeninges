@@ -104,28 +104,28 @@ public class Carte implements Comparable {
 
             String langue;
             if (lesDonneesJSON.getString("langue") == null) {
-                langue = "coucou";
+                langue = "";
             } else {
                 langue = lesDonneesJSON.getString("langue");
             }
 
             String question;
             if (lesDonneesJSON.getString("question") == null) {
-                question = "coucou";
+                question = "";
             } else {
                 question = lesDonneesJSON.getString("question");
             }
 
             String indice;
             if (lesDonneesJSON.getString("indice") == null) {
-                indice = "coucou";
+                indice = "";
             } else {
                 indice = lesDonneesJSON.getString("indice");
             }
 
             String reponse;
             if (lesDonneesJSON.getString("reponse") == null) {
-                reponse = "coucou";
+                reponse = "";
             } else {
                 reponse = lesDonneesJSON.getString("reponse");
             }

@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.gauthier.remuemeninges.BuildConfig;
 import com.gauthier.remuemeninges.Controle.Controle;
+import com.gauthier.remuemeninges.Modele.Member;
 import com.gauthier.remuemeninges.R;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
@@ -100,9 +101,23 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "Fetch failed",
                                 Toast.LENGTH_SHORT).show();
                     }
+
+                    switch (mFirebaseRemoteConfig.getString(app_uuid)) {
+                        case "1":
+                            Member.getInstance().setAdmin(true);
+                            break;
+                        case "2":
+                            Member.getInstance().setCreator(true);
+                            break;
+                        case "3":
+                            Member.getInstance().setMember(true);
+                            break;
+                    }
+
                     buildVisibility();
                 });
     }
+
 
     /**
      * gérer la présence des boutons en fonctions des autorisations octroyées par le statut du membre
@@ -113,8 +128,8 @@ public class MainActivity extends AppCompatActivity {
         ecouteMenu((Button) findViewById(R.id.home_btn_create), CreateCardActivity.class);
         ecouteMenu((Button) findViewById(R.id.home_btn_list), HistoActivity.class);
         progressBar = findViewById(R.id.progress_circular);
-        // 1 : admin, 2: creator, 3 player
-        if (mFirebaseRemoteConfig.getString(app_uuid).equals("1") || mFirebaseRemoteConfig.getString(app_uuid).equals("2")) {
+
+        if (Member.getInstance().isAdmin() || Member.getInstance().isCreator()) {
             findViewById(R.id.home_btn_create).setVisibility(View.VISIBLE);
             findViewById(R.id.home_btn_play).setVisibility(View.VISIBLE);
             findViewById(R.id.home_btn_list).setVisibility(View.VISIBLE);
