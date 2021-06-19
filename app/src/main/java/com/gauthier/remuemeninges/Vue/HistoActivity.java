@@ -74,7 +74,7 @@ public class HistoActivity extends AppCompatActivity implements CardEventListene
     }
 
     /**
-     * créer une ListAdapter
+     * Créer une ListAdapter
      */
     private void creerList() {
         if (controle.getLesCartes() != null) {
@@ -93,8 +93,7 @@ public class HistoActivity extends AppCompatActivity implements CardEventListene
     }
 
     /**
-     * tri des cartes en fonction du rb sélectionné
-     *
+     * Tri des cartes en fonction du rb sélectionné
      * @param lesCartes
      * @return
      */

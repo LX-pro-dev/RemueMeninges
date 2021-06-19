@@ -68,6 +68,7 @@ public class CreateCardActivity extends AppCompatActivity {
                 case 2:
                     rbCat2.setChecked(true);
                     break;
+
                 case 3:
                     rbCat3.setChecked(true);
                     break;
@@ -136,7 +137,7 @@ public class CreateCardActivity extends AppCompatActivity {
                         controle = Controle.getInstance(CreateCardActivity.this);
                         int index = controle.getLesCartes().indexOf(carte);
                         Carte card = new Carte(carte.getNumCarte(), "fr", question, indice, reponse, categorie, level, carte.getDatecreation());
-                        controle.getLesCartes().set(index, card);//NPE!!!
+                        controle.getLesCartes().set(index, card);
                         Controle.getInstance(CreateCardActivity.this).modifyCarte(card);
 
                         Toast toast = Toast.makeText(CreateCardActivity.this, "La carte a été modifiée", Toast.LENGTH_LONG);

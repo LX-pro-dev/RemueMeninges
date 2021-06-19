@@ -135,8 +135,8 @@
 
     <ListView
         android:id="@+id/lstHisto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="484dp"
+        android:layout_height="38dp"
         android:layout_weight="1"
         android:visibility="gone" />
 

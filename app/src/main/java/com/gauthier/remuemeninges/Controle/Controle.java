@@ -58,7 +58,7 @@ public final class Controle {
      */
     public ArrayList<Carte> getLesCartes() {
         return lesCartes;
-    }    //faire getLescartes().get(0) pour récupérer la première
+    }
 
     /**
      * ajouter la liste des cartes
@@ -127,12 +127,16 @@ public final class Controle {
         Controle.carte = carte;
     }
 
+    /**
+     * Ecouter les boutons "modifier" et "supprimer" des cartes présentées dans la ListView d HistolistAdapter
+     * @param listener
+     */
     public void setListener(CardEventListener listener) {
         this.listener = listener;
     }
 
     /**
-     * suppression d'une carte de la liste à partir du retour du serveur
+     * Suppression d'une carte de la liste à partir du retour du serveur
      * @param id de la carte à supprimer
      */
     public void cardDeleted(int id) {

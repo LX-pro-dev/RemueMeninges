@@ -14,12 +14,12 @@ import java.util.ArrayList;
 
 public class CardActivity extends AppCompatActivity {
 
-    RatingBar levelRB;
-    TextView categoryTV;
-    TextView questionTV;
-    TextView reponseTV;
-    TextView clueTV;
-    Carte carte;
+    private RatingBar levelRB;
+    private TextView categoryTV;
+    private TextView questionTV;
+    private TextView reponseTV;
+    private TextView clueTV;
+    private Carte carte;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
