@@ -48,6 +48,7 @@
             android:backgroundTint="#9E7A2B"
             android:fontFamily="@font/roboto_bold"
             android:inputType="textAutoCorrect|text"
+            android:minHeight="48dp"
             android:textColor=" #9E7A2B"
             android:textColorHighlight="@color/colorPrimaryDark"
             android:textColorLink="@color/colorPrimaryDark" />

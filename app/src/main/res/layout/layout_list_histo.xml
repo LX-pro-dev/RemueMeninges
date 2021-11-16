@@ -18,6 +18,7 @@
         android:layout_weight="0.1"
         android:backgroundTint="#EBC36E"
         android:contentDescription="@string/list_histo_bt_delete"
+        android:minWidth="48dp"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:tint="#9E7A2B"
@@ -74,7 +75,7 @@
                 android:layout_gravity="center"
                 android:layout_marginRight="10dp"
                 android:numStars="3"
-                android:progressTint=" #3A5D9E"
+                android:progressTint="#3A5D9E"
                 android:rating="1" />
         </LinearLayout>
 
@@ -135,9 +136,10 @@
         android:layout_weight="0.1"
         android:backgroundTint="#EBC36E"
         android:contentDescription="@string/modifier_la_carte"
+        android:minWidth="48dp"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
-        android:tint=" #3A5D9E"
+        android:tint="#3A5D9E"
         android:visibility="visible"
         app:srcCompat="@android:drawable/ic_menu_edit" />
 

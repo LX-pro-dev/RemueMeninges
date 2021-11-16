@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.gauthier.remuemeninges.Controle.Controle;
 import com.gauthier.remuemeninges.Modele.Carte;
 import com.gauthier.remuemeninges.Modele.Member;
@@ -31,6 +32,7 @@ public class HistoListAdapter extends BaseAdapter {
 
     /**
      * Constructeur
+     *
      * @param lesCartes
      */
     public HistoListAdapter(Context contexte, ArrayList<Carte> lesCartes) {
@@ -43,6 +45,7 @@ public class HistoListAdapter extends BaseAdapter {
 
     /**
      * Obtenir la liste de cartes
+     *
      * @return la liste de cartes
      */
     public ArrayList<Carte> getItems() {
@@ -51,6 +54,7 @@ public class HistoListAdapter extends BaseAdapter {
 
     /**
      * Mettre à jour la liste de cartes
+     *
      * @param items : liste des cartes
      */
     public void updateItems(ArrayList<Carte> items) {
@@ -60,6 +64,7 @@ public class HistoListAdapter extends BaseAdapter {
 
     /**
      * Retourne le nombre de lignes de la liste
+     *
      * @return le nombre de cartes
      */
     @Override
@@ -69,6 +74,7 @@ public class HistoListAdapter extends BaseAdapter {
 
     /**
      * Retourne l'item de la ligne actuelle
+     *
      * @param i = position
      * @return
      */
@@ -79,6 +85,7 @@ public class HistoListAdapter extends BaseAdapter {
 
     /**
      * Retourne un indice par rapport à la ligne actuelle
+     *
      * @param i
      * @return
      */
@@ -89,6 +96,7 @@ public class HistoListAdapter extends BaseAdapter {
 
     /**
      * Afficher des boutons en fonctions des droits de l'user
+     *
      * @param holder
      */
     public void setBtnVisibility(ViewHolder holder) {
@@ -101,30 +109,8 @@ public class HistoListAdapter extends BaseAdapter {
     }
 
     /**
-     * Peupler la liste des cartes
-     * @param convertView
-     * @param holder
-     */
-    public void inflateConvertView(View convertView, ViewHolder holder) {
-        holder = new ViewHolder();
-        //La ligne est construite avec un formatage (inflater) relié à layout_list_histo
-        convertView = inflater.inflate(R.layout.layout_list_histo, null);
-        //chaque propriété du holder est reliée à une propriété graphique
-        holder.btDeleteCard = (ImageButton) convertView.findViewById(R.id.btDeleteCard);
-        holder.btModifycard = (ImageButton) convertView.findViewById(R.id.btModifyCard);
-        holder.txtListDateCard = (TextView) convertView.findViewById(R.id.histoDateCrea);
-        holder.txtListCategory = (TextView) convertView.findViewById(R.id.histoCategory);
-        holder.txtListQuestion = (TextView) convertView.findViewById(R.id.histoQuestion);
-        holder.histoRatingBar = (RatingBar) convertView.findViewById(R.id.histoRatingBarLevel);
-
-        setBtnVisibility(holder);
-
-        // Affecter le holder à la vue
-        convertView.setTag(holder);
-    }
-
-    /**
      * Retourne la ligne (view) formatée avec gestion des événements
+     *
      * @param position
      * @param convertView
      * @param parent
@@ -136,7 +122,23 @@ public class HistoListAdapter extends BaseAdapter {
         ViewHolder holder = null;
         // si la ligne n'existe pas encore
         if (convertView == null) {
-            inflateConvertView(convertView, holder);
+
+            holder = new ViewHolder();
+            //La ligne est construite avec un formatage (inflater) relié à layout_list_histo
+            convertView = inflater.inflate(R.layout.layout_list_histo, null);
+            //chaque propriété du holder est reliée à une propriété graphique
+            holder.btDeleteCard = (ImageButton) convertView.findViewById(R.id.btDeleteCard);
+            holder.btModifycard = (ImageButton) convertView.findViewById(R.id.btModifyCard);
+            holder.txtListDateCard = (TextView) convertView.findViewById(R.id.histoDateCrea);
+            holder.txtListCategory = (TextView) convertView.findViewById(R.id.histoCategory);
+            holder.txtListQuestion = (TextView) convertView.findViewById(R.id.histoQuestion);
+            holder.histoRatingBar = (RatingBar) convertView.findViewById(R.id.histoRatingBarLevel);
+
+            setBtnVisibility(holder);
+
+            // Affecter le holder à la vue
+            convertView.setTag(holder);
+            // inflateConvertView(convertView, holder);
         } else {
             //Récupération du holder dans la ligne existante
             holder = (ViewHolder) convertView.getTag();
@@ -146,10 +148,11 @@ public class HistoListAdapter extends BaseAdapter {
         Carte card = lesCartes.get(position);
         if (card != null && card.getDatecreation() != null && card.getCategorie() != null && card.getQuestion() != null) {//NPE
             valorisationHolder(holder, position);
+
         }
 
         //Evénement : clic sur bouton delete
-        clicOnDelete(holder,position);
+        clicOnDelete(holder, position);
 
         // Evénement : clic sur bouton modify
         clicOnModify(holder, position);
@@ -165,6 +168,7 @@ public class HistoListAdapter extends BaseAdapter {
 
     /**
      * Modifier le contenu d'une carte
+     *
      * @param carte
      */
     public void modifyCard(Carte carte) {
@@ -177,6 +181,7 @@ public class HistoListAdapter extends BaseAdapter {
 
     /**
      * Supprimer une carte à partir de son id
+     *
      * @param idCardDeleted
      */
     public void deleteCard(int idCardDeleted) {
@@ -194,7 +199,31 @@ public class HistoListAdapter extends BaseAdapter {
     }
 
     /**
+     * Peupler la liste des cartes
+     *
+     * @param convertView
+     * @param holder
+     */
+    public void inflateConvertView(View convertView, ViewHolder holder) {
+        //La ligne est construite avec un formatage (inflater) relié à layout_list_histo
+        convertView = inflater.inflate(R.layout.layout_list_histo, null);
+        //chaque propriété du holder est reliée à une propriété graphique
+        holder.btDeleteCard = (ImageButton) convertView.findViewById(R.id.btDeleteCard);
+        holder.btModifycard = (ImageButton) convertView.findViewById(R.id.btModifyCard);
+        holder.txtListDateCard = (TextView) convertView.findViewById(R.id.histoDateCrea);
+        holder.txtListCategory = (TextView) convertView.findViewById(R.id.histoCategory);
+        holder.txtListQuestion = (TextView) convertView.findViewById(R.id.histoQuestion);
+        holder.histoRatingBar = (RatingBar) convertView.findViewById(R.id.histoRatingBarLevel);
+
+        setBtnVisibility(holder);
+
+        // Affecter le holder à la vue
+        convertView.setTag(holder);
+    }
+
+    /**
      * Valorisation du contenu du holder
+     *
      * @param holder
      * @param position
      */
@@ -206,8 +235,10 @@ public class HistoListAdapter extends BaseAdapter {
         holder.histoRatingBar.setRating(lesCartes.get(position).getLevel());
     }
 
+
     /**
      * Evénément: clic sur le bouton delete pour supprimer la carte
+     *
      * @param holder
      * @param position
      */
@@ -238,6 +269,7 @@ public class HistoListAdapter extends BaseAdapter {
 
     /**
      * Evénement: clic sur le bouton modify pour modifier la carte
+     *
      * @param holder
      * @param position
      */
@@ -262,6 +294,7 @@ public class HistoListAdapter extends BaseAdapter {
 
     /**
      * Evénement: clic sur le reste de la card pour afficher la carte
+     *
      * @param holder
      * @param position
      */
@@ -284,6 +317,7 @@ public class HistoListAdapter extends BaseAdapter {
 
     /**
      * Evenement: clic sur le reste de la carde pour affiche le profil profil enregistré
+     *
      * @param holder
      * @param position
      */

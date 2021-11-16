@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         init();
     }
 
@@ -51,17 +53,22 @@ public class MainActivity extends AppCompatActivity {
      * fetch visibility of different button from remote config service and activate it
      */
     private void fetchConfig() {
+
         mFirebaseRemoteConfig.fetchAndActivate()
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         boolean updated = task.getResult();
                         Log.d(TAG, "Config params updated: " + updated);
-                        Toast.makeText(MainActivity.this, "Fetch and activate succeeded",
-                                Toast.LENGTH_SHORT).show();
+                        Toast toast = Toast.makeText(MainActivity.this, "Fetch and activate succeeded",
+                                Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 0);
+                        toast.show();
 
                     } else {
-                        Toast.makeText(MainActivity.this, "Fetch failed",
-                                Toast.LENGTH_SHORT).show();
+                        Toast toast = Toast.makeText(MainActivity.this, "Fetch failed",
+                                Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 0);
+                        toast.show();
                     }
 
                     switch (mFirebaseRemoteConfig.getString(app_uuid)) {
@@ -85,11 +92,12 @@ public class MainActivity extends AppCompatActivity {
      * gérer la présence des boutons en fonctions des autorisations octroyées par le statut du membre
      */
     private void buildVisibility() {
+        progressBar = findViewById(R.id.progress_circular);
+
         Log.d("fetchButtonsVisibility", "app_uuid " + mFirebaseRemoteConfig.getString(app_uuid));
         ecouteMenu((Button) findViewById(R.id.home_btn_play), CardActivity.class);
         ecouteMenu((Button) findViewById(R.id.home_btn_create), CreateCardActivity.class);
         ecouteMenu((Button) findViewById(R.id.home_btn_list), HistoActivity.class);
-        progressBar = findViewById(R.id.progress_circular);
 
         if (Member.getInstance().isAdmin() || Member.getInstance().isCreator()) {
             findViewById(R.id.home_btn_create).setVisibility(View.VISIBLE);
@@ -97,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
             findViewById(R.id.home_btn_list).setVisibility(View.VISIBLE);
             findViewById(R.id.progress_circular).setVisibility(View.GONE);
         } else {
+            findViewById(R.id.home_btn_create).setVisibility(View.INVISIBLE);
             findViewById(R.id.home_btn_play).setVisibility(View.VISIBLE);
             findViewById(R.id.home_btn_list).setVisibility(View.VISIBLE);
             findViewById(R.id.progress_circular).setVisibility(View.GONE);

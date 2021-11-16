@@ -137,7 +137,7 @@ public class HistoActivity extends AppCompatActivity implements CardEventListene
     }
 
     /**
-     * Attache le listner sur le bouton search
+     * Attache le listener sur le bouton search
      */
     public void linkListenerToBtnSearch() {
         histo_keyword.addTextChangedListener(new TextWatcher() {

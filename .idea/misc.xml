@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/Utilisateur/AndroidStudioProjects/RemueMeninges/app/src/main/res/font/roboto.xml" value="0.16041666666666668" />
+        <entry key="..\:/Users/Utilisateur/AndroidStudioProjects/RemueMeninges/app/src/main/res/font/roboto_bold.xml" value="0.16041666666666668" />
+        <entry key="..\:/Users/Utilisateur/AndroidStudioProjects/RemueMeninges/app/src/main/res/layout/activity_card.xml" value="0.4" />
+        <entry key="..\:/Users/Utilisateur/AndroidStudioProjects/RemueMeninges/app/src/main/res/layout/activity_create_card.xml" value="0.25" />
+        <entry key="..\:/Users/Utilisateur/AndroidStudioProjects/RemueMeninges/app/src/main/res/layout/activity_histo.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Utilisateur/AndroidStudioProjects/RemueMeninges/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Utilisateur/AndroidStudioProjects/RemueMeninges/app/src/main/res/layout/layout_list_histo.xml" value="0.25416666666666665" />
+      </map>
+    </option>
+  </component>
   <component name="JavadocGenerationManager">
     <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/../../../../work/remue-meninges" />
     <option name="OPTION_SCOPE" value="private" />

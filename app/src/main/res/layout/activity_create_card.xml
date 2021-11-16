@@ -41,7 +41,7 @@
                     android:id="@+id/creaRbCat1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:buttonTint=" #3A5D9E"
+                    android:buttonTint="#3A5D9E"
                     android:checked="true"
                     android:text="Cat 1"
                     android:textSize="@dimen/radio_btn" />
@@ -50,7 +50,7 @@
                     android:id="@+id/creaRbCat2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:buttonTint=" #3A5D9E"
+                    android:buttonTint="#3A5D9E"
                     android:text="Cat 2"
                     android:textSize="@dimen/radio_btn" />
 
@@ -58,7 +58,7 @@
                     android:id="@+id/creaRbCat3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:buttonTint=" #3A5D9E"
+                    android:buttonTint="#3A5D9E"
                     android:padding="5sp"
                     android:text="Cat 3"
                     android:textSize="@dimen/radio_btn" />
@@ -67,7 +67,7 @@
                     android:id="@+id/creaRbCat4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:buttonTint=" #3A5D9E"
+                    android:buttonTint="#3A5D9E"
                     android:text="Cat 4"
                     android:textSize="@dimen/radio_btn" />
 
@@ -75,7 +75,7 @@
                     android:id="@+id/creaRbCat5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:buttonTint=" #3A5D9E"
+                    android:buttonTint="#3A5D9E"
                     android:padding="5sp"
                     android:text="Cat 5"
                     android:textSize="@dimen/radio_btn" />
@@ -84,7 +84,7 @@
                     android:id="@+id/creaRbCat6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:buttonTint=" #3A5D9E"
+                    android:buttonTint="#3A5D9E"
                     android:text="Cat 6"
                     android:textSize="@dimen/radio_btn" />
 
@@ -239,7 +239,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:numStars="3"
-                android:progressTint=" #9E7A2B"
+                android:progressTint="#9E7A2B"
                 android:rating="1" />
 
             <Button
@@ -249,7 +249,7 @@
                 android:layout_gravity="center|bottom"
                 android:layout_marginTop="20sp"
                 android:layout_marginBottom="5sp"
-                android:backgroundTint=" #9E7A2B"
+                android:backgroundTint="#9E7A2B"
                 android:fontFamily="@font/roboto_bold"
                 android:text="@string/crea_enregistrer_card"
                 android:textSize="@dimen/btn_txt" />
@@ -262,7 +262,7 @@
                 android:layout_marginEnd="5sp"
                 android:layout_marginRight="5sp"
                 android:layout_marginBottom="5sp"
-                android:backgroundTint=" #6E9AEB"
+                android:backgroundTint="#6E9AEB"
                 android:fontFamily="@font/roboto_bold"
                 android:onClick="creaBtnHome"
                 android:text="@string/create_btn_accueil"
