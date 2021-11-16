@@ -3,9 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
+    android:layout_marginVertical="10dp"
     android:layout_marginLeft="5dp"
     android:layout_marginRight="5dp"
+    android:padding="15px"
     android:background=" #91B8FF"
     android:orientation="horizontal">
 
@@ -98,7 +99,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_bold"
                 android:inputType="textAutoCorrect|textMultiLine|text"
-                android:maxLines="1"
+                android:maxLines="3"
                 android:textSize="@dimen/list_txt"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -133,7 +134,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_weight="0.1"
+        android:layout_weight="0.01"
         android:backgroundTint="#EBC36E"
         android:contentDescription="@string/modifier_la_carte"
         android:minWidth="48dp"
