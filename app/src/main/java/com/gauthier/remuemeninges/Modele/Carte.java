@@ -23,7 +23,7 @@ public class Carte implements Comparable {
     private Controle controle;
 
     /**
-     * attribuer un numéro de carte
+     * Attribuer un numéro de carte
      */
     public void resultNumCarte() {
         if (numCarte == null) {
@@ -32,8 +32,9 @@ public class Carte implements Comparable {
             numCarte = controle.getLesCartes().size();
         }
     }
-
-    //constructeurs
+    ///////////////
+    // Constructeurs
+    ///////////////
     public Carte() {
         this.categorie = 1;
         this.question = "coucou";
@@ -65,7 +66,7 @@ public class Carte implements Comparable {
 
 
     /**
-     * convertir une carte au format JSONArray
+     * Convertir une carte au format JSONArray
      * @return
      */
     public JSONObject convertToJSONObject() {
@@ -90,7 +91,7 @@ public class Carte implements Comparable {
     }
 
     /**
-     * transformer un JSONObject en objet de type Carte
+     * Transformer un JSONObject en objet de type Carte
      * @param lesDonneesJSON
      * @return
      */
@@ -152,6 +153,11 @@ public class Carte implements Comparable {
         return carte;
     }
 
+    /**
+     * Modifier une carte de la liste des cartes
+     * @param lesCartes la liste des cartes
+     * @param output la carte à modifier
+     */
     public void carteModifiee(ArrayList<Carte> lesCartes, String output) {
         JSONObject object;
         try {
@@ -193,32 +199,10 @@ public class Carte implements Comparable {
         return 0;
     }
 
-    public void setCategorie(Integer categorie) {
-        this.categorie = categorie;
-    }
-
-    public void setQuestion(String question) {
-        this.question = question;
-    }
-
-    public void setReponse(String reponse) {
-        this.reponse = reponse;
-    }
-
-    public void setIndice(String indice) {
-        this.indice = indice;
-    }
-
-    public void setLangue(String langue) {
-        this.langue = langue;
-    }
-
-    public void setLevel(Integer level) {
-        this.level = level;
-    }
-
-
+    ////////////////////
     //getters et setters
+    ////////////////////
+
     public Integer getNumCarte() {
         return numCarte;
     }
@@ -239,6 +223,13 @@ public class Carte implements Comparable {
         return indice;
     }
 
+    public Integer getLevel() {
+        return level;
+    }
+
+    public Date getDatecreation() { return datecreation; }
+
+
     public void setDatecreation(Date datecreation) {
         this.datecreation = datecreation;
     }
@@ -247,13 +238,5 @@ public class Carte implements Comparable {
         this.numCarte = numCarte;
     }
 
-    public String getLangue() {
-        return langue;
-    }
 
-    public Integer getLevel() {
-        return level;
-    }
-
-    public Date getDatecreation() { return datecreation; }
 }

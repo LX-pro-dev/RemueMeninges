@@ -30,7 +30,7 @@ public final class Controle {
 
 
     /**
-     * contructeur privé
+     * Contructeur privé
      */
     private Controle() {
         super();
@@ -38,9 +38,9 @@ public final class Controle {
 
 
     /**
-     * création de l'instance
+     * Création de l'instance
      * @param contexte
-     * @return
+     * @return l'instance
      */
     public static final Controle getInstance(Context contexte) {//au lieu de faire new pour créer le contrôleur
         if (contexte != null) {
@@ -55,19 +55,18 @@ public final class Controle {
     }
 
     /**
-     * récupérer la liste des cartes
-     * @return
+     * Récupérer la liste des cartes
+     * @return un tableau de cates
      */
     public ArrayList<Carte> getLesCartes() {
         return lesCartes;
     }
 
     /**
-     * ajouter la liste des cartes
+     * Ajouter la liste des cartes
      * @param lesCartes
      */
     public void setLesCartes(ArrayList<Carte> lesCartes) {
-
         this.lesCartes = lesCartes;
     }
 
@@ -93,7 +92,7 @@ public final class Controle {
     }
 
     /**
-     * supprimer une carte dans la base distante et la collection
+     * Supprimer une carte dans la base distante et la collection
      * @param carte
      */
     public void delCarte(Carte carte) {
@@ -104,7 +103,7 @@ public final class Controle {
     }
 
     /**
-     * modifier une carte dans la base distante
+     * Modifier une carte dans la base distante
      * @param carte
      */
     public void modifyCarte(Carte carte) {
@@ -113,6 +112,10 @@ public final class Controle {
         //modification de la carte dans la liste de cartes
     }
 
+    /**
+     * Récupérer une carte
+     * @return null si la carte est null
+     */
     public Carte getCarte() {
         if (carte == null) {
             return null;
@@ -121,7 +124,7 @@ public final class Controle {
     }
 
     /**
-     * ajouter une carte dans la base distante et la collection
+     * Ajouter une carte dans la base distante et la collection
      * @param carte
      */
     public void setCarte(Carte carte) {
@@ -185,6 +188,10 @@ public final class Controle {
         }
     }
 
+    /**
+     * récupérer les cartes à partir d'un fichier json
+     * @param output
+     */
     public void createList(String output) {
         try {
             JSONArray jsonInfo = new JSONArray(output);

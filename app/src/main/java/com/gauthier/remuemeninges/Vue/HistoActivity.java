@@ -105,14 +105,7 @@ public class HistoActivity extends AppCompatActivity implements CardEventListene
         Collections.sort(lesCartes, (o1, o2) -> {
             // Tri en fonction des dates de création des cartes
             if (histoRbDate.isChecked()) {
-                if (o1.getDatecreation() == null || o2.getDatecreation() == null) {
-                    return 0;
-                } else if (o1.getDatecreation().after(o2.getDatecreation())) {
-                    return 1;
-                } else if (o1.getDatecreation().equals(o2.getDatecreation())) {
-                    return 0;
-                }
-                return -1;
+                triDate(o1,o2);
                 // Tri en fonction du niveau de difficulté de la carte
             } else if (histoRbLevel.isChecked()) {
                 return o1.getLevel().compareTo(o2.getLevel());
@@ -126,9 +119,27 @@ public class HistoActivity extends AppCompatActivity implements CardEventListene
         return lesCartes;
     }
 
+    public int triDate(Carte o1, Carte o2) {
+        if (o1.getDatecreation() == null || o2.getDatecreation() == null) {
+            return 0;
+        } else if (o1.getDatecreation().after(o2.getDatecreation())) {
+            return 1;
+        } else if (o1.getDatecreation().equals(o2.getDatecreation())) {
+            return 0;
+        }
+        return -1;
+    }
+
     // Ecouter les événements (2 méthodes): changement de rb et ajout d'un mot clé / txtQuestion
     public void setListeners() {
         // Attache l'écouteur au btn search
+        linkListenerToBtnSearch();
+    }
+
+    /**
+     * Attache le listner sur le bouton search
+     */
+    public void linkListenerToBtnSearch() {
         histo_keyword.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
@@ -150,31 +161,10 @@ public class HistoActivity extends AppCompatActivity implements CardEventListene
             public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
         });
-
-        histoRbDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                adapter.updateItems(tri(adapter.getItems()));
-            }
-        });
-
-        histoRbLevel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                adapter.updateItems(tri(adapter.getItems()));
-            }
-        });
-
-        histoRbCategoy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                adapter.updateItems(tri(adapter.getItems()));
-            }
-        });
     }
 
     /**
-     * retour au menu
+     * Retour au menu
      */
     public void ecouteRetourMenu() {
         ((Button) findViewById(R.id.btn_list_home)).setOnClickListener(new ImageButton.OnClickListener() {
@@ -193,7 +183,7 @@ public class HistoActivity extends AppCompatActivity implements CardEventListene
     }
 
     /**
-     * demande d'afficher la carte dans CardActivity
+     * Demande d'afficher la carte dans CardActivity
      * @param carte
      */
     public void afficheCarte(Carte carte) {
@@ -205,7 +195,7 @@ public class HistoActivity extends AppCompatActivity implements CardEventListene
     }
 
     /**
-     * demande d'afficher la carte dans CreateCardActivity
+     * Demande d'afficher la carte dans CreateCardActivity
      * @param carte
      */
     public void modifyCarte(Carte carte) {
@@ -216,6 +206,10 @@ public class HistoActivity extends AppCompatActivity implements CardEventListene
         startActivity(intent);
     }
 
+    /**
+     * Suppression de la carte
+     * @param idCardDeleted id de la carte à supprimer
+     */
     @Override
     public void onCardDeleted(int idCardDeleted) {
         // Suppression de la carte
@@ -227,6 +221,10 @@ public class HistoActivity extends AppCompatActivity implements CardEventListene
         toast.show();
     }
 
+    /**
+     * Modifier une carte
+     * @param carte carte à modifier
+     */
     @Override
     public void onCardModified(Carte carte) {
         adapter.modifyCard(carte);

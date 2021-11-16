@@ -40,50 +40,12 @@ public class MainActivity extends AppCompatActivity {
         controle = Controle.getInstance(this);
         sharedPreferences = getPreferences(MODE_PRIVATE);//mode private : seul notre appli y a accès
 
-        if (sharedPreferences.getString(APP_UUID, null) != null) {
-            if (sharedPreferences.getString(APP_UUID, null).charAt(0) == '_') {
-                app_uuid = sharedPreferences.getString(APP_UUID, null);
-            } else {
-                app_uuid = "_" + sharedPreferences.getString(APP_UUID, null);
-            }
-        } else {
-            uuid = UUID.randomUUID();
-            app_uuid = uuid.toString();
-            String[] tab = app_uuid.split("-");
-            app_uuid = "_";
-            for (String g : tab) app_uuid += g;
-            Log.d("generate app_uuid", app_uuid);
-            sharedPreferences.edit().putString(APP_UUID, app_uuid).apply();
-        }
-        Log.d("uuid", "" + app_uuid);
-
+        //vérification de l'uuid du device du user
+        checkUuid();
 
         // Get Remote Config instance.
-        // [START get_remote_config_instance]
-        mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
-        // [END get_remote_config_instance]
-
-        // Create a Remote Config Setting to enable developer mode, which you can use to increase
-        // the number of fetches available per hour during development. Also use Remote Config
-        // Setting to set the minimum fetch interval.
-        // [START enable_dev_mode]
-        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
-                .setMinimumFetchIntervalInSeconds(BuildConfig.DEBUG ? 0 : 60 * 15)
-                .build();
-        mFirebaseRemoteConfig.setConfigSettingsAsync(configSettings);
-        // [END enable_dev_mode]
-
-        // Set default Remote Config parameter values. An app uses the in-app default values, and
-        // when you need to adjust those defaults, you set an updated value for only the values you
-        // want to change in the Firebase console. See Best Practices in the README for more
-        // information.
-        // [START set_default_values]
-        mFirebaseRemoteConfig.setDefaultsAsync(R.xml.remote_config_defaults);
-        // [END set_default_values]
-
-        fetchConfig();
+        remoteConfig();
     }
-
 
     /**
      * fetch visibility of different button from remote config service and activate it
@@ -144,7 +106,6 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Ouvrir l'activity correspondante
-     *
      * @param btn
      * @param classe
      */
@@ -161,5 +122,56 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    /**
+     * Créer une instance de remoteConfig de Firebase
+     */
+    public void remoteConfig() {
+        // [START get_remote_config_instance]
+        mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+        // [END get_remote_config_instance]
+
+        // Create a Remote Config Setting to enable developer mode, which you can use to increase
+        // the number of fetches available per hour during development. Also use Remote Config
+        // Setting to set the minimum fetch interval.
+        // [START enable_dev_mode]
+        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
+                .setMinimumFetchIntervalInSeconds(BuildConfig.DEBUG ? 0 : 60 * 15)
+                .build();
+        mFirebaseRemoteConfig.setConfigSettingsAsync(configSettings);
+        // [END enable_dev_mode]
+
+        // Set default Remote Config parameter values. An app uses the in-app default values, and
+        // when you need to adjust those defaults, you set an updated value for only the values you
+        // want to change in the Firebase console. See Best Practices in the README for more
+        // information.
+        // [START set_default_values]
+        mFirebaseRemoteConfig.setDefaultsAsync(R.xml.remote_config_defaults);
+        // [END set_default_values]
+
+        fetchConfig();
+    }
+
+    /**
+     * Verifier si le device du suer est déjà enregistré sinon lui créer un uuid
+     */
+    public void checkUuid () {
+        if (sharedPreferences.getString(APP_UUID, null) != null) {
+            if (sharedPreferences.getString(APP_UUID, null).charAt(0) == '_') {
+                app_uuid = sharedPreferences.getString(APP_UUID, null);
+            } else {
+                app_uuid = "_" + sharedPreferences.getString(APP_UUID, null);
+            }
+        } else {
+            uuid = UUID.randomUUID();
+            app_uuid = uuid.toString();
+            String[] tab = app_uuid.split("-");
+            app_uuid = "_";
+            for (String g : tab) app_uuid += g;
+            Log.d("generate app_uuid", app_uuid);
+            sharedPreferences.edit().putString(APP_UUID, app_uuid).apply();
+        }
+        Log.d("uuid", "" + app_uuid);
     }
 }

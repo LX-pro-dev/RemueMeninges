@@ -35,7 +35,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="25dp"
-        android:progressTint="#EBC36E" />
+        android:progressTint="#EBC36E"
+        android:visibility="gone" />
 
     <Button
         android:id="@+id/home_btn_play"

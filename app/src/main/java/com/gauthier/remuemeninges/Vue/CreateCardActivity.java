@@ -93,7 +93,9 @@ public class CreateCardActivity extends AppCompatActivity {
         }
     }
 
-
+    /**
+     * Pour écouter les événements lien au bouton enregistré
+     */
     private void ecouteEnregistrer() {
         findViewById(R.id.creaBtnEnregistrer).setOnClickListener(new Button.OnClickListener() {
             //pour gérer un événement sur un objet graphique
@@ -110,46 +112,14 @@ public class CreateCardActivity extends AppCompatActivity {
                 Integer level = 1;
 
                 // Récupération des données saisies
-                try {// Eviter les probèmes de saisie : char au lieu d'un int
-                    question = txtQuestion.getText().toString();
-                    reponse = txtReponse.getText().toString();
-                    indice = txtIndice.getText().toString();
-                    level = (int) ratingLevel.getRating();
-                    if (rbCat1.isChecked()) {//test pour un bouton radio
-                        categorie = 1;
-                    } else if (rbCat2.isChecked()) {
-                        categorie = 2;
-                    } else if (rbCat3.isChecked()) {
-                        categorie = 3;
-                    } else if (rbCat4.isChecked()) {
-                        categorie = 4;
-                    } else if (rbCat5.isChecked()) {
-                        categorie = 5;
-                    }
+                try {
+                    recoverData(question, reponse, indice, level, categorie);
                 } catch (Exception e) {
                 }
 
                 // Contrôle des données saisies
-                if (question == null && reponse == null) {
-                    Toast.makeText(CreateCardActivity.this, "saisie incorrecte", Toast.LENGTH_LONG).show();
-                } else {
-                    if (toModify) {
-                        controle = Controle.getInstance(CreateCardActivity.this);
-                        int index = controle.getLesCartes().indexOf(carte);
-                        Carte card = new Carte(carte.getNumCarte(), "fr", question, indice, reponse, categorie, level, carte.getDatecreation());
-                        controle.getLesCartes().set(index, card);
-                        Controle.getInstance(CreateCardActivity.this).modifyCarte(card);
+                checkData(question, reponse, indice, categorie, level);
 
-                        Toast toast = Toast.makeText(CreateCardActivity.this, "La carte a été modifiée", Toast.LENGTH_LONG);
-                        toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 0);
-                        toast.show();
-                    } else {
-                        afficheResult(question, indice, reponse, level, categorie);
-                        Toast toast = Toast.makeText(CreateCardActivity.this, "La carte a été créée", Toast.LENGTH_LONG);
-                        toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 0);
-                        toast.show();
-                    }
-                }
                 toModify = false;
                 clearCard();
                 Log.d("createCard", isModifyCard + "");
@@ -158,8 +128,7 @@ public class CreateCardActivity extends AppCompatActivity {
     }
 
     /**
-     * afficher la carte avec ses infos
-     *
+     * Afficher la carte avec ses infos
      * @param question
      * @param indice
      * @param reponse
@@ -172,7 +141,7 @@ public class CreateCardActivity extends AppCompatActivity {
     }
 
     /**
-     * remettre la carte à 0
+     * Remettre la carte à 0
      */
     private void clearCard() {
         txtQuestion.getText().clear();
@@ -183,9 +152,95 @@ public class CreateCardActivity extends AppCompatActivity {
         Controle.getInstance(this).setCarte(null);
     }
 
+    /**
+     * Retour à l'accueil
+     * @param view
+     */
     public void creaBtnHome(View view) {
         Intent intent = new Intent(CreateCardActivity.this, MainActivity.class);
         startActivity(intent);
+    }
+
+    /**
+     * Modifier la carte et en informer l'utilisateur
+     * @param question
+     * @param indice
+     * @param reponse
+     * @param categorie
+     * @param level
+     */
+    public void modify(String question, String indice, String reponse, Integer categorie, Integer level){
+        controle = Controle.getInstance(CreateCardActivity.this);
+        int index = controle.getLesCartes().indexOf(carte);
+        Carte card = new Carte(carte.getNumCarte(), "fr", question, indice, reponse, categorie, level, carte.getDatecreation());
+        controle.getLesCartes().set(index, card);
+        Controle.getInstance(CreateCardActivity.this).modifyCarte(card);
+
+        Toast toast = Toast.makeText(CreateCardActivity.this, "La carte a été modifiée", Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 0);
+        toast.show();
+    }
+
+    /**
+     * Afficher la carte et en informer l'utilisateur
+     * @param question
+     * @param indice
+     * @param reponse
+     * @param categorie
+     * @param level
+     */
+    public void affiche (String question, String indice, String reponse, Integer categorie, Integer level){
+        afficheResult(question, indice, reponse, level, categorie);
+        Toast toast = Toast.makeText(CreateCardActivity.this, "La carte a été créée", Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 0);
+        toast.show();
+    }
+
+    /**
+     * Récupération des données saisies
+     * @param question
+     * @param reponse
+     * @param indice
+     * @param level
+     * @param categorie
+     */
+    public void recoverData(String question, String reponse, String indice, int level, int categorie) {
+        // Eviter les probèmes de saisie : char au lieu d'un int
+        question = txtQuestion.getText().toString();
+        reponse = txtReponse.getText().toString();
+        indice = txtIndice.getText().toString();
+        level = (int) ratingLevel.getRating();
+        if (rbCat1.isChecked()) {//test pour un bouton radio
+            categorie = 1;
+        } else if (rbCat2.isChecked()) {
+            categorie = 2;
+        } else if (rbCat3.isChecked()) {
+            categorie = 3;
+        } else if (rbCat4.isChecked()) {
+            categorie = 4;
+        } else if (rbCat5.isChecked()) {
+            categorie = 5;
+        }
+    }
+
+    /**
+     * Vérification des données saisies
+     * @param question
+     * @param reponse
+     * @param indice
+     * @param categorie
+     * @param level
+     */
+    public void checkData(String question, String reponse, String indice, Integer categorie, Integer level) {
+        if (question == null && reponse == null) {
+            Toast.makeText(CreateCardActivity.this, "saisie incorrecte", Toast.LENGTH_LONG).show();
+        } else {
+            if (toModify) {
+                modify(question, indice, reponse, categorie, level);
+            } else {
+                affiche(question, indice, reponse, level, categorie);
+            }
+        }
     }
 }
 

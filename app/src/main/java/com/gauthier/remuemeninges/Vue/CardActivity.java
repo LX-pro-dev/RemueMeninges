@@ -85,10 +85,9 @@ public class CardActivity extends AppCompatActivity {
     }
 
     /**
-     * récupérer le string de la catégorie correspondante
-     *
+     * Récupérer le string de la catégorie correspondante
      * @param categorie
-     * @return
+     * @return la catégorie
      */
     private String getCategory(Integer categorie) {
         int cat = categorie;
@@ -117,7 +116,7 @@ public class CardActivity extends AppCompatActivity {
     }
 
     /**
-     * montrer le contenu du textview de l'indice
+     * Montrer le contenu du textview de l'indice
      * @param view
      */
     public void cardBtnShowClue(View view) {
@@ -127,7 +126,7 @@ public class CardActivity extends AppCompatActivity {
     }
 
     /**
-     * montrer le contenu de la réponse
+     * Montrer le contenu de la réponse
      * @param view
      */
     public void cardBtnShowAnswer(View view) {
@@ -137,7 +136,7 @@ public class CardActivity extends AppCompatActivity {
     }
 
     /**
-     * retour à la page d'accueil
+     * Retour à la page d'accueil
      * @param view
      */
     public void cardBtndHome(View view) {
@@ -148,7 +147,7 @@ public class CardActivity extends AppCompatActivity {
     }
 
     /**
-     * afficher une nouvelle carte
+     * Afficher une nouvelle carte
      * @param view
      */
     public void cardBtnEditNewCard(View view) {

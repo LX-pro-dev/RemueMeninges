@@ -10,19 +10,19 @@ import org.json.JSONObject;
  * Created by Alexandre GAUTHIER on 14/05/2020.
  */
 public class AccesDistant implements AsyncResponse {
-    //constante
+    // adresse du serveur distant
     private static final String SERVERADDR = "http://alexdev.remue-meninges.secondlab.net/serveur.php";
     private Controle controle;
 
-    /**
-     * constructeur
-     */
+    //////////////
+    //Constructeur
+    /////////////
     public AccesDistant() {
         controle = Controle.getInstance(null);
     }
 
     /**
-     * retour du serveur distant
+     * Retour du serveur distant
      * @param output
      * @param operation
      */
@@ -60,6 +60,11 @@ public class AccesDistant implements AsyncResponse {
         }
     }
 
+    /**
+     * Envoyer les données sous format JSON en fonction de l'opération effectuée
+     * @param operation : tous (pour recevoir toutes les cartes), enreg, delete, modify
+     * @param lesDonneesJSON
+     */
     public void envoi(String operation, JSONObject lesDonneesJSON) {//JSONArray pour les envois de données de la carte à enregistrer
         if (lesDonneesJSON != null) {
             Log.d("envoi", operation + " " + lesDonneesJSON.toString());
